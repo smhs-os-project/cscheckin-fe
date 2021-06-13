@@ -4,6 +4,7 @@ export interface BaseInputsProps {
   id: string;
   label: string;
   value?: string;
+  placeholder?: string;
   onChange?: (value: string) => void;
 }
 
@@ -11,6 +12,7 @@ export default function BaseInput({
   id,
   label,
   value,
+  placeholder,
   onChange,
 }: BaseInputsProps) {
   const partId = `${id}-part`;
@@ -29,6 +31,7 @@ export default function BaseInput({
           className="p-2 border-b border-gray-600 outline-none"
           onChange={(event) => onChange && onChange(event.target.value)}
           value={value}
+          placeholder={placeholder}
         />
       </label>
     </div>
