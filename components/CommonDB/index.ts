@@ -1,4 +1,4 @@
-const KEY_PREFIX = "inficast";
+const KEY_PREFIX = "cscheckin";
 
 export default class CommonDB {
   private storage: Storage | null = null;
