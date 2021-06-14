@@ -1,6 +1,6 @@
 import React from "react";
-import BaseButton from "../../components/BaseElements/BaseButton";
-import BasePage from "../../components/Page/BasePage";
+import BaseButton from "../../../components/BaseElements/BaseButton";
+import BasePage from "../../../components/Page/BasePage";
 
 export default function Create() {
   return (
@@ -21,7 +21,8 @@ export default function Create() {
           </div>
           <div className="flex flex-col self-center p-4 mb-4 space-x-0 space-y-2 text-center md:space-y-0 md:space-x-2 md:flex-row justify-self-center">
             <BaseButton solid>分享到 Classroom</BaseButton>
-            <BaseButton>單純複製連結</BaseButton>
+            <BaseButton>複製連結</BaseButton>
+            <BaseButton>結束簽到</BaseButton>
           </div>
         </section>
         <section>
