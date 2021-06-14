@@ -23,7 +23,7 @@ export default function Home() {
     >
       {school === "" ? (
         <section className="select-school">
-          <div className="flex flex-col w-full space-yschool-options">
+          <div className="flex flex-col w-full school-options">
             {availableSchool.map((org) => (
               <div key={`available-school-option-${org}`}>
                 <button
