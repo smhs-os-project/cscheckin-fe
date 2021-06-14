@@ -10,7 +10,7 @@ import ListChoicePageCard from "../components/Page/ListChoicePageCard";
 export default function Home() {
   const availableSchool = Object.keys(getClientIdList());
   const [cc, setCC] = useState("");
-  const handler = () => undefined;
+  const handler = console.log;
 
   const pageId = "teacher-login-portal";
   const pageTitle = "教師登入系統";
