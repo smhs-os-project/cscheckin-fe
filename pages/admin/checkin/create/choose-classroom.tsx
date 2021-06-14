@@ -2,8 +2,8 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
-import HeaderPageCard from "../../../components/Page/HeaderPageCard";
-import randBackgroundColor from "../../../utilities/randcolor";
+import HeaderPageCard from "../../../../components/Page/HeaderPageCard";
+import randBackgroundColor from "../../../../utilities/randcolor";
 
 export default function CheckinCreate() {
   const [, setSelectedClassroom] = useState("");
