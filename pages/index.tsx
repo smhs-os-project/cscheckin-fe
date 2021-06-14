@@ -1,5 +1,3 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
 import { getClientIdList } from "../components/GoogleLoginComponent/getClientIdList";
@@ -7,55 +5,45 @@ import LoginComponent, {
   Scope,
 } from "../components/GoogleLoginComponent/LoginComponent";
 import HeaderPageCard from "../components/Page/HeaderPageCard";
-import randBackgroundColor from "../utilities/randcolor";
+import ListChoicePageCard from "../components/Page/ListChoicePageCard";
 
 export default function Home() {
   const availableSchool = Object.keys(getClientIdList());
-  const [school, setSchool] = useState("");
+  const [cc, setCC] = useState("");
   const handler = () => undefined;
 
-  return (
-    <HeaderPageCard
-      id="teacher-login-portal"
-      title="教師登入系統"
-      desc="讓你對各個學生的出缺席情況暸若指掌。"
-      contentPadding={false}
-    >
-      {school === "" ? (
-        <section className="select-school">
-          <div className="flex flex-col w-full school-options">
-            {availableSchool.map((org) => (
-              <div key={`available-school-option-${org}`}>
-                <button
-                  className={`w-full px-6 py-10 text-left text-black hover:text-white transition-all duration-300 rounded-none ${randBackgroundColor(
-                    true
-                  )}`}
-                  type="button"
-                  onClick={() => setSchool(org)}
-                >
-                  <div className="flex justify-between">
-                    <div>{org}</div>
-                    <div>
-                      <FontAwesomeIcon icon={faArrowRight} />
-                    </div>
-                  </div>
-                </button>
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : (
+  const pageId = "teacher-login-portal";
+  const pageTitle = "教師登入系統";
+  const pageDesc = "讓你對各個學生的出缺席情況暸若指掌。";
+
+  if (cc !== "")
+    return (
+      <HeaderPageCard
+        id={pageId}
+        title={pageTitle}
+        desc={pageDesc}
+        contentPadding={false}
+      >
         <section className="flex content-center justify-center w-full p-10">
           <LoginComponent
-            org={school}
+            org={cc}
             scope={Scope.Teacher}
             onLogin={handler}
             onLogout={handler}
             onFailure={handler}
-            loginText={`${school}登入區`}
+            loginText={`${cc}登入區`}
           />
         </section>
-      )}
-    </HeaderPageCard>
+      </HeaderPageCard>
+    );
+
+  return (
+    <ListChoicePageCard id={pageId} title={pageTitle} desc={pageDesc}>
+      {availableSchool.map((school) => ({
+        id: school,
+        name: school,
+        redirect: () => setCC(school),
+      }))}
+    </ListChoicePageCard>
   );
 }
