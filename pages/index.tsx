@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import BaseButton from "../components/BaseElements/BaseButton";
 
 import { getClientIdList } from "../components/GoogleLoginComponent/getClientIdList";
-import LoginComponent from "../components/GoogleLoginComponent/LoginComponent";
-import BasePage from "../components/Page/BasePage";
+import LoginComponent, {
+  Scope,
+} from "../components/GoogleLoginComponent/LoginComponent";
+import BasePageCard from "../components/Page/BasePageCard";
 
 export default function Home() {
   const availableSchool = Object.keys(getClientIdList());
@@ -11,38 +13,49 @@ export default function Home() {
   const handler = () => undefined;
 
   return (
-    <BasePage id="home" title="首頁" full>
-      <div className="page-title">
-        <h1 className="text-3xl font-bold pb-1">登入系統</h1>
-        <p className="text-xl pb-4">讓你對各個學生的出缺席情況暸若指掌。</p>
-      </div>
-
-      {school === "" ? (
-        <div className="select-school">
-          <h2 className="text-2xl pb-1">選擇學校</h2>
-          <div className="school-options grid grid-cols-1 md:grid-cols-6 gap-3">
-            {availableSchool.map((org) => (
-              <div key={`available-school-option-${org}`}>
-                <BaseButton
-                  className="hover:bg-black hover:text-white duration-300 transition-all"
-                  type="button"
-                  onClick={() => setSchool(org)}
-                >
-                  {org}
-                </BaseButton>
-              </div>
-            ))}
+    <BasePageCard id="home" title="首頁">
+      <div className="flex flex-col items-center justify-items-center">
+        <div className="flex w-full px-4 py-10 text-white bg-black md:px-20 md:py-10 page-title">
+          <div>
+            <h1 className="pb-1 text-3xl font-bold">教師登入系統</h1>
+            <p className="pb-4 text-xl">讓你對各個學生的出缺席情況暸若指掌。</p>
           </div>
         </div>
-      ) : (
-        <LoginComponent
-          org={school}
-          onLogin={handler}
-          onLogout={handler}
-          onFailure={handler}
-          loginText={`${school}登入區`}
-        />
-      )}
-    </BasePage>
+
+        <div className="w-full px-4 py-10 md:px-20 md:py-10 select-school-root">
+          {school === "" ? (
+            <div className="select-school">
+              <h2 className="pb-1 text-2xl text-center md:text-left">
+                選擇登入學校
+              </h2>
+              <div className="grid grid-cols-1 gap-3 justify-items-center md:justify-items-start md:grid-flow-col school-options">
+                {availableSchool.map((org) => (
+                  <div key={`available-school-option-${org}`}>
+                    <BaseButton
+                      className="transition-all duration-300 hover:bg-black hover:text-white"
+                      type="button"
+                      onClick={() => setSchool(org)}
+                    >
+                      {org}
+                    </BaseButton>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <LoginComponent
+                org={school}
+                scope={Scope.Teacher}
+                onLogin={handler}
+                onLogout={handler}
+                onFailure={handler}
+                loginText={`${school}登入區`}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </BasePageCard>
   );
 }
