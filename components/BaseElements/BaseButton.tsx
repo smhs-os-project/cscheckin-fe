@@ -7,8 +7,12 @@ export interface BaseButtonProps
   solid?: boolean;
 }
 
-export default function BaseButton(props: BaseButtonProps) {
-  const { className, children, solid } = props;
+export default function BaseButton({
+  className,
+  children,
+  solid,
+  ...props
+}: BaseButtonProps) {
   const solidC = "text-white bg-black";
   const borderC = "border border-black";
 
