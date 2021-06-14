@@ -17,7 +17,7 @@ export default function BaseButton(props: BaseButtonProps) {
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       type="button"
-      className={`rounded px-6 py-1 ${solid ? solidC : borderC} ${
+      className={`rounded px-6 py-1 ${solid ? solidC : borderC} w-full h-12 ${
         className || ""
       }`}
     >
