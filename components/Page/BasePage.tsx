@@ -22,28 +22,28 @@ export default function BasePage({
       <Head>
         <title>Inficast - {title}</title>
       </Head>
-      <div
+      <section
         className={`page-root page-${id} grid ${styles.basepageGrid} ${
           full && "w-screen h-screen"
         }`}
       >
-        <div
+        <section
           className={`page-${id}`}
           style={{
             gridArea: "navbar",
           }}
         >
           <Navbar />
-        </div>
-        <div
+        </section>
+        <section
           className={`p-8 ${full && "h-full w-full"}`}
           style={{
             gridArea: "content",
           }}
         >
           {children}
-        </div>
-      </div>
+        </section>
+      </section>
     </>
   );
 }

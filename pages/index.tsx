@@ -22,7 +22,7 @@ export default function Home() {
       contentPadding={false}
     >
       {school === "" ? (
-        <div className="select-school">
+        <section className="select-school">
           <div className="flex flex-col w-full space-yschool-options">
             {availableSchool.map((org) => (
               <div key={`available-school-option-${org}`}>
@@ -43,9 +43,9 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
+        </section>
       ) : (
-        <div className="flex content-center justify-center w-full p-10">
+        <section className="flex content-center justify-center w-full p-10">
           <LoginComponent
             org={school}
             scope={Scope.Teacher}
@@ -54,7 +54,7 @@ export default function Home() {
             onFailure={handler}
             loginText={`${school}登入區`}
           />
-        </div>
+        </section>
       )}
     </HeaderPageCard>
   );

@@ -6,13 +6,13 @@ import "jetbrains-mono-webfont";
 export default function NotFoundPage() {
   return (
     <BasePage id="not-found" title="404 找不到頁面">
-      <div className="not-found-title">
-        <div className="text-4xl font-mono font-black opacity-70 p-3 mb-4 bg-black text-white rounded w-max">
+      <section className="not-found-title">
+        <div className="p-3 mb-4 font-mono text-4xl font-black text-white bg-black rounded opacity-70 w-max">
           &gt; 404
         </div>
-        <h2 className="text-2xl font-bold mb-3">找不到頁面。</h2>
-      </div>
-      <div className="not-found-suggestion leading-relaxed">
+        <h2 className="mb-3 text-2xl font-bold">找不到頁面。</h2>
+      </section>
+      <section className="leading-relaxed not-found-suggestion">
         <p>試試看：</p>
         <ul className="list-disc ml-9">
           <li>
@@ -21,7 +21,7 @@ export default function NotFoundPage() {
             </div>
           </li>
         </ul>
-      </div>
+      </section>
     </BasePage>
   );
 }

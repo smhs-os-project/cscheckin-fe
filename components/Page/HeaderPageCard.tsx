@@ -25,16 +25,16 @@ export default function TitlePageCard({
   return (
     <BasePageCard id={id} title={title}>
       <div className="flex flex-col items-center justify-items-center">
-        <div className="flex w-full px-4 py-10 text-white bg-black md:px-20 md:py-10 page-title">
+        <section className="flex w-full px-4 py-10 text-white bg-black md:px-20 md:py-10 page-title">
           <div>
             <h1 className="pb-1 text-3xl font-bold">{title}</h1>
             <p className="pb-4 text-xl">{desc}</p>
           </div>
-        </div>
+        </section>
 
-        <div className={`w-full ${needContentPadding} select-school-root`}>
+        <section className={`w-full ${needContentPadding} ${id}-root`}>
           {children}
-        </div>
+        </section>
       </div>
     </BasePageCard>
   );
