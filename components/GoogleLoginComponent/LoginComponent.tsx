@@ -6,8 +6,24 @@ import type {
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import { getClientIdList } from "./getClientIdList";
 
+export enum Scope {
+  Student = "student",
+  Teacher = "teacher",
+}
+
+const scopeList: Record<Scope, string[]> = {
+  teacher: [
+    "https://www.googleapis.com/auth/classroom.courses.readonly",
+    "https://www.googleapis.com/auth/classroom.rosters.readonly",
+    "https://www.googleapis.com/auth/classroom.profile.emails",
+    "https://www.googleapis.com/auth/classroom.profile.photos",
+    "https://www.googleapis.com/auth/classroom.announcements",
+  ],
+  student: [],
+};
 export interface LoginComponentProps {
   org: string;
+  scope: Scope;
   onLogin: (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
   ) => Error | void;
@@ -19,6 +35,7 @@ export interface LoginComponentProps {
 
 export default function LoginComponent({
   org,
+  scope,
   onLogin,
   onLogout,
   onFailure,
@@ -55,6 +72,7 @@ export default function LoginComponent({
         onSuccess={(response) => setOrFailure(onLogin(response))}
         onFailure={onFailure}
         className="w-full sm:w-auto"
+        scope={scopeList[scope].join(" ")}
       />
     );
   }
