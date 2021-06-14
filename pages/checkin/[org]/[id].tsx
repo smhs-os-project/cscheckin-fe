@@ -3,26 +3,30 @@ import React from "react";
 import LoginComponent, {
   Scope,
 } from "../../../components/GoogleLoginComponent/LoginComponent";
-import BasePage from "../../../components/Page/BasePage";
+import HeaderPageCard from "../../../components/Page/HeaderPageCard";
 
 export default function Checkin() {
   const router = useRouter();
   const { org, id } = router.query as Record<string, string>;
+  const handler = () => {};
 
   return (
-    <BasePage id="checkin" title="簽到" full>
-      <h1 className="pb-1 text-3xl font-bold">簽到</h1>
-      <h2 className="pb-4 text-xl">
-        簽到 {org} 的「{id}」課程。
-      </h2>
-      <LoginComponent
-        org={org}
-        scope={Scope.Student}
-        onLogin={() => undefined}
-        onLogout={() => undefined}
-        onFailure={() => undefined}
-        loginText="簽到課程"
-      />
-    </BasePage>
+    <HeaderPageCard
+      id="student-checkin-portal"
+      title="學生簽到系統"
+      desc={`簽到${id}課。`}
+      contentPadding={false}
+    >
+      <div className="flex content-center justify-center w-full p-10">
+        <LoginComponent
+          org={org}
+          scope={Scope.Teacher}
+          onLogin={handler}
+          onLogout={handler}
+          onFailure={handler}
+          loginText={`簽到${id}`}
+        />
+      </div>
+    </HeaderPageCard>
   );
 }
