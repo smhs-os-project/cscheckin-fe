@@ -25,7 +25,7 @@ export default function Create() {
           </div>
         </section>
         <section>
-          <table className="w-full table-text-xl table-py-4 table-px-4 md:table-px-12">
+          <table className="w-full table-text-lg table-py-4 table-px-4 md:table-px-12">
             <thead>
               <tr className="border-b border-gray-500">
                 <th>簽到</th>

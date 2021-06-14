@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  .table-text-xl td,
-  .table-text-xl th {
-    @apply text-xl;
+  .table-text-lg td,
+  .table-text-lg th {
+    @apply text-lg;
   }
 
   .table-py-4 td,
