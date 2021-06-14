@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import BaseButton from "../../components/BaseElements/BaseButton";
 
 import BaseInput from "../../components/BaseElements/BaseInput";
-import BasePage from "../../components/Page/BasePage";
+import HeaderPageCard from "../../components/Page/HeaderPageCard";
 
 export default function UserRegister() {
   const [theClass, setTheClass] = useState("");
   const [no, setNo] = useState("");
 
   return (
-    <BasePage id="user-register" title="使用者註冊" full>
+    <HeaderPageCard
+      id="user-register"
+      title="使用者註冊"
+      desc="輸入班級與座號。"
+    >
       <BaseInput
         id="no-field"
         label="班級"
@@ -27,6 +31,6 @@ export default function UserRegister() {
       <BaseButton className="mt-5" solid>
         註冊 REGISTER
       </BaseButton>
-    </BasePage>
+    </HeaderPageCard>
   );
 }
