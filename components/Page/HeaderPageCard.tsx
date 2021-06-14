@@ -8,6 +8,7 @@ export interface TitlePageCardProps {
   title: string;
   desc: string;
   children: ReactNode;
+  contentPadding?: boolean;
 }
 
 export default function TitlePageCard({
@@ -15,7 +16,12 @@ export default function TitlePageCard({
   title,
   desc,
   children,
+  contentPadding = true,
 }: TitlePageCardProps) {
+  const c = (css: string, determination?: boolean) =>
+    determination ? css : "";
+  const needContentPadding = c("px-4 py-10 md:px-20 md:py-10", contentPadding);
+
   return (
     <BasePageCard id={id} title={title}>
       <div className="flex flex-col items-center justify-items-center">
@@ -26,7 +32,7 @@ export default function TitlePageCard({
           </div>
         </div>
 
-        <div className="w-full px-4 py-10 md:px-20 md:py-10 select-school-root">
+        <div className={`w-full ${needContentPadding} select-school-root`}>
           {children}
         </div>
       </div>
