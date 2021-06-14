@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
-import LoginComponent, { Scope } from "../../../components/GoogleLoginComponent/LoginComponent";
+import LoginComponent, {
+  Scope,
+} from "../../../components/GoogleLoginComponent/LoginComponent";
 import BasePage from "../../../components/Page/BasePage";
 
 export default function Checkin() {
