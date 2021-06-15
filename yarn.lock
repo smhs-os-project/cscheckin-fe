@@ -932,11 +932,12 @@ crypto-browserify@3.12.0, crypto-browserify@^3.11.0:
     randomfill "^1.0.3"
 
 cscheckin-js-sdk@smhs-os-project/cscheckin-js-sdk:
-  version "0.1.0-preview.1"
-  resolved "https://codeload.github.com/smhs-os-project/cscheckin-js-sdk/tar.gz/5ec1fed4dd9df798922c625601e9b7870cab5b75"
+  version "0.1.0-preview.2"
+  resolved "https://codeload.github.com/smhs-os-project/cscheckin-js-sdk/tar.gz/d3ebdb9c19cb970e8130bc741a8afe702b88db35"
   dependencies:
     dayjs "^1.10.5"
     myzod "^1.7.4"
+    node-fetch "^2.6.1"
 
 css-unit-converter@^1.1.1:
   version "1.1.2"
@@ -2402,7 +2403,7 @@ node-emoji@^1.8.1:
   dependencies:
     lodash.toarray "^4.4.0"
 
-node-fetch@2.6.1:
+node-fetch@2.6.1, node-fetch@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
