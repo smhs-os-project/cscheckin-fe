@@ -1,6 +1,7 @@
+import type { OrgInfoListResponse } from "cscheckin-js-sdk/dist/types/org_info/resp_org_info";
 import React, { useState } from "react";
 
-import { getClientIdList } from "../components/GoogleLoginComponent/getClientIdList";
+import getClientIdList from "../components/GoogleLoginComponent/getClientIdList";
 import LoginComponent, {
   Scope,
 } from "../components/GoogleLoginComponent/LoginComponent";
@@ -8,13 +9,17 @@ import HeaderPageCard from "../components/Page/HeaderPageCard";
 import ListChoicePageCard from "../components/Page/ListChoicePageCard";
 
 export default function Home() {
-  const availableSchool = Object.keys(getClientIdList());
   const [cc, setCC] = useState("");
+  const [clientIdList, setClientIdList] = useState<OrgInfoListResponse>([]);
   const handler = console.log;
 
   const pageId = "teacher-login-portal";
   const pageTitle = "教師登入系統";
   const pageDesc = "讓你對各個學生的出缺席情況暸若指掌。";
+
+  useState(async () => {
+    setClientIdList(await getClientIdList());
+  });
 
   if (cc !== "")
     return (
@@ -39,10 +44,10 @@ export default function Home() {
 
   return (
     <ListChoicePageCard id={pageId} title={pageTitle} desc={pageDesc}>
-      {availableSchool.map((school) => ({
-        id: school,
-        name: school,
-        redirect: () => setCC(school),
+      {clientIdList.map(({ chinese_name, client_id }) => ({
+        id: chinese_name, // TODO: api: returns ID
+        name: chinese_name,
+        redirect: () => setCC(client_id),
       }))}
     </ListChoicePageCard>
   );
