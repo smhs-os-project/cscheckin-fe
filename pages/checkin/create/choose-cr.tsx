@@ -5,14 +5,14 @@ export default function CheckinCreate() {
   return (
     <ListChoicePageCard
       id="checkin-choose-classroom"
-      title="選擇過去紀錄"
-      desc="選擇要查看的過去記錄。"
+      title="選擇 Classroom 教室"
+      desc="選擇要設定簽到的 classroom。"
     >
       {[
         {
-          id: "10345",
-          name: "Hi~",
-          redirect: () => undefined,
+          id: "203-english",
+          name: "203 英文",
+          redirect: () => {},
         },
       ]}
     </ListChoicePageCard>

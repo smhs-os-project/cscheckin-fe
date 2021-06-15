@@ -1,6 +1,6 @@
 import React from "react";
-import BaseButton from "../../../components/BaseElements/BaseButton";
-import BasePage from "../../../components/Page/BasePage";
+import BaseButton from "../../components/BaseElements/BaseButton";
+import BasePage from "../../components/Page/BasePage";
 
 export default function Create() {
   return (
