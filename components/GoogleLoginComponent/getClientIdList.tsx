@@ -1,13 +1,9 @@
-export function getClientIdList(): Record<string, string> {
-  const clientIdJson = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
-  if (!clientIdJson)
-    throw new Error("You should specify NEXT_PUBLIC_GOOGLE_CLIENT_ID");
+import { GetOrganizationList } from "cscheckin-js-sdk";
+import { OrgInfoListResponseSchema } from "cscheckin-js-sdk/dist/types/org_info/resp_org_info";
 
-  const clientId: unknown = JSON.parse(clientIdJson);
-  if (!clientId || typeof clientId !== "object")
-    throw new Error("The NEXT_PUBLIC_GOOGLE_CLIENT_ID should be the school.");
+export default async function getClientIdList() {
+  const srcResponse = await GetOrganizationList();
+  const response = OrgInfoListResponseSchema.parse(srcResponse);
 
-  return clientId as Record<string, string>;
+  return response;
 }
-
-export default getClientIdList;
