@@ -1,7 +1,8 @@
-import type { OrgInfoListResponse } from "cscheckin-js-sdk/dist/types/org_info/resp_org_info";
+import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_token";
 import React, { useState } from "react";
 
 import getClientIdList from "../components/GoogleLoginComponent/getClientIdList";
+import type { MappedOrgInfoListResponse } from "../components/GoogleLoginComponent/idNameMap";
 import LoginComponent, {
   Scope,
 } from "../components/GoogleLoginComponent/LoginComponent";
@@ -9,8 +10,9 @@ import HeaderPageCard from "../components/Page/HeaderPageCard";
 import ListChoicePageCard from "../components/Page/ListChoicePageCard";
 
 export default function Home() {
-  const [cc, setCC] = useState("");
-  const [clientIdList, setClientIdList] = useState<OrgInfoListResponse>([]);
+  const [cc, setCC] = useState<Organization | null>(null);
+  const [clientIdList, setClientIdList] =
+    useState<MappedOrgInfoListResponse | null>(null);
   const handler = console.log;
 
   const pageId = "teacher-login-portal";
@@ -21,7 +23,7 @@ export default function Home() {
     setClientIdList(await getClientIdList());
   });
 
-  if (cc !== "")
+  if (cc)
     return (
       <HeaderPageCard
         id={pageId}
@@ -42,13 +44,20 @@ export default function Home() {
       </HeaderPageCard>
     );
 
+  if (clientIdList)
+    return (
+      <ListChoicePageCard id={pageId} title={pageTitle} desc={pageDesc}>
+        {clientIdList.map(({ id, chinese_name }) => ({
+          id,
+          name: chinese_name,
+          redirect: () => setCC(id),
+        }))}
+      </ListChoicePageCard>
+    );
+
   return (
-    <ListChoicePageCard id={pageId} title={pageTitle} desc={pageDesc}>
-      {clientIdList.map(({ chinese_name, client_id }) => ({
-        id: chinese_name, // TODO: api: returns ID
-        name: chinese_name,
-        redirect: () => setCC(client_id),
-      }))}
-    </ListChoicePageCard>
+    <HeaderPageCard id={pageId} title={pageTitle} desc={pageDesc}>
+      <p className="text-black">正在取得資料⋯⋯</p>
+    </HeaderPageCard>
   );
 }
