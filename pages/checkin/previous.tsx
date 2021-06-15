@@ -1,10 +1,10 @@
 import React from "react";
 import ListChoicePageCard from "../../components/Page/ListChoicePageCard";
 
-export default function CheckinCreate() {
+export default function CheckinPrevious() {
   return (
     <ListChoicePageCard
-      id="checkin-choose-classroom"
+      id="checkin-choose-previous"
       title="選擇過去紀錄"
       desc="選擇要查看的過去記錄。"
     >
