@@ -1,10 +1,11 @@
+import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_token";
 import React, { useState } from "react";
 import type {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
-import { getClientIdList } from "./getClientIdList";
+import getSpecifiedClientId from "./getSpecifiedClientId";
 
 export enum Scope {
   Student = "student",
@@ -20,7 +21,7 @@ const scopeList: Record<Scope, string[]> = {
   student: [],
 };
 export interface LoginComponentProps {
-  org: string;
+  org: Organization;
   scope: Scope;
   onLogin: (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
@@ -40,8 +41,7 @@ export default function LoginComponent({
   loginText = "登入系統",
   logoutText = "登出系統",
 }: LoginComponentProps) {
-  const clientIdList = getClientIdList();
-  const clientId = clientIdList[org];
+  const [clientId, setClientId] = useState<string | null | "??">(null);
   const [hasLogin, setHasLogin] = useState(false);
   const setOrFailure = (response: Error | void): void => {
     if (response instanceof Error) {
@@ -51,7 +51,14 @@ export default function LoginComponent({
     setHasLogin(true);
   };
 
+  useState(async () => {
+    setClientId((await getSpecifiedClientId(org)) || "??");
+  });
+
   if (clientId) {
+    if (clientId === "??")
+      return <div className="error-message">學校名稱錯誤。</div>;
+
     if (hasLogin)
       return (
         <GoogleLogout
@@ -75,5 +82,5 @@ export default function LoginComponent({
     );
   }
 
-  return <div className="error-message">學校名稱錯誤。</div>;
+  return <div className="loading">正在設定登入按鈕⋯⋯</div>;
 }
