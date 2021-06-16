@@ -5,24 +5,29 @@ import { authKey } from "../SessionDB/consts";
 const sessionDB = SessionDB.getInstance();
 
 export default class AuthStore {
-  private static auth: Record<string, CSCAuth> = {};
+  private static auth: CSCAuth | null = null;
 
-  static store(auth: CSCAuth, key = "default") {
+  static async store(auth: CSCAuth) {
+    await auth.getAccessData();
     sessionDB.set(authKey, auth.export());
-    this.auth[key] = auth;
+    this.auth = auth;
   }
 
-  static retrieve(key = "default"): CSCAuth | null {
-    if (this.auth[key]) return this.auth[key] || null;
+  static async retrieve(): Promise<CSCAuth | null> {
+    if (this.auth) return this.auth;
 
     const authData = sessionDB.get(authKey);
-    if (authData) return CSCAuth.import(authData);
+    if (authData) {
+      const auth = CSCAuth.import(authData);
+      if (auth) await this.store(auth);
+      return auth;
+    }
 
     return null;
   }
 
-  static remove(key = "default") {
-    sessionDB.remove(key);
-    delete this.auth[key];
+  static remove() {
+    sessionDB.remove(authKey);
+    this.auth = null;
   }
 }
