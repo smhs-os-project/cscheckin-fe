@@ -20,7 +20,7 @@ export default function BasePage({
   return (
     <>
       <Head>
-        <title>Inficast - {title}</title>
+        <title>Cscheckin - {title}</title>
       </Head>
       <section
         className={`page-root page-${id} grid ${styles["basepageGrid"]} ${
