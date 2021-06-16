@@ -4,6 +4,7 @@ import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_co
 import { ValidationError } from "myzod";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import NProgress from "nprogress";
 import LoginComponent, {
   Scope,
 } from "../../../components/GoogleLoginComponent/LoginComponent";
@@ -79,6 +80,7 @@ export default function Checkin() {
         </HeaderPageCard>
       );
     case Stage.CHECK_IF_REGISTER:
+      NProgress.start();
       setStage(Stage.CHECK_IN); // TODO
       break;
     case Stage.REQUIRE_TO_REGISTER:
@@ -88,6 +90,7 @@ export default function Checkin() {
       setStage(Stage.SUCCESS); // TODO
       break;
     case Stage.SUCCESS:
+      NProgress.done();
       return (
         <HeaderPageCard
           id={pageId}
