@@ -2,9 +2,8 @@ import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_tok
 import type { OrgInfoListResponse } from "cscheckin-js-sdk/dist/types/org_info/resp_org_info";
 import router from "next/router";
 import React, { useState, useEffect } from "react";
-
+import NProgress from "nprogress";
 import { useAuth } from "../components/AuthStore/utilities";
-
 import getClientIdList from "../components/GoogleLoginComponent/getClientIdList";
 import LoginComponent, {
   Scope,
@@ -15,17 +14,18 @@ import ListChoicePageCard from "../components/Page/ListChoicePageCard";
 export default function Home() {
   const [auth] = useAuth();
   const [cc, setCC] = useState<Organization | null>(null);
-  const [clientIdList, setClientIdList] = useState<OrgInfoListResponse | null>(
-    null
-  );
-
+  const [clientIdList, setClientIdList] = useState<OrgInfoListResponse>([]);
   const pageId = "teacher-login-logout-portal";
   const pageTitle = "教師登入系統";
   const pageDesc = "讓你對各個學生的出缺席情況暸若指掌。";
 
-  void (async () => {
-    if (!clientIdList) setClientIdList(await getClientIdList());
-  })();
+  useEffect(() => {
+    void (async () => {
+      NProgress.start();
+      setClientIdList(await getClientIdList());
+      NProgress.done();
+    })();
+  }, []);
 
   useEffect(() => {
     if (auth) void router.push("/admin");
@@ -52,20 +52,13 @@ export default function Home() {
       </HeaderPageCard>
     );
 
-  if (clientIdList)
-    return (
-      <ListChoicePageCard id={pageId} title={pageTitle} desc={pageDesc}>
-        {clientIdList.map(({ id, chinese_name }) => ({
-          id,
-          name: chinese_name,
-          redirect: () => setCC(id),
-        }))}
-      </ListChoicePageCard>
-    );
-
   return (
-    <HeaderPageCard id={pageId} title={pageTitle} desc={pageDesc}>
-      <p className="text-black">正在取得資料⋯⋯</p>
-    </HeaderPageCard>
+    <ListChoicePageCard id={pageId} title={pageTitle} desc={pageDesc}>
+      {clientIdList.map(({ id, chinese_name }) => ({
+        id,
+        name: chinese_name,
+        redirect: () => setCC(id),
+      }))}
+    </ListChoicePageCard>
   );
 }
