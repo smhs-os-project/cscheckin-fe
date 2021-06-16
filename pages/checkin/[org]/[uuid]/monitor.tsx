@@ -1,10 +1,22 @@
 import React from "react";
-import BaseButton from "../../components/BaseElements/BaseButton";
-import BasePage from "../../components/Page/BasePage";
+import BaseButton from "../../../../components/BaseElements/BaseButton";
+import BasePage from "../../../../components/Page/BasePage";
 
-export default function Create() {
+function getCourseStatus(isLate: boolean, isExpire: boolean) {
+  if (isExpire) {
+    return "❌ 學生不能繼續簽到。";
+  }
+
+  if (isLate) {
+    return "⚠️ 後進學生算成遲到。";
+  }
+
+  return "✅ 新進學生皆為準時。";
+}
+
+export default function Monitor() {
   return (
-    <BasePage id="create-and-monitor" title="建立與監控簽到連結" full>
+    <BasePage id="monitor" title="監控簽到連結" full>
       <div className="flex flex-col items-center justify-around md:items-baseline md:flex-row">
         <section className="flex flex-col items-center content-center justify-center mb-5 shadow rounded-xl w-max">
           <div className="p-4 text-center link-section">
@@ -18,6 +30,9 @@ export default function Create() {
                 readOnly
               />
             </label>
+          </div>
+          <div className="mb-5 course-status">
+            {getCourseStatus(true, false)}
           </div>
           <div className="flex flex-col self-center p-4 mb-4 space-x-0 space-y-2 text-center md:space-y-0 md:space-x-2 md:flex-row justify-self-center">
             <BaseButton solid>分享到 Classroom</BaseButton>
