@@ -123,23 +123,3 @@ export default function CheckinCreate() {
     </HeaderPageCard>
   );
 }
-
-/* DEPRECATED CODE */
-
-// const [startTime, setStartTime] = useState<Date | null>(new Date());
-// const [endTime, setEndTime] = useState<Date | null>(
-//   new Date(Date.now() + 60 * 60 * 1000 /* 60 分鐘 */)
-// );
-
-// const isoTimeFormatHelp = `
-// 格式是「年年年年-月月-日日T時時-分分-秒秒」。
-
-// 範例：
-//   2021-06-14T20:00:00
-//     2021 年 6 月 14 日的晚上 8 點整
-
-//   2021-06-15T07:15:00
-//     2021 年 6 月 15 日的早上 7 點 15 分整
-// `;
-
-// const showHelp = (help: string) => alert(help.trim());
