@@ -46,6 +46,7 @@ export default function LoginComponent({
   const [error, setError] = useState<string | null>(null);
   const [clientId, setClientId] = useState<string | null | "??">(null);
   const [hasLogin, setHasLogin] = useState(false);
+  const [blocking, setBlocking] = useState(false);
 
   const theOnFailure: typeof onFailure = async (e) => {
     if (typeof e === "object" && e) setError(JSON.stringify(e));
@@ -57,6 +58,7 @@ export default function LoginComponent({
   };
 
   const theOnLogin: typeof onLogin = async (response) => {
+    setBlocking(true);
     const resp = response as GoogleLoginResponse;
     if (resp.tokenId) {
       // check if it is a valid GoogleLoginResponse
@@ -68,11 +70,11 @@ export default function LoginComponent({
   };
 
   const theOnLogout: typeof onLogout = async () => {
+    setBlocking(true);
     const auth = await AuthStore.retrieve();
 
     if (auth) await auth.revoke();
     AuthStore.remove();
-    setHasLogin(false);
 
     if (onLogout) return onLogout();
     return undefined;
@@ -80,6 +82,7 @@ export default function LoginComponent({
 
   const setOrFailure = async (response: Error | void): Promise<void> => {
     if (response instanceof Error) {
+      setBlocking(true);
       await theOnFailure(response);
       setHasLogin(false);
     }
@@ -107,6 +110,7 @@ export default function LoginComponent({
       return (
         <GoogleLogout
           clientId={clientId}
+          disabled={blocking}
           buttonText={logoutText}
           onLogoutSuccess={async () => setOrFailure(await theOnLogout())}
           onFailure={theOnFailure}
@@ -118,6 +122,7 @@ export default function LoginComponent({
       <GoogleLogin
         clientId={clientId}
         buttonText={loginText}
+        disabled={blocking}
         onSuccess={async (response) => setOrFailure(await theOnLogin(response))}
         onFailure={theOnFailure}
         className="w-full sm:w-auto"
