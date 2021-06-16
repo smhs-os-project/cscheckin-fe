@@ -23,7 +23,7 @@ export default function BasePage({
         <title>Inficast - {title}</title>
       </Head>
       <section
-        className={`page-root page-${id} grid ${styles.basepageGrid} ${
+        className={`page-root page-${id} grid ${styles["basepageGrid"]} ${
           full && "w-screen h-screen"
         }`}
       >
