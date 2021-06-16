@@ -1,10 +1,12 @@
+import CSCAuth from "cscheckin-js-sdk/dist/auth";
 import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_token";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
+import AuthStore from "../AuthStore";
 import getSpecifiedClientId from "./getSpecifiedClientId";
 
 export enum Scope {
@@ -23,11 +25,11 @@ const scopeList: Record<Scope, string[]> = {
 export interface LoginComponentProps {
   org: Organization;
   scope: Scope;
-  onLogin: (
+  onLogin?: (
     response: GoogleLoginResponse | GoogleLoginResponseOffline
-  ) => Error | void;
-  onLogout: () => Error | void;
-  onFailure: (error?: unknown) => void;
+  ) => Promise<Error | void>;
+  onLogout?: () => Promise<Error | void>;
+  onFailure?: (error?: unknown) => Promise<void>;
   loginText?: string;
   logoutText?: string;
 }
@@ -41,19 +43,61 @@ export default function LoginComponent({
   loginText = "登入系統",
   logoutText = "登出系統",
 }: LoginComponentProps) {
+  const [error, setError] = useState<string | null>(null);
   const [clientId, setClientId] = useState<string | null | "??">(null);
   const [hasLogin, setHasLogin] = useState(false);
-  const setOrFailure = (response: Error | void): void => {
+
+  const theOnFailure: typeof onFailure = async (e) => {
+    if (typeof e === "object" && e) setError(JSON.stringify(e));
+    else if (typeof e === "string") setError(e);
+    else setError("發生內部錯誤。");
+
+    if (onFailure) return onFailure(e);
+    return undefined;
+  };
+
+  const theOnLogin: typeof onLogin = async (response) => {
+    const resp = response as GoogleLoginResponse;
+    if (resp.tokenId) {
+      // check if it is a valid GoogleLoginResponse
+      const auth = new CSCAuth(org, resp.tokenId, resp.accessToken);
+      await AuthStore.store(auth);
+    }
+    if (onLogin) return onLogin(response);
+    return undefined;
+  };
+
+  const theOnLogout: typeof onLogout = async () => {
+    const auth = await AuthStore.retrieve();
+
+    if (auth) await auth.revoke();
+    AuthStore.remove();
+    setHasLogin(false);
+
+    if (onLogout) return onLogout();
+    return undefined;
+  };
+
+  const setOrFailure = async (response: Error | void): Promise<void> => {
     if (response instanceof Error) {
-      onFailure(response);
+      await theOnFailure(response);
       setHasLogin(false);
     }
     setHasLogin(true);
   };
 
-  useState(async () => {
-    setClientId((await getSpecifiedClientId(org)) || "??");
+  useEffect(() => {
+    // eslint-disable-next-line no-void
+    void (async () => {
+      const auth = await AuthStore.retrieve();
+      if (auth) setHasLogin(true);
+      setClientId((await getSpecifiedClientId(org)) || "??");
+    })();
   });
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
 
   if (clientId) {
     if (clientId === "??")
@@ -64,8 +108,8 @@ export default function LoginComponent({
         <GoogleLogout
           clientId={clientId}
           buttonText={logoutText}
-          onLogoutSuccess={() => setOrFailure(onLogout())}
-          onFailure={onFailure}
+          onLogoutSuccess={async () => setOrFailure(await theOnLogout())}
+          onFailure={theOnFailure}
           className="w-full sm:w-auto"
         />
       );
@@ -74,8 +118,8 @@ export default function LoginComponent({
       <GoogleLogin
         clientId={clientId}
         buttonText={loginText}
-        onSuccess={(response) => setOrFailure(onLogin(response))}
-        onFailure={onFailure}
+        onSuccess={async (response) => setOrFailure(await theOnLogin(response))}
+        onFailure={theOnFailure}
         className="w-full sm:w-auto"
         scope={scopeList[scope].join(" ")}
       />
