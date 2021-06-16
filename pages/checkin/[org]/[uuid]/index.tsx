@@ -7,8 +7,8 @@ import React, { useState } from "react";
 import NProgress from "nprogress";
 import LoginComponent, {
   Scope,
-} from "../../../components/GoogleLoginComponent/LoginComponent";
-import HeaderPageCard from "../../../components/Page/HeaderPageCard";
+} from "../../../../components/GoogleLoginComponent/LoginComponent";
+import HeaderPageCard from "../../../../components/Page/HeaderPageCard";
 
 enum Stage {
   FAILED = -1,
