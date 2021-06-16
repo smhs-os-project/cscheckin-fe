@@ -9,6 +9,7 @@ import LoginComponent, {
   Scope,
 } from "../../../../components/GoogleLoginComponent/LoginComponent";
 import HeaderPageCard from "../../../../components/Page/HeaderPageCard";
+import AuthStore from "../../../../components/AuthStore";
 
 enum Stage {
   FAILED = -1,
@@ -86,7 +87,19 @@ export default function Checkin() {
       );
     case Stage.CHECK_IF_REGISTER:
       NProgress.start();
-      setStage(Stage.CHECK_IN); // TODO
+      void AuthStore.retrieve()
+        .then((auth) => {
+          if (!auth) return Promise.reject(new Error("未取得登入資料。")); // TODO
+          return auth.userInfo();
+        })
+        .then((userInfo) => {
+          if (userInfo?.student) setStage(Stage.CHECK_IN);
+          else setStage(Stage.REQUIRE_TO_REGISTER);
+        })
+        .catch((error: Error) => {
+          setMessage(error.message);
+          setStage(Stage.FAILED);
+        });
       break;
     case Stage.REQUIRE_TO_REGISTER:
       void router.push(`/register?redirect='/checkin/${org}/${uuid}?stage=4`);
