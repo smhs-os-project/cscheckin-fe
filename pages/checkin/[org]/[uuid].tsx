@@ -106,8 +106,8 @@ export default function Checkin() {
           <p>識別 ID：{Math.round(Math.random() * 300000)}</p>
         </HeaderPageCard>
       );
+    case Stage.FAILED:
     default:
-      // Stage.FAILED
       break;
   }
 

@@ -126,8 +126,8 @@ export default function LoginComponent({
     }
     case Stage.COMPLETED:
       return <p>✅ 登入完成！</p>;
+    case Stage.FAILED:
     default:
-      // Stage.FAILED
       break;
   }
 

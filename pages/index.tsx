@@ -92,8 +92,8 @@ export default function Home() {
       void router.push("/admin");
       break;
     }
+    case Stage.FAILED:
     default:
-      // Stage.FAILED
       break;
   }
 
