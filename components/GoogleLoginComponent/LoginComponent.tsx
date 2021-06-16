@@ -1,6 +1,7 @@
 import CSCAuth from "cscheckin-js-sdk/dist/auth";
 import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_token";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import type {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
@@ -65,7 +66,8 @@ export default function LoginComponent({
       const auth = new CSCAuth(org, resp.tokenId, resp.accessToken);
       await AuthStore.store(auth);
     }
-    if (onLogin) return onLogin(response);
+    if (onLogin) await onLogin(response);
+    window.location.reload();
     return undefined;
   };
 
@@ -76,25 +78,18 @@ export default function LoginComponent({
     if (auth) await auth.revoke();
     AuthStore.remove();
 
-    if (onLogout) return onLogout();
+    if (onLogout) await onLogout();
+    window.location.reload();
     return undefined;
   };
 
-  const setOrFailure = async (response: Error | void): Promise<void> => {
-    if (response instanceof Error) {
-      setBlocking(true);
-      await theOnFailure(response);
-      setHasLogin(false);
-    }
-    setHasLogin(true);
-  };
-
   useEffect(() => {
-    // eslint-disable-next-line no-void
     void (async () => {
-      const auth = await AuthStore.retrieve();
-      if (auth) setHasLogin(true);
-      setClientId((await getSpecifiedClientId(org)) || "??");
+      if (!clientId) {
+        const auth = await AuthStore.retrieve();
+        if (auth) setHasLogin(true);
+        setClientId((await getSpecifiedClientId(org)) || "??");
+      }
     })();
   });
 
@@ -112,7 +107,7 @@ export default function LoginComponent({
           clientId={clientId}
           disabled={blocking}
           buttonText={logoutText}
-          onLogoutSuccess={async () => setOrFailure(await theOnLogout())}
+          onLogoutSuccess={async () => theOnLogout()}
           onFailure={theOnFailure}
           className="w-full sm:w-auto"
         />
@@ -123,7 +118,7 @@ export default function LoginComponent({
         clientId={clientId}
         buttonText={loginText}
         disabled={blocking}
-        onSuccess={async (response) => setOrFailure(await theOnLogin(response))}
+        onSuccess={async (response) => theOnLogin(response)}
         onFailure={theOnFailure}
         className="w-full sm:w-auto"
         scope={scopeList[scope].join(" ")}
