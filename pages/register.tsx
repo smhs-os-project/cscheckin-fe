@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import BaseButton from "../../components/BaseElements/BaseButton";
+import BaseButton from "../components/BaseElements/BaseButton";
 
-import BaseInput from "../../components/BaseElements/BaseInput";
-import HeaderPageCard from "../../components/Page/HeaderPageCard";
+import BaseInput from "../components/BaseElements/BaseInput";
+import HeaderPageCard from "../components/Page/HeaderPageCard";
 
 export default function UserRegister() {
   const [theClass, setTheClass] = useState("");
