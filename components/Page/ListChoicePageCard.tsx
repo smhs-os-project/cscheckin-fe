@@ -31,6 +31,7 @@ export interface CheckinCreateProps {
     name: string;
     redirect: () => void;
   }[];
+  message?: string | null;
 }
 
 export default function CheckinCreate({
@@ -38,28 +39,51 @@ export default function CheckinCreate({
   title,
   desc,
   children: content,
+  message,
 }: CheckinCreateProps) {
+  const noContent = content.length === 0;
+  const hasMessage = !!message;
+  const shouldShowMessage = hasMessage || noContent;
+
   return (
-    <HeaderPageCard id={pid} title={title} desc={desc} contentPadding={false}>
+    <HeaderPageCard
+      id={pid}
+      title={title}
+      desc={desc}
+      // we add padding if the message will show.
+      contentPadding={shouldShowMessage}
+    >
       <div className="flex flex-col w-full options">
-        {content.map(({ id: cid, name, redirect }) => (
-          <div key={`${pid}-${cid}`}>
-            <button
-              className={`w-full px-6 py-10 text-left outline-none text-black hover:text-white transition-all duration-300 rounded-none ${randBackgroundColor(
-                true
-              )}`}
-              type="button"
-              onClick={redirect}
-            >
-              <div className="flex justify-between">
-                <div>{name}</div>
-                <div>
-                  <FontAwesomeIcon icon={faArrowRight} />
+        {(() => {
+          // if user specified the message
+          if (message) {
+            return <p>{message}</p>;
+          }
+
+          // if there is no any content
+          if (content.length === 0) {
+            return <p>無資料。</p>;
+          }
+
+          return content.map(({ id: cid, name, redirect }) => (
+            <div key={`${pid}-${cid}`}>
+              <button
+                className={`w-full px-6 py-10 text-left outline-none text-black hover:text-white transition-all duration-300 rounded-none ${randBackgroundColor(
+                  true
+                )}`}
+                type="button"
+                onClick={redirect}
+              >
+                <div className="flex justify-between">
+                  <div>{name}</div>
+                  <div>
+                    <FontAwesomeIcon icon={faArrowRight} />
+                  </div>
                 </div>
-              </div>
-            </button>
-          </div>
-        ))}
+              </button>
+            </div>
+          ));
+        })()}
       </div>
     </HeaderPageCard>
   );
