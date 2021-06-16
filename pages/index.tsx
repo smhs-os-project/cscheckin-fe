@@ -13,7 +13,10 @@ import ListChoicePageCard from "../components/Page/ListChoicePageCard";
 
 export default function Home() {
   const [auth] = useAuth();
+  // cc = client id
   const [cc, setCC] = useState<Organization | null>(null);
+  // ccn = client chinese name
+  const [ccn, setCCN] = useState<string | null>(null);
   const [clientIdList, setClientIdList] = useState<OrgInfoListResponse>([]);
   const pageId = "teacher-login-logout-portal";
   const pageTitle = "教師登入系統";
@@ -31,7 +34,7 @@ export default function Home() {
     if (auth) void router.push("/admin");
   }, [auth]);
 
-  if (cc)
+  if (cc && ccn)
     return (
       <HeaderPageCard
         id={pageId}
@@ -46,7 +49,7 @@ export default function Home() {
             onLogin={async () => {
               await router.push("/admin");
             }}
-            loginText={`${cc}登入區`}
+            loginText={`${ccn}登入區`}
           />
         </section>
       </HeaderPageCard>
@@ -57,7 +60,10 @@ export default function Home() {
       {clientIdList.map(({ id, chinese_name }) => ({
         id,
         name: chinese_name,
-        redirect: () => setCC(id),
+        redirect: () => {
+          setCC(id);
+          setCCN(chinese_name);
+        },
       }))}
     </ListChoicePageCard>
   );
