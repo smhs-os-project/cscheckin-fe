@@ -8,6 +8,7 @@ import type {
 } from "react-google-login";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import AuthStore from "../AuthStore";
+import { Logout } from "../AuthStore/utilities";
 import getSpecifiedClientId from "./getSpecifiedClientId";
 
 export enum Scope {
@@ -67,19 +68,16 @@ export default function LoginComponent({
       await AuthStore.store(auth);
     }
     if (onLogin) await onLogin(response);
-    window.location.reload();
+    else window.location.reload();
     return undefined;
   };
 
   const theOnLogout: typeof onLogout = async () => {
     setBlocking(true);
-    const auth = await AuthStore.retrieve();
-
-    if (auth) await auth.revoke();
-    AuthStore.remove();
+    await Logout();
 
     if (onLogout) await onLogout();
-    window.location.reload();
+    else window.location.reload();
     return undefined;
   };
 
