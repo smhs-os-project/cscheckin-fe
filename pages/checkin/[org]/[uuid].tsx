@@ -20,7 +20,7 @@ enum Stage {
 }
 
 export default function Checkin() {
-  const pageId = "student-checkin-portal";
+  const pageId = "student-checkin";
   const pageTitle = "學生簽到系統";
 
   const router = useRouter();
@@ -88,8 +88,16 @@ export default function Checkin() {
       setStage(Stage.SUCCESS); // TODO
       break;
     case Stage.SUCCESS:
-      void router.push("/checkin/success");
-      break;
+      return (
+        <HeaderPageCard
+          id={pageId}
+          title={pageTitle}
+          desc="簽到完成。您可留下本憑證以示證明。"
+        >
+          <p>現在時間：{new Date().toString()}</p>
+          <p>識別 ID：{Math.round(Math.random() * 300000)}</p>
+        </HeaderPageCard>
+      );
     default:
       // Stage.FAILED
       break;
