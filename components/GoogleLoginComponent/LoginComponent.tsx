@@ -27,6 +27,10 @@ enum Stage {
    * When we are waiting for the login token from Google.
    */
   ON_LOGIN,
+  /**
+   * When all done.
+   */
+  COMPLETED,
 }
 
 export enum Scope {
@@ -85,6 +89,7 @@ export default function LoginComponent({
     }
 
     if (onLogin) await onLogin(response);
+    setStage(Stage.COMPLETED);
     return undefined;
   };
 
@@ -119,6 +124,8 @@ export default function LoginComponent({
       setStage(Stage.FAILED);
       break;
     }
+    case Stage.COMPLETED:
+      return <p>✅ 登入完成！</p>;
     default:
       // Stage.FAILED
       break;
