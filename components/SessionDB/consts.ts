@@ -1,3 +1,3 @@
-export const accessToken = "sdk.token";
+export const authKey = "sdk.auth";
 
 export default "";
