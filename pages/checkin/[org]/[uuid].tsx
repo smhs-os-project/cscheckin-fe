@@ -3,7 +3,7 @@ import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_tok
 import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_course";
 import { ValidationError } from "myzod";
 import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import NProgress from "nprogress";
 import LoginComponent, {
   Scope,
@@ -30,12 +30,6 @@ export default function Checkin() {
   const [message, setMessage] = useState<string | null>(null);
   const [courseName, setCourseName] = useState("");
 
-  useEffect(() => {
-    if (typeof recvStage === "string" && Number.isSafeInteger(recvStage)) {
-      setStage(Number(recvStage) as Stage);
-    }
-  }, [recvStage]);
-
   switch (stage) {
     case Stage.PREPARE: {
       if (!(typeof org === "string" && typeof uuid === "string")) {
@@ -51,9 +45,14 @@ export default function Checkin() {
             return Promise.reject(new Error("課程不存在或尚未開放。"));
           }
 
-          setStage(Stage.LOGIN);
-          setCourseName(cs.name);
-          setMessage(null);
+          if (typeof recvStage === "string" && /^\d+$/.exec(recvStage)) {
+            setStage(Number(recvStage) as Stage);
+          } else {
+            setStage(Stage.LOGIN);
+            setCourseName(cs.name);
+            setMessage(null);
+          }
+
           return undefined;
         })
         .catch((error: Error) => {
