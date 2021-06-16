@@ -20,4 +20,9 @@ export default class AuthStore {
 
     return null;
   }
+
+  static remove(key = "default") {
+    sessionDB.remove(key);
+    delete this.auth[key];
+  }
 }
