@@ -7,7 +7,11 @@ export default async function getClientIdList() {
   const srcResponse = await GetOrganizationList();
   const response = OrgInfoListResponseSchema.try(srcResponse);
 
-  if (response instanceof ValidationError) return [];
+  if (response instanceof ValidationError) {
+    console.error("getClientIdList: failed to retrieve the organization list");
+    return [];
+  }
+
   return response.map(({ chinese_name, ...rest }) => ({
     ...rest,
     id: map[chinese_name],
