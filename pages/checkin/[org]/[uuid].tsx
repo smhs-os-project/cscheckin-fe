@@ -3,7 +3,7 @@ import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_tok
 import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_course";
 import { ValidationError } from "myzod";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NProgress from "nprogress";
 import LoginComponent, {
   Scope,
@@ -25,10 +25,16 @@ export default function Checkin() {
   const pageTitle = "學生簽到系統";
 
   const router = useRouter();
-  const { org, uuid } = router.query;
+  const { org, uuid, stage: recvStage } = router.query;
   const [stage, setStage] = useState(Stage.PREPARE);
   const [message, setMessage] = useState<string | null>(null);
   const [courseName, setCourseName] = useState("");
+
+  useEffect(() => {
+    if (typeof recvStage === "string" && Number.isSafeInteger(recvStage)) {
+      setStage(Number(recvStage) as Stage);
+    }
+  }, [recvStage]);
 
   switch (stage) {
     case Stage.PREPARE: {
