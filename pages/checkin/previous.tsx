@@ -47,7 +47,7 @@ export default function CheckinPrevious() {
       {previous.map(({ name, id }) => ({
         id: id.toString(),
         name,
-        redirect: async () => router.push(`/checkin/common/${id}/monitor`),
+        redirect: async () => router.push(`/checkin/${id}/monitor`),
       }))}
     </ListChoicePageCard>
   );
