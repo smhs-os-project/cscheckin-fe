@@ -26,6 +26,7 @@ export default function CheckinCreate() {
 
         if (cr instanceof ValidationError) {
           setMessage("無法取得 Classroom 教室名單。");
+          NProgress.done();
           return;
         }
 
@@ -59,8 +60,8 @@ export default function CheckinCreate() {
                 cr.google_classroom_id,
                 {
                   start_timestamp: new Date(),
-                  late_time: "00:10:00",
-                  expire_time: "00:50:00",
+                  late_time: "00:10:00", // TODO
+                  expire_time: "00:50:00", // TODO
                 },
                 auth
               )
