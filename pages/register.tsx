@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../components/AuthStore/utilities";
 import BaseButton from "../components/BaseElements/BaseButton";
@@ -16,6 +17,9 @@ export default function UserRegister() {
   const pageId = "user-register";
   const pageTitle = "使用者註冊";
   const pageDesc = "輸入班級與座號。";
+
+  const router = useRouter();
+  const { redirect } = router.query;
 
   const [auth, loading] = useAuth();
   const [stage, setStage] = useState(Stage.LOADING);
@@ -42,7 +46,11 @@ export default function UserRegister() {
     case Stage.FAILED:
       return messageElement(message ?? "發生未知錯誤。");
     case Stage.SUCCESS:
-      return messageElement("註冊完成。正在返回原頁面⋯⋯");
+      if (typeof redirect === "string") {
+        void router.push(redirect);
+        return messageElement("註冊完成。正在返回原頁面⋯⋯");
+      }
+      return messageElement("註冊完成。");
     case Stage.USER_INPUT:
     case Stage.SUBMIT:
     default:
