@@ -1,7 +1,5 @@
 import { GetCourse, Checkin as StudentCheckinMethod } from "cscheckin-js-sdk";
 import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_token";
-import type { StudentCheckinResponse } from "cscheckin-js-sdk/dist/types/student/resp_checkin";
-import { StudentCheckinResponseSchema } from "cscheckin-js-sdk/dist/types/student/resp_checkin";
 import type { CourseResponse } from "cscheckin-js-sdk/dist/types/course/resp_course";
 import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_course";
 import { ValidationError } from "myzod";
@@ -29,13 +27,10 @@ export default function Checkin() {
   const pageTitle = "學生簽到系統";
 
   const router = useRouter();
-  const { org, uuid, stage: recvStage } = router.query;
+  const { org, uuid, skip_login: skipLogin } = router.query;
   const [stage, setStage] = useState(Stage.PREPARE);
   const [message, setMessage] = useState<string | null>(null);
   const [course, setCourse] = useState<CourseResponse | null>(null);
-  const [checkinInfo, setCheckinInfo] = useState<StudentCheckinResponse | null>(
-    null
-  );
 
   /* NProgress */
   useEffect(() => {
@@ -72,10 +67,10 @@ export default function Checkin() {
               return Promise.reject(new Error("課程不存在或尚未開放。"));
             }
 
-            if (typeof recvStage === "string" && /^\d+$/.exec(recvStage)) {
-              setStage(Number(recvStage) as Stage);
+            setCourse(cs);
+            if (typeof skipLogin === "string" && skipLogin === "1") {
+              setStage(Stage.CHECK_IF_REGISTER);
             } else {
-              setCourse(cs);
               setStage(Stage.LOGIN);
               setMessage(null);
             }
@@ -107,7 +102,9 @@ export default function Checkin() {
         break;
       }
       case Stage.REQUIRE_TO_REGISTER:
-        void router.push(`/register?redirect='/checkin/${org}/${uuid}?stage=4`);
+        void router.push(
+          `/register?redirect=/checkin/${org}/${uuid}?skip_login=1`
+        );
         break;
       case Stage.CHECK_IN:
         void AuthStore.retrieve()
@@ -116,18 +113,17 @@ export default function Checkin() {
               return Promise.reject(new Error("無法取得身份識別資訊。"));
             if (!course) return Promise.reject(new Error("無法取得課程資訊。"));
 
-            return StudentCheckinMethod(course.id, auth);
+            return StudentCheckinMethod(course.uuid, auth);
           })
-          .then((rCheckin) => {
-            const checkin = StudentCheckinResponseSchema.try(rCheckin);
-
-            if (checkin instanceof ValidationError) {
-              return Promise.reject(new Error("簽到失敗。"));
+          .then((checkin) => {
+            if (checkin) {
+              setStage(Stage.SUCCESS);
+              return Promise.resolve();
             }
 
-            setCheckinInfo(checkin);
-            setStage(Stage.SUCCESS);
-            return Promise.resolve();
+            return Promise.reject(
+              new Error("簽到失敗。可能是因為課程已經結束，或是尚未開課。")
+            );
           })
           .catch((error: Error) => {
             setMessage(error.message);
@@ -168,22 +164,15 @@ export default function Checkin() {
       setStage(Stage.FAILED);
       break;
     case Stage.SUCCESS:
-      if (checkinInfo) {
-        return (
-          <HeaderPageCard
-            id={pageId}
-            title={pageTitle}
-            desc="簽到完成。您可留下本憑證以示證明。"
-          >
-            <p>簽到時間：{checkinInfo.updated_at}</p>
-            <p>識別 ID：{checkinInfo?.course_id}</p>
-          </HeaderPageCard>
-        );
-      }
-
-      setMessage("無法取得簽到後續。");
-      setStage(Stage.FAILED);
-      break;
+      return (
+        <HeaderPageCard
+          id={pageId}
+          title={pageTitle}
+          desc="簽到完成。您可留下本憑證以示證明。"
+        >
+          <p>簽到時間：{new Date().toLocaleString()}</p>
+        </HeaderPageCard>
+      );
     default:
       break;
   }
