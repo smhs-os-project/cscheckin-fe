@@ -117,7 +117,7 @@ export default function Monitor() {
         else if (!auth && !loading) {
           setMessage("無法取得認證。");
           setStage(Stage.FAILED);
-          setInitiateStage(InitiateStage.END);
+          setInitiateStage(InitiateStage.FAILED);
         }
         break;
       case InitiateStage.GET_COURSE_STATE:
@@ -375,7 +375,7 @@ export default function Monitor() {
                       stu.class === "" ? "" : `${stu.number} - ${stu.number}`
                     }${stu.name}`}
                   </td>
-                  <td>{stu.created_at}</td>
+                  <td>{stu.created_at.toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>
