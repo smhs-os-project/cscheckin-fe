@@ -372,7 +372,7 @@ export default function Monitor() {
                   <td>{getCheckinStatusIcon(stu.state)}</td>
                   <td>
                     {`${
-                      stu.class === "" ? "" : `${stu.number} - ${stu.number}`
+                      stu.class === "" ? "" : `${stu.class} - ${stu.number}`
                     }${stu.name}`}
                   </td>
                   <td>{stu.created_at.toLocaleString()}</td>
