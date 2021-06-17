@@ -113,7 +113,7 @@ export default function Monitor() {
         break;
       case InitiateStage.GET_AUTH:
         setMessage("正在取得認證資訊⋯⋯");
-        if (auth) setInitiateStage(InitiateStage.GET_LINK);
+        if (auth) setInitiateStage(InitiateStage.GET_COURSE_STATE);
         else if (!auth && !loading) {
           setMessage("無法取得認證。");
           setStage(Stage.FAILED);
@@ -141,11 +141,10 @@ export default function Monitor() {
       }
       case InitiateStage.END:
         setMessage(null);
-        NProgress.done();
         break;
       case InitiateStage.FAILED:
       default:
-        NProgress.done();
+        break;
     }
   }, [id, auth, loading, initiateStage, stage]);
 
@@ -206,9 +205,9 @@ export default function Monitor() {
                 return Promise.reject(new Error("取得課程失敗。"));
               }
 
-              if (!isBefore(course.start_timestamp, course.expire_time)) {
+              if (isBefore(course.start_timestamp, course.expire_time)) {
                 setCourseState(CheckinState.NOT_CHECKED_IN);
-              } else if (!isBefore(course.start_timestamp, course.late_time)) {
+              } else if (isBefore(course.start_timestamp, course.late_time)) {
                 setCourseState(CheckinState.LATE);
               } else {
                 setCourseState(CheckinState.ON_TIME);
@@ -219,7 +218,6 @@ export default function Monitor() {
             })
             .catch(catcher);
         }
-        setStage(Stage.READY);
         break;
       case Stage.GET_LINK: {
         NProgress.start();
@@ -284,10 +282,12 @@ export default function Monitor() {
         }
         break;
       case Stage.FAILED:
+        NProgress.done();
+        break;
       default:
         break;
     }
-  });
+  }, [stage]);
 
   if (stage === Stage.FAILED) {
     return (
