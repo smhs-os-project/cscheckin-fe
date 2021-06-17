@@ -70,7 +70,7 @@ export default function CheckinCreate() {
             if (course instanceof ValidationError) {
               setMessage("無法建立課程簽到連結。請稍後重試。");
             } else {
-              await router.push(`/checkin/${course.id}/monitor`);
+              await router.push(`/checkin/monitor?id=${course.id}`);
             }
           } else {
             setMessage(
