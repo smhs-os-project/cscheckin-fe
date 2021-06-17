@@ -27,7 +27,7 @@ export default function Checkin() {
   const pageTitle = "學生簽到系統";
 
   const router = useRouter();
-  const { org, uuid, skip_login: skipLogin } = router.query;
+  const { org, id: uuid, skip_login: skipLogin } = router.query;
   const [stage, setStage] = useState(Stage.PREPARE);
   const [message, setMessage] = useState<string | null>(null);
   const [course, setCourse] = useState<CourseResponse | null>(null);
