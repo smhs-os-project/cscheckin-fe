@@ -4,7 +4,7 @@ import BaseButton from "../components/BaseElements/BaseButton";
 import BaseInput from "../components/BaseElements/BaseInput";
 import HeaderPageCard from "../components/Page/HeaderPageCard";
 
-enum State {
+enum Stage {
   FAILED = -1,
   LOADING,
   USER_INPUT,
@@ -18,7 +18,7 @@ export default function UserRegister() {
   const pageDesc = "輸入班級與座號。";
 
   const [auth, loading] = useAuth();
-  const [state, setState] = useState(State.LOADING);
+  const [stage, setStage] = useState(Stage.LOADING);
   const [message, setMessage] = useState<string | null>(null);
   const [theClass, setTheClass] = useState("");
   const [no, setNo] = useState("");
@@ -31,20 +31,20 @@ export default function UserRegister() {
 
   useEffect(() => {
     if (!auth && !loading) {
-      setState(State.FAILED);
+      setStage(Stage.FAILED);
       setMessage("未登入。請回到原始畫面重新登入！");
-    } else if (auth && !loading) setState(State.USER_INPUT);
+    } else if (auth && !loading) setStage(Stage.USER_INPUT);
   }, [auth, loading]);
 
-  switch (state) {
-    case State.LOADING:
+  switch (stage) {
+    case Stage.LOADING:
       return messageElement("正在檢查登入狀態⋯⋯");
-    case State.FAILED:
+    case Stage.FAILED:
       return messageElement(message ?? "發生未知錯誤。");
-    case State.SUCCESS:
+    case Stage.SUCCESS:
       return messageElement("註冊完成。正在返回原頁面⋯⋯");
-    case State.USER_INPUT:
-    case State.SUBMIT:
+    case Stage.USER_INPUT:
+    case Stage.SUBMIT:
     default:
       break;
   }
@@ -58,16 +58,16 @@ export default function UserRegister() {
       <form
         onSubmit={async (event) => {
           event.preventDefault();
-          setState(State.SUBMIT);
+          setStage(Stage.SUBMIT);
           const success = await auth?.setIdentity(Number(theClass), Number(no));
 
           if (success) {
-            setState(State.SUCCESS);
+            setStage(Stage.SUCCESS);
             return;
           }
 
           setMessage("註冊失敗。請確認您輸入的資料無誤後再試。");
-          setState(State.FAILED);
+          setStage(Stage.FAILED);
         }}
       >
         <BaseInput
@@ -90,7 +90,7 @@ export default function UserRegister() {
           submit
           className="mt-5"
           solid
-          disabled={state === State.SUBMIT}
+          disabled={stage === Stage.SUBMIT}
         >
           註冊 REGISTER
         </BaseButton>
