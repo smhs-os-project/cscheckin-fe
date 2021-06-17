@@ -44,9 +44,9 @@ export default function CheckinPrevious() {
       desc={pageDesc}
       message={message}
     >
-      {previous.map(({ name, id }) => ({
+      {previous.reverse().map(({ name, id, start_timestamp: st }) => ({
         id: id.toString(),
-        name,
+        name: `${name} - ${st.toLocaleDateString()}`,
         redirect: async () => router.push(`/checkin/monitor?id=${id}`),
       }))}
     </ListChoicePageCard>
