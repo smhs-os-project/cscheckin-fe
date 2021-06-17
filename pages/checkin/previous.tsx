@@ -4,6 +4,7 @@ import type { CourseListResponse } from "cscheckin-js-sdk/dist/types/course/resp
 import { CourseListResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_course";
 import { GetCoursesList } from "cscheckin-js-sdk";
 import { ValidationError } from "myzod";
+import { useRouter } from "next/router";
 import ListChoicePageCard from "../../components/Page/ListChoicePageCard";
 import { useAuth } from "../../components/AuthStore/utilities";
 
@@ -12,6 +13,7 @@ export default function CheckinPrevious() {
   const pageTitle = "選擇過去紀錄";
   const pageDesc = "選擇要查看的過去記錄。";
 
+  const router = useRouter();
   const [auth, loading] = useAuth();
   const [message, setMessage] = useState<string | null>(null);
   const [previous, setPrevious] = useState<CourseListResponse>([]);
@@ -45,7 +47,7 @@ export default function CheckinPrevious() {
       {previous.map(({ name, id }) => ({
         id: id.toString(),
         name,
-        redirect: () => console.log(name),
+        redirect: async () => router.push(`/checkin/common/${id}/monitor`),
       }))}
     </ListChoicePageCard>
   );
