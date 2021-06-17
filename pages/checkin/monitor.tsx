@@ -4,6 +4,8 @@ import {
   GetShareLink,
   CloseCourse,
   SyncCourseMembers,
+  GetCourseByID,
+  isBefore,
 } from "cscheckin-js-sdk";
 import { CheckinState } from "cscheckin-js-sdk/dist/types/common/checkin_state";
 import type { TeacherCheckinListResponse } from "cscheckin-js-sdk/dist/types/teacher/resp_checkin_list";
@@ -14,17 +16,19 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import NProgress from "nprogress";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_course";
 import { useAuth } from "../../components/AuthStore/utilities";
 import BaseButton from "../../components/BaseElements/BaseButton";
 import BasePage from "../../components/Page/BasePage";
 import catcherBuilder from "../../utilities/catcher";
+import HeaderPageCard from "../../components/Page/HeaderPageCard";
 
 enum InitiateStage {
   FAILED = -1,
   BEGIN,
   GET_QUERY,
   GET_AUTH,
-  GET_COURSE,
+  GET_COURSE_STATE,
   GET_LINK,
   GET_CHECKIN_LIST,
   END,
@@ -34,7 +38,7 @@ enum Stage {
   FAILED = -1,
   INITIATE,
   READY,
-  GET_COURSE,
+  GET_COURSE_STATE,
   GET_LINK,
   GET_CHECKIN_LIST,
   SHARE_TO_CLASSROOM,
@@ -76,7 +80,7 @@ export default function Monitor() {
   const [courseState, setCourseState] = useState(CheckinState.ON_TIME);
   const [shareLink, setShareLink] = useState("");
   const [message, setMessage] = useState<string | null>(null);
-  const shouldLock = () => stage === Stage.READY;
+  const shouldLock = () => stage !== Stage.READY;
 
   // InitiateStage
   useEffect(() => {
@@ -116,9 +120,9 @@ export default function Monitor() {
           setInitiateStage(InitiateStage.END);
         }
         break;
-      case InitiateStage.GET_COURSE:
+      case InitiateStage.GET_COURSE_STATE:
         setMessage("正在取得課程資訊⋯⋯");
-        if (stageIPC(Stage.GET_COURSE)) {
+        if (stageIPC(Stage.GET_COURSE_STATE)) {
           setInitiateStage(InitiateStage.GET_LINK);
         }
         break;
@@ -136,8 +140,11 @@ export default function Monitor() {
         break;
       }
       case InitiateStage.END:
-      default:
         setMessage(null);
+        NProgress.done();
+        break;
+      case InitiateStage.FAILED:
+      default:
         NProgress.done();
     }
   }, [id, auth, loading, initiateStage, stage]);
@@ -188,7 +195,30 @@ export default function Monitor() {
         }
         break;
       }
-      case Stage.GET_COURSE:
+      case Stage.GET_COURSE_STATE:
+        NProgress.start();
+        if (typeof id === "string" && auth) {
+          void GetCourseByID(Number(id), auth)
+            .then((rawCourse) => {
+              const course = CourseResponseSchema.try(rawCourse);
+
+              if (course instanceof ValidationError) {
+                return Promise.reject(new Error("取得課程失敗。"));
+              }
+
+              if (!isBefore(course.start_timestamp, course.expire_time)) {
+                setCourseState(CheckinState.NOT_CHECKED_IN);
+              } else if (!isBefore(course.start_timestamp, course.late_time)) {
+                setCourseState(CheckinState.LATE);
+              } else {
+                setCourseState(CheckinState.ON_TIME);
+              }
+
+              setStage(Stage.READY);
+              return undefined;
+            })
+            .catch(catcher);
+        }
         setStage(Stage.READY);
         break;
       case Stage.GET_LINK: {
@@ -253,10 +283,23 @@ export default function Monitor() {
           NProgress.done();
         }
         break;
+      case Stage.FAILED:
       default:
         break;
     }
   });
+
+  if (stage === Stage.FAILED) {
+    return (
+      <HeaderPageCard
+        id="monitor-error"
+        title="發生錯誤"
+        desc="發生錯誤，以致無法顯示監控畫面。"
+      >
+        <p className="font-bold text-red-500">{message}</p>
+      </HeaderPageCard>
+    );
+  }
 
   return (
     <BasePage id="monitor" title="監控簽到連結" full>
