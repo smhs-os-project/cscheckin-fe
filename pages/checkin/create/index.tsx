@@ -55,19 +55,19 @@ export default function CheckinCreate() {
         redirect: async () => {
           NProgress.start();
           if (auth) {
-            const course = CourseResponseSchema.try(
-              await CreateCourse(
-                cr.google_classroom_id,
-                {
-                  start_timestamp: new Date(),
-                  late_time: "00:10:00", // TODO
-                  expire_time: "00:50:00", // TODO
-                },
-                auth
-              )
+            const rawCourse = await CreateCourse(
+              cr.google_classroom_id,
+              {
+                start_timestamp: new Date(),
+                late_time: "00:10:00", // TODO
+                expire_time: "00:50:00", // TODO
+              },
+              auth
             );
+            const course = CourseResponseSchema.try(rawCourse);
 
             if (course instanceof ValidationError) {
+              console.error(rawCourse);
               setMessage("無法建立課程簽到連結。請稍後重試。");
             } else {
               await router.push(`/checkin/monitor?id=${course.id}`);
