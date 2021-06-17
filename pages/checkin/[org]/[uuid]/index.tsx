@@ -1,4 +1,7 @@
-import { GetCourse, Checkin as StudentCheckinMethod } from "cscheckin-js-sdk";
+import {
+  Checkin as StudentCheckinMethod,
+  GetCourseByUUID,
+} from "cscheckin-js-sdk";
 import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_token";
 import type { CourseResponse } from "cscheckin-js-sdk/dist/types/course/resp_course";
 import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_course";
@@ -58,7 +61,7 @@ export default function Checkin() {
           return undefined; // router needs a while to get the query data
         }
 
-        void GetCourse(uuid)
+        void GetCourseByUUID(uuid)
           .then((rCourse) => {
             const cs = CourseResponseSchema.try(rCourse);
 
