@@ -932,8 +932,8 @@ crypto-browserify@3.12.0, crypto-browserify@^3.11.0:
     randomfill "^1.0.3"
 
 cscheckin-js-sdk@smhs-os-project/cscheckin-js-sdk:
-  version "0.1.0-preview.7b"
-  resolved "https://codeload.github.com/smhs-os-project/cscheckin-js-sdk/tar.gz/d77fafe0bb09c5a0efc45ac04249227d39f35647"
+  version "0.1.0-preview.7f"
+  resolved "https://codeload.github.com/smhs-os-project/cscheckin-js-sdk/tar.gz/bc9397597be238bd7cf9cd25005d5fb21f5d00ea"
   dependencies:
     dayjs "^1.10.5"
     myzod "^1.7.4"
