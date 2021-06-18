@@ -81,13 +81,13 @@ export default function CheckinCreate() {
           <CheckinComponent
             id={checkinOntimeDurationId}
             help={() => {
-              warn("在「簽到準時時間」之後進來的學生都會標記為「遲到」。");
+              warn("超過「準時簽到時限」後簽到的學生都會被標記為「⚠️ 遲到」。");
             }}
             suffix={<span className="mr-1">分鐘內</span>}
           >
             <BaseInput
               id={`${checkinEndDurationId}-input`}
-              label="簽到準時時間"
+              label="準時簽到時限"
               type="number"
               value={ontimeDuration}
               onChange={setOntimeDuration}
@@ -97,14 +97,14 @@ export default function CheckinCreate() {
             id={checkinEndDurationId}
             help={() => {
               warn(
-                "在「簽到結束時間」之後，學生就不能補簽。系統會將未簽到學生標記成「未簽到」。"
+                "超過「課程簽到時限」後，學生就不能補簽。系統會將未簽到學生標記成「❌ 未到」。"
               );
             }}
             suffix={<span className="mr-1">分鐘後</span>}
           >
             <BaseInput
               id={`${checkinEndDurationId}-input`}
-              label="簽到結束時間"
+              label="課程簽到時限"
               type="number"
               value={endDuration}
               onChange={setEndDuration}
@@ -118,7 +118,7 @@ export default function CheckinCreate() {
           </div>
         </form>
       ) : (
-        <p>未指定 classroom ID。請回到管理選單重新設定。</p>
+        <p>未指定 Classroom ID。請回到管理選單重新設定。</p>
       )}
     </HeaderPageCard>
   );

@@ -21,12 +21,12 @@ export default function AdminMenu() {
       {[
         {
           id: "create",
-          name: "建立簽到連結",
+          name: "建立新的簽到連結",
           redirect: async () => router.push("/checkin/create"),
         },
         {
           id: "previous",
-          name: "查看簽到紀錄",
+          name: "查看以往的簽到紀錄",
           redirect: async () => router.push("/checkin/previous"),
         },
         {

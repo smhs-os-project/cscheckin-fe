@@ -212,7 +212,7 @@ export default function Monitor() {
             <CopyToClipboard
               text={shareLink}
               onCopy={() => {
-                setMessage("已複製！");
+                setMessage("📝 已複製！");
               }}
             >
               <BaseButton disabled={shouldLock()}>複製連結</BaseButton>
@@ -235,11 +235,11 @@ export default function Monitor() {
           <div className="flex items-center content-start justify-end mb-5">
             <div className="pr-2">
               <ul className="list-disc">
-                <li>每30秒自動更新所有資料。</li>
+                <li>系統每 30 秒會自動更新所有資料。</li>
                 <li>
-                  如果有學生剛加入 Classroom 課程，
+                  若有新學生在建立連結後加入 Classroom 課程，
                   <br />
-                  也請按下右側按鈕，將學生加進去可簽到名單裡面。
+                  請按下右側按鈕，將學生加入可簽到清單。
                 </li>
               </ul>
             </div>
@@ -263,7 +263,7 @@ export default function Monitor() {
           <table className="w-full table-text-lg table-py-4 table-px-4 md:table-px-12">
             <thead>
               <tr className="border-b border-gray-500">
-                <th>簽到</th>
+                <th>簽到狀況</th>
                 <th>(班級-座號) 姓名</th>
                 <th>簽到時間</th>
               </tr>

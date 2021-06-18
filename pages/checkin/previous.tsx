@@ -9,8 +9,8 @@ import { useAuth } from "../../components/AuthStore/utilities";
 
 export default function CheckinPrevious() {
   const pageId = "checkin-choose-previous";
-  const pageTitle = "選擇過去紀錄";
-  const pageDesc = "選擇要查看的過去記錄。";
+  const pageTitle = "選擇以往的簽到紀錄";
+  const pageDesc = "選擇要查看以往的簽到紀錄。";
 
   const router = useRouter();
   const [auth, loading] = useAuth();
@@ -23,7 +23,7 @@ export default function CheckinPrevious() {
         const course = CourseListResponseSchema.try(rawCourse);
 
         if (course instanceof ValidationError) {
-          setMessage("無法取得過去紀錄。");
+          setMessage("無法取得以往的簽到紀錄。");
         } else {
           setPrevious(course);
           setMessage(null);
@@ -32,7 +32,7 @@ export default function CheckinPrevious() {
     } else if (!loading) {
       setMessage("未登入。");
     } else {
-      setMessage("正在取得過去紀錄⋯⋯");
+      setMessage("正在取得以往的簽到紀錄⋯⋯");
     }
   }, [auth, loading]);
 

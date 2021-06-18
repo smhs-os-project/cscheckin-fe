@@ -48,9 +48,9 @@ export default function UserRegister() {
     case Stage.SUCCESS:
       if (typeof redirect === "string") {
         void router.push(redirect);
-        return messageElement("註冊完成。正在返回原頁面⋯⋯");
+        return messageElement("設定完成。正在返回原頁面⋯⋯");
       }
-      return messageElement("註冊完成。");
+      return messageElement("設定完成。");
     case Stage.USER_INPUT:
     case Stage.SUBMIT:
     default:

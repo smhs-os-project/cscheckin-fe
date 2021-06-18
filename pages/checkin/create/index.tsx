@@ -14,7 +14,7 @@ import ListChoicePageCard from "../../../components/Page/ListChoicePageCard";
 export default function CheckinCreate() {
   const pageId = "checkin-choose-classroom";
   const pageTitle = "選擇 Classroom 教室";
-  const pageDesc = "選擇要設定簽到的 classroom。";
+  const pageDesc = "選擇要設定簽到的 Classroom。";
 
   const router = useRouter();
   const [auth, loading] = useAuth();
