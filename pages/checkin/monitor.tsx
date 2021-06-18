@@ -62,6 +62,26 @@ export default function Monitor() {
     setStage(Stage.FAILED);
   });
 
+  const getData = async () =>
+    Promise.all([
+      GetCourseStateAction(deps)
+        .then((state) => {
+          setCourseState(state);
+        })
+        .catch(catcher),
+      GetLinkAction(deps)
+        .then((link) => {
+          setShareLink(link);
+        })
+        .catch(catcher),
+      GetCheckinListAction(deps)
+        // cl = Checkin List
+        .then((cl) => {
+          setCheckinList(cl);
+        })
+        .catch(catcher),
+    ]);
+
   // Deps
   useEffect(() => {
     setDeps({
@@ -120,13 +140,23 @@ export default function Monitor() {
       case InitiateStage.END:
         setMessage(null);
         setStage(Stage.READY);
+        setInterval(() => {
+          setStage(Stage.BUSY);
+          setMessage("正在更新資料⋯⋯");
+          void getData()
+            .then(() => {
+              setMessage(null);
+              setStage(Stage.READY);
+            })
+            .catch(catcher);
+        }, 5000);
         NProgress.done();
         break;
       case InitiateStage.FAILED:
       default:
         break;
     }
-  }, [id, auth, loading, initiateStage, stage]);
+  }, [id, auth, loading, initiateStage]);
 
   // Stage
   useEffect(() => {
@@ -215,7 +245,17 @@ export default function Monitor() {
           </div>
         </section>
         <section>
-          <div className="flex justify-end mt-3">
+          <div className="flex items-center content-start justify-end mb-5">
+            <div className="pr-2">
+              <ul className="list-disc">
+                <li>每5秒自動更新簽到名單。</li>
+                <li>
+                  如果有學生剛加入 Classroom 課程，
+                  <br />
+                  請按下右側按鈕，將學生加進去可簽到名單裡面。
+                </li>
+              </ul>
+            </div>
             <BaseButton
               onClick={async () => {
                 setStage(Stage.BUSY);
@@ -225,7 +265,7 @@ export default function Monitor() {
               }}
               disabled={shouldLock()}
             >
-              更新學生名單
+              更新學生簽到狀態
             </BaseButton>
           </div>
           <table className="w-full table-text-lg table-py-4 table-px-4 md:table-px-12">
@@ -238,7 +278,9 @@ export default function Monitor() {
             </thead>
             <tbody>
               {checkinList.map((stu) => (
-                <tr key={stu.checkin_id}>
+                <tr
+                  key={`cl-${stu.checkin_id}-${stu.class}${stu.number}-${stu.name}`}
+                >
                   <td>{getCheckinStatusIcon(stu.state)}</td>
                   <td>
                     ({stu.class !== "" ? stu.class : "?"}-
