@@ -232,9 +232,7 @@ export default function Monitor() {
             <thead>
               <tr className="border-b border-gray-500">
                 <th>簽到</th>
-                <th>班級</th>
-                <th>座號</th>
-                <th>姓名</th>
+                <th>(班級-座號) 姓名</th>
                 <th>簽到時間</th>
               </tr>
             </thead>
@@ -242,9 +240,10 @@ export default function Monitor() {
               {checkinList.map((stu) => (
                 <tr key={stu.checkin_id}>
                   <td>{getCheckinStatusIcon(stu.state)}</td>
-                  <td>{stu.class !== "" ? stu.class : "?"}</td>
-                  <td>{stu.number !== "" ? stu.number : "?"}</td>
-                  <td>{stu.name}</td>
+                  <td>
+                    ({stu.class !== "" ? stu.class : "?"}-
+                    {stu.number !== "" ? stu.number : "?"}) {stu.name}
+                  </td>
                   <td>{stu.created_at.toLocaleString()}</td>
                 </tr>
               ))}
