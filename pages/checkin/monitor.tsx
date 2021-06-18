@@ -221,6 +221,7 @@ export default function Monitor() {
               onClick={async () => {
                 setStage(Stage.BUSY);
                 await EndCheckinAction(deps)
+                  .then(() => getData())
                   .then(() => setStage(Stage.READY))
                   .catch(catcher);
               }}
