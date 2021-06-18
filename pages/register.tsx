@@ -15,8 +15,8 @@ enum Stage {
 
 export default function UserRegister() {
   const pageId = "user-register";
-  const pageTitle = "使用者註冊";
-  const pageDesc = "輸入班級與座號。";
+  const pageTitle = "輸入班級座號";
+  const pageDesc = "僅需輸入一次。";
 
   const router = useRouter();
   const { redirect } = router.query;
