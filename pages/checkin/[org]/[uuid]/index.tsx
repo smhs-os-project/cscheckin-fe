@@ -2,9 +2,8 @@ import {
   Checkin as StudentCheckinMethod,
   GetCourseByUUID,
 } from "cscheckin-js-sdk";
-import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_token";
-import type { CourseResponse } from "cscheckin-js-sdk/dist/types/course/resp_course";
-import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_course";
+import type { Organization, CourseResponse } from "cscheckin-js-sdk/dist/types";
+import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types";
 import { ValidationError } from "myzod";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";

@@ -1,5 +1,5 @@
-import { CheckinState } from "cscheckin-js-sdk/dist/types/common/checkin_state";
-import type { TeacherCheckinListResponse } from "cscheckin-js-sdk/dist/types/teacher/resp_checkin_list";
+import { CheckinState } from "cscheckin-js-sdk/dist/types";
+import type { TeacherCheckinListResponse } from "cscheckin-js-sdk/dist/types";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import NProgress from "nprogress";

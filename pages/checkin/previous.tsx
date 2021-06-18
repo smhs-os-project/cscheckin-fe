@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-
-import type { CourseListResponse } from "cscheckin-js-sdk/dist/types/course/resp_course";
-import { CourseListResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_course";
+import type { CourseListResponse } from "cscheckin-js-sdk/dist/types";
+import { CourseListResponseSchema } from "cscheckin-js-sdk/dist/types";
 import { GetCoursesList } from "cscheckin-js-sdk";
 import { ValidationError } from "myzod";
 import { useRouter } from "next/router";

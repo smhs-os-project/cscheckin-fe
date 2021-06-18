@@ -8,11 +8,13 @@ import {
   SyncCourseMembers,
 } from "cscheckin-js-sdk";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
-import { CheckinState } from "cscheckin-js-sdk/dist/types/common/checkin_state";
-import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_course";
-import { ShareResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_share";
-import type { TeacherCheckinListResponse } from "cscheckin-js-sdk/dist/types/teacher/resp_checkin_list";
-import { TeacherCheckinListResponseSchema } from "cscheckin-js-sdk/dist/types/teacher/resp_checkin_list";
+import {
+  CheckinState,
+  CourseResponseSchema,
+  ShareResponseSchema,
+  TeacherCheckinListResponseSchema,
+} from "cscheckin-js-sdk/dist/types";
+import type { TeacherCheckinListResponse } from "cscheckin-js-sdk/dist/types";
 import { ValidationError } from "myzod";
 
 export interface StageDeps {

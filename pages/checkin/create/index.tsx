@@ -1,11 +1,13 @@
 import { CreateCourse, GetClassroomsList } from "cscheckin-js-sdk";
 import React, { useEffect, useState } from "react";
 import NProgress from "nprogress";
-import type { GClassroomListResponse } from "cscheckin-js-sdk/dist/types/course/resp_gclassroom";
-import { GClassroomListResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_gclassroom";
+import type { GClassroomListResponse } from "cscheckin-js-sdk/dist/types";
+import {
+  GClassroomListResponseSchema,
+  CourseResponseSchema,
+} from "cscheckin-js-sdk/dist/types";
 import { ValidationError } from "myzod";
 import { useRouter } from "next/router";
-import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types/course/resp_course";
 import { useAuth } from "../../../components/AuthStore/utilities";
 import ListChoicePageCard from "../../../components/Page/ListChoicePageCard";
 

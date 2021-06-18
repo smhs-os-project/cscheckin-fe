@@ -1,5 +1,5 @@
 import CSCAuth from "cscheckin-js-sdk/dist/auth";
-import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_token";
+import type { Organization } from "cscheckin-js-sdk/dist/types";
 import React, { useState, useEffect } from "react";
 
 import type {

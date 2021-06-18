@@ -1,7 +1,7 @@
 import { ValidationError } from "myzod";
 import { GetOrganization } from "cscheckin-js-sdk";
-import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_token";
-import { OrgInfoResponseSchema } from "cscheckin-js-sdk/dist/types/org_info/resp_org_info";
+import type { Organization } from "cscheckin-js-sdk/dist/types";
+import { OrgInfoResponseSchema } from "cscheckin-js-sdk/dist/types";
 
 export default async function getSpecifiedClientId(
   org: Organization

@@ -1,5 +1,5 @@
 import { GetOrganizationList } from "cscheckin-js-sdk";
-import { OrgInfoListResponseSchema } from "cscheckin-js-sdk/dist/types/org_info/resp_org_info";
+import { OrgInfoListResponseSchema } from "cscheckin-js-sdk/dist/types";
 import { ValidationError } from "myzod";
 
 export default async function getClientIdList() {

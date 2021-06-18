@@ -1,4 +1,4 @@
-import { CheckinState } from "cscheckin-js-sdk/dist/types/common/checkin_state";
+import { CheckinState } from "cscheckin-js-sdk/dist/types";
 
 export function getCourseStatus(state: CheckinState) {
   switch (state) {

@@ -1,5 +1,7 @@
-import type { Organization } from "cscheckin-js-sdk/dist/types/auth/req_auth_token";
-import type { OrgInfoListResponse } from "cscheckin-js-sdk/dist/types/org_info/resp_org_info";
+import type {
+  Organization,
+  OrgInfoListResponse,
+} from "cscheckin-js-sdk/dist/types";
 import router from "next/router";
 import React, { useState, useEffect } from "react";
 import NProgress from "nprogress";
