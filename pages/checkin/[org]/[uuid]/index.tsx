@@ -175,8 +175,10 @@ export default function Checkin() {
           <p>簽到時間：{new Date().toLocaleString()}</p>
         </HeaderPageCard>
       );
-    default:
+    case Stage.FAILED:
       break;
+    default:
+      return null;
   }
 
   return (

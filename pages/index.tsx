@@ -92,7 +92,7 @@ export default function Home() {
     }
     case Stage.HAVE_LOGIN: {
       void router.push("/admin");
-      break;
+      return null;
     }
     case Stage.FAILED:
     default:
