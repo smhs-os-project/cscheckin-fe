@@ -116,24 +116,7 @@ export default function Monitor() {
         break;
       case InitiateStage.GET_DATA:
         setMessage("正在取得資料⋯⋯");
-        void Promise.all([
-          GetCourseStateAction(deps)
-            .then((state) => {
-              setCourseState(state);
-            })
-            .catch(catcher),
-          GetLinkAction(deps)
-            .then((link) => {
-              setShareLink(link);
-            })
-            .catch(catcher),
-          GetCheckinListAction(deps)
-            // cl = Checkin List
-            .then((cl) => {
-              setCheckinList(cl);
-            })
-            .catch(catcher),
-        ]).then(() => {
+        void getData().then(() => {
           setInitiateStage(InitiateStage.END);
         });
         break;
@@ -149,7 +132,7 @@ export default function Monitor() {
               setStage(Stage.READY);
             })
             .catch(catcher);
-        }, 5000);
+        }, 30000);
         NProgress.done();
         break;
       case InitiateStage.FAILED:
@@ -248,11 +231,11 @@ export default function Monitor() {
           <div className="flex items-center content-start justify-end mb-5">
             <div className="pr-2">
               <ul className="list-disc">
-                <li>每5秒自動更新簽到名單。</li>
+                <li>每30秒自動更新所有資料。</li>
                 <li>
                   如果有學生剛加入 Classroom 課程，
                   <br />
-                  請按下右側按鈕，將學生加進去可簽到名單裡面。
+                  也請按下右側按鈕，將學生加進去可簽到名單裡面。
                 </li>
               </ul>
             </div>
@@ -260,12 +243,14 @@ export default function Monitor() {
               onClick={async () => {
                 setStage(Stage.BUSY);
                 await SyncListAction(deps)
+                  .then(() => GetCheckinListAction(deps))
+                  .then((cl) => setCheckinList(cl))
                   .then(() => setStage(Stage.READY))
                   .catch(catcher);
               }}
               disabled={shouldLock()}
             >
-              更新學生簽到狀態
+              更新資料
             </BaseButton>
           </div>
           <table className="w-full table-text-lg table-py-4 table-px-4 md:table-px-12">
