@@ -69,11 +69,6 @@ export default function Monitor() {
           setCourseState(state);
         })
         .catch(catcher),
-      GetLinkAction(deps)
-        .then((link) => {
-          setShareLink(link);
-        })
-        .catch(catcher),
       GetCheckinListAction(deps)
         // cl = Checkin List
         .then((cl) => {
@@ -116,9 +111,17 @@ export default function Monitor() {
         break;
       case InitiateStage.GET_DATA:
         setMessage("正在取得資料⋯⋯");
-        void getData().then(() => {
-          setInitiateStage(InitiateStage.END);
-        });
+        void Promise.all([
+          GetLinkAction(deps)
+            .then((link) => {
+              setShareLink(link);
+            })
+            .catch(catcher),
+          getData().then(() => {
+            setInitiateStage(InitiateStage.END);
+          }),
+        ]);
+
         break;
       case InitiateStage.END:
         setMessage(null);
@@ -242,10 +245,13 @@ export default function Monitor() {
             <BaseButton
               onClick={async () => {
                 setStage(Stage.BUSY);
+                setMessage("正在更新資料⋯⋯");
                 await SyncListAction(deps)
-                  .then(() => GetCheckinListAction(deps))
-                  .then((cl) => setCheckinList(cl))
-                  .then(() => setStage(Stage.READY))
+                  .then(() => getData())
+                  .then(() => {
+                    setMessage(null);
+                    setStage(Stage.READY);
+                  })
                   .catch(catcher);
               }}
               disabled={shouldLock()}
