@@ -75,7 +75,7 @@ export default function UserRegister() {
         }}
       >
         <BaseInput
-          id="no-field"
+          id="class-field"
           label="班級"
           type="number"
           placeholder="ex. 101"
