@@ -12,15 +12,26 @@ export async function Logout(): Promise<void> {
 /**
  * @returns [Authentication Object, Loading?, Logout Method]
  */
-export function useAuth(): [CSCAuth | null, boolean, () => Promise<void>] {
+export function useAuth(
+  redirect = true
+): [CSCAuth | null, boolean, () => Promise<void>] {
   const [auth, setAuth] = useState<CSCAuth | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    void AuthStore.retrieve().then((v) => {
-      setAuth(v);
-      setLoading(false);
-    });
+    void (async () => {
+      const theAuth = await AuthStore.retrieve();
+      const accessData = await theAuth?.getAccessData();
+
+      if (accessData && accessData.exp < Date.now()) {
+        setAuth(theAuth);
+        setLoading(false);
+      } else {
+        AuthStore.remove();
+        setLoading(false);
+        if (redirect) window.location.href = "/"; // redirect to login screen
+      }
+    })();
   });
 
   async function logout() {
