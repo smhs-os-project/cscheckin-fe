@@ -58,11 +58,7 @@ export default function UserRegister() {
   }
 
   return (
-    <HeaderPageCard
-      id="user-register"
-      title="使用者註冊"
-      desc="輸入班級與座號。"
-    >
+    <HeaderPageCard id={pageId} title={pageTitle} desc={pageDesc}>
       <form
         onSubmit={async (event) => {
           event.preventDefault();
