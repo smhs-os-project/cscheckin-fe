@@ -24,7 +24,7 @@ export default function Home() {
   const pageTitle = "教師登入系統";
   const pageDesc = "讓你對各個學生的出缺席情況暸若指掌。";
 
-  const [auth] = useAuth();
+  const [auth] = useAuth(false);
   const [stage, setStage] = useState(Stage.PREPARING);
   // cc = client id
   const [cc, setCC] = useState<Organization | null>(null);
