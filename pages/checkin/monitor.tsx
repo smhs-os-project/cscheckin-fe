@@ -64,17 +64,14 @@ export default function Monitor() {
 
   const getData = async () =>
     Promise.all([
-      GetCourseStateAction(deps)
-        .then((state) => {
-          setCourseState(state);
-        })
-        .catch(catcher),
+      GetCourseStateAction(deps).then((state) => {
+        setCourseState(state);
+      }),
       GetCheckinListAction(deps)
         // cl = Checkin List
         .then((cl) => {
           setCheckinList(cl);
-        })
-        .catch(catcher),
+        }),
     ]);
 
   // Deps
@@ -120,7 +117,7 @@ export default function Monitor() {
           getData().then(() => {
             setInitiateStage(InitiateStage.END);
           }),
-        ]);
+        ]).catch(catcher);
 
         break;
       case InitiateStage.END:
@@ -192,7 +189,7 @@ export default function Monitor() {
               />
             </label>
           </div>
-          <div className="mb-5 course-status w-10/12 text-center">
+          <div className="w-10/12 mb-5 text-center course-status">
             {getCourseStatus(courseState)}
           </div>
           <div className="mb-5 course-status">{message}</div>
