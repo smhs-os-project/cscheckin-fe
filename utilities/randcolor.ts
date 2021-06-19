@@ -12,8 +12,14 @@ export function randColor(): string {
   return choseColor;
 }
 
-export default function randBackgroundColor(withHover = true): string {
+export function randBackgroundColor(withHover = true): string {
   const c = randColor();
 
   return `bg-${c}-50 ${withHover && `hover:bg-${c}-900`}`;
+}
+
+export function randTextColor(withHover = true): string {
+  const c = randColor();
+
+  return `text-${c}-500 ${withHover && `hover:text-${c}-900`}`
 }
