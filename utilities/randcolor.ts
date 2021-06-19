@@ -21,5 +21,5 @@ export function randBackgroundColor(withHover = true): string {
 export function randTextColor(withHover = true): string {
   const c = randColor();
 
-  return `text-${c}-500 ${withHover && `hover:text-${c}-900`}`;
+  return `text-${c}-400 ${withHover && `hover:text-${c}-900`}`;
 }
