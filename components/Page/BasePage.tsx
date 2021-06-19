@@ -44,9 +44,7 @@ export default function BasePage({
         >
           {children}
         </section>
-        <section
-          className="fixed bottom-5 right-5"
-        >
+        <section className="fixed bottom-5 right-5">
           <SupportBtn />
         </section>
       </section>
