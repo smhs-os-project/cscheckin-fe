@@ -10,6 +10,9 @@ import BasePage from "../../components/Page/BasePage";
 import catcherBuilder from "../../utilities/catcher";
 import HeaderPageCard from "../../components/Page/HeaderPageCard";
 import type { StageDeps } from "../../components/Monitor/StageAction";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBug } from "@fortawesome/free-solid-svg-icons";
+import { randTextColor } from "../../utilities/randcolor";
 import {
   EndCheckinAction,
   GetCheckinListAction,
@@ -233,11 +236,14 @@ export default function Monitor() {
             <div className="pr-2">
               <ul className="list-disc">
                 <li>系統每 30 秒會自動更新所有資料。</li>
+                <li>如果列表資料不完整，請點選右側的更新資料按鈕。</li>
                 <li>
-                  若有新學生在建立連結後加入 Classroom 課程，
-                  <br />
-                  請按下右側按鈕，將學生加入可簽到清單。
-                </li>
+                  如果系統仍無法正常運作，請點選右下角的「
+                  <FontAwesomeIcon
+                    icon={faBug}
+                    className={`transition-all duration-300 ${randTextColor()}`}
+                  />
+                  」來回報問題，感謝。</li>
               </ul>
             </div>
             <BaseButton
