@@ -21,7 +21,7 @@ export default function BasePage({
   return (
     <>
       <Head>
-        <title>Cscheckin - {title}</title>
+        <title>CSCheckin - {title}</title>
       </Head>
       <section
         className={`page-root page-${id} grid ${styles["basepageGrid"]} ${
