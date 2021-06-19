@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,11 +19,14 @@ export default function Navbar() {
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
         )}
-        <button type="button" className="focus:outline-none">
-          <Link href="/">
-            <Image src="/icon.svg" width="36em" height="36em" />
-          </Link>
+        <button
+          type="button"
+          className="focus:outline-none"
+          onClick={() => router.push("/")}
+        >
+          <Image src="/icon.svg" width="36em" height="36em" />
         </button>
+        <p className="pb-1 text-2xl font-bold ml-2">CSCheckin</p>
       </div>
       <div className="col-start-3 col-end-3 justify-self-end">
         {/* Your Content */}
