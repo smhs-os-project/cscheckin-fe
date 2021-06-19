@@ -192,7 +192,7 @@ export default function Monitor() {
               />
             </label>
           </div>
-          <div className="mb-5 course-status">
+          <div className="mb-5 course-status w-10/12 text-center">
             {getCourseStatus(courseState)}
           </div>
           <div className="mb-5 course-status">{message}</div>
