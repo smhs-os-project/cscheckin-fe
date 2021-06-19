@@ -20,7 +20,6 @@ export default function SupportBtn() {
       <button type="button" className="rounded-full">
         <a href="https://cscin.tk/join" target="_blank" rel="noreferrer">
           <div className="flex items-center" style={{ marginRight: ".7rem" }}>
-            <div className="hidden mr-4 opacity-75 hover:block">使用說明</div>
             <FontAwesomeIcon
               icon={faQuestionCircle}
               size="2x"
@@ -41,7 +40,6 @@ export default function SupportBtn() {
           rel="noreferrer"
         >
           <div className="flex items-center">
-            <div className="hidden mr-4 opacity-75 hover:block">問題回報</div>
             <FontAwesomeIcon
               icon={faBug}
               size="2x"
