@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import type { ReactNode } from "react";
 import Navbar from "../Navbar/Navbar";
+import SupportBtn from "../Support/FlowButton";
 import styles from "../../styles/BasePage.module.css";
 
 export interface BasePageProps {
@@ -42,6 +43,11 @@ export default function BasePage({
           }}
         >
           {children}
+        </section>
+        <section
+          className="fixed bottom-5 right-5"
+        >
+          <SupportBtn />
         </section>
       </section>
     </>
