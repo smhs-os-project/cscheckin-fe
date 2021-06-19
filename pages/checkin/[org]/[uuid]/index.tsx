@@ -147,7 +147,7 @@ export default function Checkin() {
           <HeaderPageCard
             id={pageId}
             title={pageTitle}
-            desc={`簽到${course?.name}。`}
+            desc={`簽到課程「${course?.name}」。`}
           >
             <LoginComponent
               // we assumed user sent the valid organization,
