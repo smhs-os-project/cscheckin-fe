@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import LocalDB from ".";
 
 const localDB = LocalDB.getInstance();
@@ -11,12 +12,20 @@ const localDB = LocalDB.getInstance();
 export function useConfig(
   key: string
 ): [string | null, (value: string) => void] {
-  return [
-    localDB.get(key),
-    (value) => {
-      localDB.set(key, value);
-    },
-  ];
+  const [value, setValue] = useState<string | null>(null);
+  const setter = (newValue: string) => {
+    setValue(localDB.set(key, newValue).get(key));
+  };
+
+  useEffect(() => {
+    setValue(localDB.get(key));
+
+    window.addEventListener("storage", (ev) => {
+      if (ev.key === key) setValue(ev.newValue);
+    });
+  }, []);
+
+  return [value, setter];
 }
 
 export default {};
