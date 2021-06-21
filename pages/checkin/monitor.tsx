@@ -4,14 +4,14 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import NProgress from "nprogress";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../components/AuthStore/utilities";
 import BaseButton from "../../components/BaseElements/BaseButton";
 import BasePage from "../../components/Page/BasePage";
 import catcherBuilder from "../../utilities/catcher";
 import HeaderPageCard from "../../components/Page/HeaderPageCard";
 import type { StageDeps } from "../../components/Monitor/StageAction";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBug } from "@fortawesome/free-solid-svg-icons";
 import { randTextColor } from "../../utilities/randcolor";
 import {
   EndCheckinAction,
@@ -243,7 +243,8 @@ export default function Monitor() {
                     icon={faBug}
                     className={`transition-all duration-300 ${randTextColor()}`}
                   />
-                  」來回報問題，感謝。</li>
+                  」來回報問題，感謝。
+                </li>
               </ul>
             </div>
             <BaseButton
