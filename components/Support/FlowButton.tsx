@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { faBug, faHandHoldingUsd, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBug,
+  faHandHoldingUsd,
+  faQuestionCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { AuthUserResponse } from "cscheckin-js-sdk/dist/types";
 import { randTextColor } from "../../utilities/randcolor";
 import { useAuth } from "../AuthStore/utilities";
-import Link from "next/link";
 
 export default function SupportBtn() {
   const router = useRouter();
@@ -18,9 +21,12 @@ export default function SupportBtn() {
 
   return (
     <div className="mr-4 space-x-4">
-      <button type="button" className="rounded-full">
+      <button type="button" className="rounded-full has-tooltip">
+        <span className="p-1 -mt-10 -ml-10 text-white bg-black rounded tooltip">
+          提供開發與維護資金
+        </span>
         <a href="https://cscin.tk/sponsor" target="_blank" rel="noreferrer">
-          <div className="flex items-center" style={{ marginRight: ".7rem" }}>
+          <div className="flex items-center">
             <FontAwesomeIcon
               icon={faHandHoldingUsd}
               size="2x"
@@ -31,7 +37,7 @@ export default function SupportBtn() {
       </button>
 
       <button type="button" className="rounded-full has-tooltip">
-        <span className="tooltip rounded p-1 bg-black text-white -mt-10 -ml-10">
+        <span className="p-1 -mt-10 -ml-10 text-white bg-black rounded tooltip">
           使用說明
         </span>
         <a href="https://cscin.tk/join" target="_blank" rel="noreferrer">
@@ -46,7 +52,7 @@ export default function SupportBtn() {
       </button>
 
       <button type="button" className="rounded-full has-tooltip">
-        <span className="tooltip rounded p-1 bg-black text-white -mt-10 -ml-10">
+        <span className="p-1 -mt-10 -ml-10 text-white bg-black rounded tooltip">
           回報問題
         </span>
         <a
