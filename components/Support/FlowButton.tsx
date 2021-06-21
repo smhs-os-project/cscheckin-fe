@@ -17,7 +17,7 @@ export default function SupportBtn() {
   }, [auth]);
 
   return (
-    <div style={{ marginRight: ".7rem" }}>
+    <div className="mr-4 space-x-4">
       <button type="button" className="rounded-full">
         <a href="https://cscin.tk/sponsor" target="_blank" rel="noreferrer">
           <div className="flex items-center" style={{ marginRight: ".7rem" }}>
@@ -30,9 +30,12 @@ export default function SupportBtn() {
         </a>
       </button>
 
-      <button type="button" className="rounded-full">
+      <button type="button" className="rounded-full has-tooltip">
+        <span className="tooltip rounded p-1 bg-black text-white -mt-10 -ml-10">
+          使用說明
+        </span>
         <a href="https://cscin.tk/join" target="_blank" rel="noreferrer">
-          <div className="flex items-center" style={{ marginRight: ".7rem" }}>
+          <div className="flex items-center">
             <FontAwesomeIcon
               icon={faQuestionCircle}
               size="2x"
@@ -42,7 +45,10 @@ export default function SupportBtn() {
         </a>
       </button>
 
-      <button type="button" className="rounded-full">
+      <button type="button" className="rounded-full has-tooltip">
+        <span className="tooltip rounded p-1 bg-black text-white -mt-10 -ml-10">
+          回報問題
+        </span>
         <a
           href={`https://cscin.tk/?action=feedback&name=${encodeURI(
             userData?.name ?? ""
