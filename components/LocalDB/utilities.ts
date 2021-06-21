@@ -1,4 +1,4 @@
-import LocalDB from "../LocalDB";
+import LocalDB from ".";
 
 const localDB = LocalDB.getInstance();
 
