@@ -21,9 +21,9 @@ export default function SupportBtn() {
 
   return (
     <div className="flex items-center mr-4 space-x-4">
-      <div className="invisible inline p-1 md:visible">
+      <div className="inline p-1">
         Powered by{" "}
-        <span className="text-blue-600 outline">
+        <span className="text-blue-600">
           ▲
           <a href="https://vercel.com/?utm_source=smhs-os-project&utm_campaign=oss">
             Vercel
