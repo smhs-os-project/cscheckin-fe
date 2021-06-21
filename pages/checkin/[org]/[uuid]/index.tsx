@@ -1,6 +1,7 @@
 import {
   Checkin as StudentCheckinMethod,
   GetCourseByUUID,
+  isBefore,
 } from "cscheckin-js-sdk";
 import type { Organization, CourseResponse } from "cscheckin-js-sdk/dist/types";
 import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types";
@@ -67,6 +68,10 @@ export default function Checkin() {
             if (cs instanceof ValidationError) {
               console.error(rCourse);
               return Promise.reject(new Error("課程不存在或尚未開放。"));
+            }
+
+            if (isBefore(cs.start_timestamp, cs.expire_time)) {
+              return Promise.reject(new Error("課程已經結束簽到。"));
             }
 
             setCourse(cs);
@@ -166,7 +171,11 @@ export default function Checkin() {
       setStage(Stage.FAILED);
       break;
     case Stage.SUCCESS:
-      AuthStore.remove();
+      AuthStore.retrieve()
+        .then((auth) => auth?.revoke())
+        .finally(() => {
+          AuthStore.remove();
+        });
       return (
         <HeaderPageCard
           id={pageId}
