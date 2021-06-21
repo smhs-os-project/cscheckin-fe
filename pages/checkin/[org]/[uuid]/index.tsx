@@ -166,6 +166,7 @@ export default function Checkin() {
       setStage(Stage.FAILED);
       break;
     case Stage.SUCCESS:
+      AuthStore.remove();
       return (
         <HeaderPageCard
           id={pageId}
