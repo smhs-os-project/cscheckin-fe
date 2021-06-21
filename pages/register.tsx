@@ -63,7 +63,7 @@ export default function UserRegister() {
         onSubmit={async (event) => {
           event.preventDefault();
           setStage(Stage.SUBMIT);
-          const success = await auth?.setIdentity(Number(theClass), Number(no));
+          const success = await auth?.setIdentity(theClass, no);
 
           if (success) {
             setStage(Stage.SUCCESS);
@@ -77,7 +77,6 @@ export default function UserRegister() {
         <BaseInput
           id="class-field"
           label="班級"
-          type="number"
           placeholder="ex. 101"
           value={theClass}
           onChange={setTheClass}
@@ -85,7 +84,6 @@ export default function UserRegister() {
         <BaseInput
           id="no-field"
           label="座號"
-          type="number"
           placeholder="ex. 13"
           value={no}
           onChange={setNo}
