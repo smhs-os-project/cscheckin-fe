@@ -5,7 +5,6 @@ export function initGA(): void {
 }
 
 export function logPageView(): void {
-  console.log(`Logging pageview for ${window.location.pathname}`);
   ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);
 }
