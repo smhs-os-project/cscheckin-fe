@@ -4,7 +4,10 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 import { GA_TRACKING_ID } from "../utilities/analytics";
 
 export default class MyDocument extends Document {
-  override render() {
+  // Before Next.js fixed the "override" issue, we ignore it currently.
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  render() {
     return (
       <Html>
         <Head>
