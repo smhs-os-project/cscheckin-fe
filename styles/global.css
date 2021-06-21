@@ -27,9 +27,9 @@
 }
 
 .tooltip {
-  @apply invisible absolute;
+  @apply absolute transition-opacity opacity-0;
 }
 
 .has-tooltip:hover .tooltip {
-  @apply visible z-50;
+  @apply z-50 opacity-100;
 }
