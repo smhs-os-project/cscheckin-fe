@@ -20,7 +20,18 @@ export default function SupportBtn() {
   }, [auth]);
 
   return (
-    <div className="mr-4 space-x-4">
+    <div className="flex items-center mr-4 space-x-4">
+      <div className="invisible inline p-1 md:visible">
+        Powered by{" "}
+        <span className="text-blue-600 outline">
+          ▲
+          <a href="https://vercel.com/?utm_source=smhs-os-project&utm_campaign=oss">
+            Vercel
+          </a>
+        </span>
+        .
+      </div>
+
       <button type="button" className="rounded-full has-tooltip">
         <span className="p-1 -mt-10 -ml-10 text-white bg-black rounded tooltip">
           提供開發與維護資金
