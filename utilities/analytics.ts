@@ -1,22 +1,34 @@
-import ReactGA from "react-ga";
+// Mostly from https://github.com/vercel/next.js/blob/canary/examples/with-google-analytics/lib/gtag.js
+// Thanks to vercel/next.js!
 
-export function initGA(): void {
-  ReactGA.initialize("G-NM8XG9Q8ST");
+export const GA_TRACKING_ID = process.env["NEXT_PUBLIC_GA_ID"];
+
+if (!GA_TRACKING_ID) {
+  throw new Error("you should specify NEXT_PUBLIC_GA_ID envvar.");
 }
 
-export function logPageView(): void {
-  ReactGA.set({ page: window.location.pathname });
-  ReactGA.pageview(window.location.pathname);
-}
+// https://developers.google.com/analytics/devguides/collection/gtagjs/pages
+export const pageview = (url: string) => {
+  window.gtag("config", GA_TRACKING_ID, {
+    page_path: url,
+  });
+};
 
-export function logEvent(category = "", action = ""): void {
-  if (category && action) {
-    ReactGA.event({ category, action });
-  }
-}
-
-export function logException(description = "", fatal = false): void {
-  if (description) {
-    ReactGA.exception({ description, fatal });
-  }
-}
+// https://developers.google.com/analytics/devguides/collection/gtagjs/events
+export const event = ({
+  action,
+  category,
+  label,
+  value,
+}: {
+  action: string;
+  category?: string;
+  label?: string;
+  value?: number;
+}) => {
+  window.gtag("event", action, {
+    event_category: category,
+    event_label: label,
+    value,
+  });
+};

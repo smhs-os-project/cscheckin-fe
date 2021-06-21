@@ -6,7 +6,7 @@ import "@fontsource/noto-sans-tc";
 import "@fontsource/fira-sans";
 import "../styles/global.css";
 import "../styles/nprogress.css";
-import { initGA, logPageView } from "../utilities/analytics";
+import * as gtag from "../utilities/analytics";
 
 Router.events.on("routeChangeStart", () => {
   NProgress.start();
@@ -21,23 +21,15 @@ Router.events.on("routeChangeError", () => {
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  // mostly from https://github.com/vercel/next.js/blob/canary/examples/with-google-analytics/pages/_app.js
   const router = useRouter();
-
   useEffect(() => {
-    initGA();
-    // `routeChangeComplete` won't run for the first page load unless the query string is
-    // hydrated later on, so here we log a page view if this is the first render and
-    // there's no query string
-    if (!router.asPath.includes("?")) {
-      logPageView();
-    }
-  }, []);
-
-  useEffect(() => {
-    // Listen for page changes after a navigation or when the query changes
-    router.events.on("routeChangeComplete", logPageView);
+    const handleRouteChange = (url: string) => {
+      gtag.pageview(url);
+    };
+    router.events.on("routeChangeComplete", handleRouteChange);
     return () => {
-      router.events.off("routeChangeComplete", logPageView);
+      router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, [router.events]);
 
