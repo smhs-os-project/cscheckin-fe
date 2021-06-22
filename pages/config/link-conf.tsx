@@ -72,8 +72,8 @@ export default function CheckinCreate() {
   const checkinEndDurationId = "checkin-end-duration";
 
   const [warnMessage, warn] = useWarn();
-  const [iLateDuration, setILateDuration] = useState(DEFAULT_LATE_DURATION);
-  const [iEndDuration, setIEndDuration] = useState(DEFAULT_END_DURATION);
+  // const [iLateDuration, setILateDuration] = useState(DEFAULT_LATE_DURATION);
+  // const [iEndDuration, setIEndDuration] = useState(DEFAULT_END_DURATION);
   const [lateDuration, setLateDuration] = useConfig(LATE_DURATION);
   const [endDuration, setEndDuration] = useConfig(END_DURATION);
 
