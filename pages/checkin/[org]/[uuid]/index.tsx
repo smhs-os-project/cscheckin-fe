@@ -110,7 +110,7 @@ export default function Checkin() {
       }
       case Stage.REQUIRE_TO_REGISTER:
         void router.push(
-          `/register?redirect=/checkin/${org}/${uuid}?skip_login=1`
+          `/config/register?redirect=/checkin/${org}/${uuid}?skip_login=1`
         );
         break;
       case Stage.CHECK_IN:
