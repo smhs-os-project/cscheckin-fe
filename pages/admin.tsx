@@ -30,6 +30,11 @@ export default function AdminMenu() {
           redirect: async () => router.push("/checkin/previous"),
         },
         {
+          id: "configure",
+          name: "設定與修改簽到系統",
+          redirect: async () => router.push("/config"),
+        },
+        {
           id: "logout",
           name: "登出",
           redirect: logout,
