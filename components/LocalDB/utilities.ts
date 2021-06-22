@@ -10,19 +10,18 @@ const localDB = LocalDB.getInstance();
  * @returns [the value, the function to set the value]
  */
 export function useConfig(
-  key: string,
-  defaultValue: string | null = null
+  key: string
 ): [string | null, (value: string) => void] {
   const [value, setValue] = useState<string | null>(null);
   const setter = (newValue: string) => {
-    setValue(localDB.set(key, newValue).get(key) ?? defaultValue);
+    setValue(localDB.set(key, newValue).get(key));
   };
 
   useEffect(() => {
-    setValue(localDB.get(key) ?? defaultValue);
+    setValue(localDB.get(key));
 
     window.addEventListener("storage", (ev) => {
-      if (ev.key === key) setValue(ev.newValue ?? defaultValue);
+      if (ev.key === key) setValue(ev.newValue);
     });
   }, []);
 
