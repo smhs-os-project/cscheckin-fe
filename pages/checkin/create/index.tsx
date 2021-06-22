@@ -46,7 +46,7 @@ export default function CheckinCreate() {
       setMessage("權限不足。");
     } else {
       NProgress.start();
-      Sentry.captureMessage("正在搜尋 Classroom 教室⋯⋯", Sentry.Severity.Log);
+      Sentry.captureMessage("正在搜尋 Classroom 教室⋯⋯", Sentry.Severity.Debug);
       setMessage("正在搜尋 Classroom 教室⋯⋯");
     }
   }, [auth, loading]);

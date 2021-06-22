@@ -47,7 +47,7 @@ export default function UserRegister() {
 
   switch (stage) {
     case Stage.LOADING:
-      Sentry.captureMessage("正在檢查登入狀態⋯⋯", Sentry.Severity.Log);
+      Sentry.captureMessage("正在檢查登入狀態⋯⋯", Sentry.Severity.Debug);
       return messageElement("正在檢查登入狀態⋯⋯");
     case Stage.FAILED:
       Sentry.captureMessage(message ?? "發生未知錯誤。", Sentry.Severity.Error);
@@ -55,7 +55,7 @@ export default function UserRegister() {
     case Stage.SUCCESS:
       Sentry.captureMessage(
         `設定完成 (redirect: ${redirect ?? "NONE"})`,
-        Sentry.Severity.Log
+        Sentry.Severity.Debug
       );
 
       if (typeof redirect === "string") {
@@ -80,7 +80,7 @@ export default function UserRegister() {
           if (success) {
             Sentry.captureMessage(
               `更新資料成功 (class: ${theClass}, number: ${no})`,
-              Sentry.Severity.Info
+              Sentry.Severity.Debug
             );
             setStage(Stage.SUCCESS);
             return;

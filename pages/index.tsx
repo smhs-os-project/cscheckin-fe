@@ -37,7 +37,7 @@ export default function Home() {
   useEffect(() => {
     void (async () => {
       NProgress.start();
-      Sentry.captureMessage(`正在取得 client id⋯⋯`, Sentry.Severity.Log);
+      Sentry.captureMessage(`正在取得 client id⋯⋯`, Sentry.Severity.Debug);
       setClientIdList(await getClientIdList());
       NProgress.done();
       setStage(Stage.CHOOSE_SCHOOL);
@@ -51,14 +51,14 @@ export default function Home() {
 
   switch (stage) {
     case Stage.PREPARING:
-      Sentry.captureMessage("正在準備⋯⋯", Sentry.Severity.Log);
+      Sentry.captureMessage("正在準備⋯⋯", Sentry.Severity.Debug);
       return (
         <HeaderPageCard id={pageId} title={pageTitle} desc={pageDesc}>
           <p>正在取得服務清單。請稍候⋯⋯</p>
         </HeaderPageCard>
       );
     case Stage.CHOOSE_SCHOOL:
-      Sentry.captureMessage("正在選擇學校⋯⋯", Sentry.Severity.Log);
+      Sentry.captureMessage("正在選擇學校⋯⋯", Sentry.Severity.Debug);
       return (
         <ListChoicePageCard id={pageId} title={pageTitle} desc={pageDesc}>
           {clientIdList.map(({ id, chinese_name }) => ({
@@ -72,7 +72,7 @@ export default function Home() {
         </ListChoicePageCard>
       );
     case Stage.GOOGLE_LOGIN: {
-      Sentry.captureMessage("正在使用 Google 登入⋯⋯", Sentry.Severity.Log);
+      Sentry.captureMessage("正在使用 Google 登入⋯⋯", Sentry.Severity.Debug);
       if (cc)
         return (
           <HeaderPageCard
@@ -96,7 +96,7 @@ export default function Home() {
       break;
     }
     case Stage.HAVE_LOGIN: {
-      Sentry.captureMessage("已經登入過。", Sentry.Severity.Log);
+      Sentry.captureMessage("已經登入過。", Sentry.Severity.Debug);
       void router.push("/admin");
       return null;
     }

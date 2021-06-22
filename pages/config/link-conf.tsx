@@ -53,7 +53,7 @@ function useWarn(): [string, (message: string) => void] {
   if (warnMessage !== "") {
     Sentry.captureMessage(
       `link-conf: 警告訊息 (${warnMessage})`,
-      Sentry.Severity.Log
+      Sentry.Severity.Debug
     );
   }
 
