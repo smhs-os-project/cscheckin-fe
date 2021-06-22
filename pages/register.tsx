@@ -80,6 +80,7 @@ export default function UserRegister() {
           placeholder="ex. 101"
           value={theClass}
           onChange={setTheClass}
+          required
         />
         <BaseInput
           id="no-field"
@@ -87,6 +88,7 @@ export default function UserRegister() {
           placeholder="ex. 13"
           value={no}
           onChange={setNo}
+          required
         />
         <BaseButton
           submit
