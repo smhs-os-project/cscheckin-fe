@@ -7,6 +7,7 @@ export interface BaseInputsProps {
   value?: string;
   placeholder?: string;
   onChange?: (value: string) => void;
+  required?: boolean;
 }
 
 export default function BaseInput({
@@ -15,6 +16,7 @@ export default function BaseInput({
   type = "input",
   value,
   placeholder,
+  required = false,
   onChange,
 }: BaseInputsProps) {
   const partId = `${id}-part`;
@@ -34,6 +36,7 @@ export default function BaseInput({
           onChange={(event) => onChange && onChange(event.target.value)}
           value={value}
           placeholder={placeholder}
+          required={required}
         />
       </label>
     </div>
