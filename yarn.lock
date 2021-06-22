@@ -216,7 +216,7 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.0.6.tgz#023d72a5c4531b4ce204528971700a78a85a0c50"
   integrity sha512-Myxw//kzromB9yWgS8qYGuGVf91oBUUJpNvy5eM50sqvmKLbKjwLxohJnkWGTeeI9v9IBMtPLxz5Gc60FIfvCA==
 
-"@sentry/browser@6.7.2":
+"@sentry/browser@6.7.2", "@sentry/browser@^6.7.2":
   version "6.7.2"
   resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-6.7.2.tgz#cfbe060de5a9694617f175a6bde469e5e266792e"
   integrity sha512-Lv0Ne1QcesyGAhVcQDfQa3hDPR/MhPSDTMg3xFi+LxqztchVc4w/ynzR0wCZFb8KIHpTj5SpJHfxpDhXYMtS9g==
@@ -318,7 +318,7 @@
     hoist-non-react-statics "^3.3.2"
     tslib "^1.9.3"
 
-"@sentry/tracing@6.7.2":
+"@sentry/tracing@6.7.2", "@sentry/tracing@^6.7.2":
   version "6.7.2"
   resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-6.7.2.tgz#78a6934837143ae5e200b49bd256bc8a917477bc"
   integrity sha512-juKlI7FICKONWJFJxDxerj0A+8mNRhmtrdR+OXFqOkqSAy/QXlSFZcA/j//O19k2CfwK1BrvoMcQ/4gnffUOVg==
@@ -405,7 +405,7 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
   integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
 
-"@typescript-eslint/eslint-plugin@^4.23.0":
+"@typescript-eslint/eslint-plugin@^4.23.0", "@typescript-eslint/eslint-plugin@^4.28.0":
   version "4.28.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.28.0.tgz#1a66f03b264844387beb7dc85e1f1d403bd1803f"
   integrity sha512-KcF6p3zWhf1f8xO84tuBailV5cN92vhS+VT7UJsPzGBm9VnQqfI9AsiMUFUCYHTYPg1uCCo+HyiDnpDuvkAMfQ==
@@ -1143,12 +1143,16 @@ crypto-browserify@3.12.0, crypto-browserify@^3.11.0:
     randomfill "^1.0.3"
 
 cscheckin-js-sdk@smhs-os-project/cscheckin-js-sdk:
-  version "1.0.0-beta.2"
-  resolved "https://codeload.github.com/smhs-os-project/cscheckin-js-sdk/tar.gz/ed88f6f615471ce786d5d76dd5a2f81d9c225155"
+  version "1.0.0"
+  resolved "https://codeload.github.com/smhs-os-project/cscheckin-js-sdk/tar.gz/38195122db56fd22f14141a8df7d36949dcfd304"
   dependencies:
+    "@sentry/browser" "^6.7.2"
+    "@sentry/tracing" "^6.7.2"
+    "@typescript-eslint/eslint-plugin" "^4.28.0"
     dayjs "^1.10.5"
     myzod "^1.7.4"
     node-fetch "^2.6.1"
+    prettier "^2.3.1"
 
 css-unit-converter@^1.1.1:
   version "1.1.2"
@@ -3075,7 +3079,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^2.3.0:
+prettier@^2.3.0, prettier@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.1.tgz#76903c3f8c4449bc9ac597acefa24dc5ad4cbea6"
   integrity sha512-p+vNbgpLjif/+D+DwAZAbndtRrR0md0MwfmOVN9N+2RgyACMT+7tfaRnT+WDPkqnuVwleyuBIG2XBxKDme3hPA==
