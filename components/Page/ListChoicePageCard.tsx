@@ -5,7 +5,7 @@ import { randBackgroundColor } from "../../utilities/randcolor";
 
 import HeaderPageCard from "./HeaderPageCard";
 
-export interface CheckinCreateProps {
+export interface ListChoicePageCardProps {
   id: string;
   title: string;
   desc: string;
@@ -15,7 +15,7 @@ export interface CheckinCreateProps {
    * Example:
    *
    * ```tsx
-   * <CheckinCreateProps {...props}>{
+   * <ListChoicePageCard {...props}>{
    *  [
    *    {
    *      id: "",
@@ -23,7 +23,7 @@ export interface CheckinCreateProps {
    *      redirect: () => ...,
    *    }
    *  ]
-   * }</CheckinCreateProps>
+   * }</ListChoicePageCard>
    * ```
    */
   children: {
@@ -34,13 +34,13 @@ export interface CheckinCreateProps {
   message?: string | null;
 }
 
-export default function CheckinCreate({
+export default function ListChoicePageCard({
   id: pid,
   title,
   desc,
   children: content,
   message,
-}: CheckinCreateProps) {
+}: ListChoicePageCardProps) {
   const noContent = content.length === 0;
   const hasMessage = !!message;
   const shouldShowMessage = hasMessage || noContent;
