@@ -10,7 +10,6 @@ import { useAuth } from "../../components/AuthStore/utilities";
 import BaseButton from "../../components/BaseElements/BaseButton";
 import BasePage from "../../components/Page/BasePage";
 import catcherBuilder from "../../utilities/catcher";
-import HeaderPageCard from "../../components/Page/HeaderPageCard";
 import type { StageDeps } from "../../components/Monitor/StageAction";
 import { randTextColor } from "../../utilities/randcolor";
 import {
@@ -160,18 +159,6 @@ export default function Monitor() {
     }
   }, [stage]);
 
-  if (stage === Stage.FAILED) {
-    return (
-      <HeaderPageCard
-        id="monitor-error"
-        title="發生錯誤"
-        desc="發生錯誤，以致無法顯示監控畫面。"
-      >
-        <p className="font-bold text-red-500">{message}</p>
-      </HeaderPageCard>
-    );
-  }
-
   return (
     <BasePage id="monitor" title="監控簽到連結" full>
       <div className="flex flex-col items-center justify-around md:items-baseline md:flex-row">
@@ -195,7 +182,13 @@ export default function Monitor() {
           <div className="w-10/12 mb-5 text-center course-status">
             {getCourseStatus(courseState)}
           </div>
-          <div className="mb-5 course-status">{message}</div>
+          <div
+            className={`mb-5 course-status ${
+              stage === Stage.FAILED ? "text-red-500" : ""
+            }`}
+          >
+            {message}
+          </div>
           <div className="flex flex-col self-center p-4 mb-4 space-x-0 space-y-2 text-center md:space-y-0 md:space-x-2 md:flex-row justify-self-center">
             <BaseButton
               solid
