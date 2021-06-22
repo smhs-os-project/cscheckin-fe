@@ -15,6 +15,7 @@ import LoginComponent, {
 import HeaderPageCard from "../../../../components/Page/HeaderPageCard";
 import AuthStore from "../../../../components/AuthStore";
 import catcherBuilder from "../../../../utilities/catcher";
+import Sentry from "../../../../utilities/sentry";
 
 enum Stage {
   FAILED = -1,
@@ -71,7 +72,10 @@ export default function Checkin() {
             const cs = CourseResponseSchema.try(rCourse);
 
             if (cs instanceof ValidationError) {
-              console.error(rCourse);
+              Sentry.captureMessage(
+                `課程不存在或尚未開放：${JSON.stringify(rCourse)}`
+              );
+              Sentry.captureException(cs);
               return Promise.reject(new Error("課程不存在或尚未開放。"));
             }
 
@@ -163,6 +167,10 @@ export default function Checkin() {
           </HeaderPageCard>
         );
       }
+      Sentry.captureMessage(
+        "Stage.LOGIN: 無法擷取課程資訊。",
+        Sentry.Severity.Error
+      );
       setMessage("無法擷取課程資訊。");
       setStage(Stage.FAILED);
       break;

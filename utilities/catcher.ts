@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/nextjs";
+import Sentry from "./sentry";
 
 export default function catcherBuilder(
   setMessage: (val: string) => void,

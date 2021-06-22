@@ -4,6 +4,7 @@ import { useAuth } from "../../components/AuthStore/utilities";
 import BaseButton from "../../components/BaseElements/BaseButton";
 import BaseInput from "../../components/BaseElements/BaseInput";
 import HeaderPageCard from "../../components/Page/HeaderPageCard";
+import Sentry from "../../utilities/sentry";
 
 enum Stage {
   FAILED = -1,
@@ -36,16 +37,27 @@ export default function UserRegister() {
   useEffect(() => {
     if (!auth && !loading) {
       setStage(Stage.FAILED);
+      Sentry.captureMessage(
+        "未登入。請回到原始畫面重新登入！",
+        Sentry.Severity.Error
+      );
       setMessage("未登入。請回到原始畫面重新登入！");
     } else if (auth && !loading) setStage(Stage.USER_INPUT);
   }, [auth, loading]);
 
   switch (stage) {
     case Stage.LOADING:
+      Sentry.captureMessage("正在檢查登入狀態⋯⋯", Sentry.Severity.Log);
       return messageElement("正在檢查登入狀態⋯⋯");
     case Stage.FAILED:
+      Sentry.captureMessage(message ?? "發生未知錯誤。", Sentry.Severity.Error);
       return messageElement(message ?? "發生未知錯誤。");
     case Stage.SUCCESS:
+      Sentry.captureMessage(
+        `設定完成 (redirect: ${redirect ?? "NONE"})`,
+        Sentry.Severity.Log
+      );
+
       if (typeof redirect === "string") {
         void router.push(redirect);
         return messageElement("設定完成。正在返回原頁面⋯⋯");
@@ -66,9 +78,18 @@ export default function UserRegister() {
           const success = await auth?.setIdentity(theClass, no);
 
           if (success) {
+            Sentry.captureMessage(
+              `更新資料成功 (class: ${theClass}, number: ${no})`,
+              Sentry.Severity.Info
+            );
             setStage(Stage.SUCCESS);
             return;
           }
+
+          Sentry.captureMessage(
+            "更新失敗。請確認您輸入的資料無誤後再試。",
+            Sentry.Severity.Error
+          );
 
           setMessage("更新失敗。請確認您輸入的資料無誤後再試。");
           setStage(Stage.FAILED);

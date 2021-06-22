@@ -44,7 +44,6 @@ module.exports = {
     ],
     "react/jsx-key": 2,
     "arrow-body-style": 2,
-    "no-console": 0,
     "no-void": ["error", { "allowAsStatement": true }]
   },
 };

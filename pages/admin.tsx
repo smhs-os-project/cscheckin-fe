@@ -1,16 +1,17 @@
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 
 import { useAuth } from "../components/AuthStore/utilities";
 import ListChoicePageCard from "../components/Page/ListChoicePageCard";
 
 export default function AdminMenu() {
-  const [auth, loading, logout] = useAuth();
+  // TODO: more human-readable index
+  // FOR DEVS:
+  //   as useAuth() returns
+  //   [Authentication Object, Loading?, Logout Method]
+  //   we extract the third part, "Logout Method".
+  const logout = useAuth()[2];
   const router = useRouter();
-
-  useEffect(() => {
-    if (!auth && !loading) void router.push("/");
-  });
 
   return (
     <ListChoicePageCard

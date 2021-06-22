@@ -12,6 +12,7 @@ import LoginComponent, {
 } from "../components/GoogleLoginComponent/LoginComponent";
 import HeaderPageCard from "../components/Page/HeaderPageCard";
 import ListChoicePageCard from "../components/Page/ListChoicePageCard";
+import Sentry from "../utilities/sentry";
 
 enum Stage {
   FAILED = -1,
@@ -36,6 +37,7 @@ export default function Home() {
   useEffect(() => {
     void (async () => {
       NProgress.start();
+      Sentry.captureMessage(`正在取得 client id⋯⋯`, Sentry.Severity.Log);
       setClientIdList(await getClientIdList());
       NProgress.done();
       setStage(Stage.CHOOSE_SCHOOL);
@@ -49,12 +51,14 @@ export default function Home() {
 
   switch (stage) {
     case Stage.PREPARING:
+      Sentry.captureMessage("正在準備⋯⋯", Sentry.Severity.Log);
       return (
         <HeaderPageCard id={pageId} title={pageTitle} desc={pageDesc}>
           <p>正在取得服務清單。請稍候⋯⋯</p>
         </HeaderPageCard>
       );
     case Stage.CHOOSE_SCHOOL:
+      Sentry.captureMessage("正在選擇學校⋯⋯", Sentry.Severity.Log);
       return (
         <ListChoicePageCard id={pageId} title={pageTitle} desc={pageDesc}>
           {clientIdList.map(({ id, chinese_name }) => ({
@@ -68,6 +72,7 @@ export default function Home() {
         </ListChoicePageCard>
       );
     case Stage.GOOGLE_LOGIN: {
+      Sentry.captureMessage("正在使用 Google 登入⋯⋯", Sentry.Severity.Log);
       if (cc)
         return (
           <HeaderPageCard
@@ -91,13 +96,16 @@ export default function Home() {
       break;
     }
     case Stage.HAVE_LOGIN: {
+      Sentry.captureMessage("已經登入過。", Sentry.Severity.Log);
       void router.push("/admin");
       return null;
     }
     case Stage.FAILED:
+      Sentry.captureMessage("發生錯誤。", Sentry.Severity.Error);
+      break;
     default:
       break;
   }
 
-  return <p>⚠️ 發生未知錯誤。</p>;
+  return <p>⚠️ 發生錯誤。</p>;
 }

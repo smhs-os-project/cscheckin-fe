@@ -7,6 +7,7 @@ import BaseInput from "../../components/BaseElements/BaseInput";
 import { END_DURATION, LATE_DURATION } from "../../components/LocalDB/consts";
 import { useConfig } from "../../components/LocalDB/utilities";
 import HeaderPageCard from "../../components/Page/HeaderPageCard";
+import Sentry from "../../utilities/sentry";
 
 const DEFAULT_LATE_DURATION = "10:00";
 const DEFAULT_END_DURATION = "60:00";
@@ -48,6 +49,13 @@ function useWarn(): [string, (message: string) => void] {
   const warnShowDuration = 3000; // ms
   const [warnMessage, setWarnMessage] = useState("");
   const [timeoutId, setTimeoutId] = useState<unknown>(undefined);
+
+  if (warnMessage !== "") {
+    Sentry.captureMessage(
+      `link-conf: 警告訊息 (${warnMessage})`,
+      Sentry.Severity.Log
+    );
+  }
 
   const warn = (message: string) => {
     setWarnMessage(message);

@@ -24,6 +24,7 @@ import {
   getCourseStatus,
   getCheckinStatusIcon,
 } from "../../components/Monitor/EnumToString";
+import Sentry from "../../utilities/sentry";
 
 enum InitiateStage {
   FAILED = -1,
@@ -91,24 +92,29 @@ export default function Monitor() {
       case InitiateStage.BEGIN:
         setStage(Stage.BUSY);
 
+        Sentry.captureMessage("正在初始化⋯⋯", Sentry.Severity.Log);
         setMessage("正在初始化⋯⋯");
         setInitiateStage(InitiateStage.GET_QUERY);
         break;
       case InitiateStage.GET_QUERY:
+        Sentry.captureMessage("正在查詢 id 字串⋯⋯", Sentry.Severity.Log);
         setMessage("正在查詢 id 字串⋯⋯");
         if (typeof id === "string" && Number(id))
           setInitiateStage(InitiateStage.GET_AUTH);
         break;
       case InitiateStage.GET_AUTH:
+        Sentry.captureMessage("正在取得認證資訊⋯⋯", Sentry.Severity.Log);
         setMessage("正在取得認證資訊⋯⋯");
         if (auth) setInitiateStage(InitiateStage.GET_DATA);
         else if (!auth && !loading) {
           setMessage("無法取得認證。");
+          Sentry.captureMessage("無法取得認證。", Sentry.Severity.Error);
           setStage(Stage.FAILED);
           setInitiateStage(InitiateStage.FAILED);
         }
         break;
       case InitiateStage.GET_DATA:
+        Sentry.captureMessage("正在取得資料⋯⋯", Sentry.Severity.Log);
         setMessage("正在取得資料⋯⋯");
         void Promise.all([
           GetLinkAction(deps)
@@ -127,6 +133,7 @@ export default function Monitor() {
         setStage(Stage.READY);
         setInterval(() => {
           setStage(Stage.BUSY);
+          Sentry.captureMessage("正在更新資料⋯⋯", Sentry.Severity.Log);
           setMessage("正在更新資料⋯⋯");
           void getData()
             .then(() => {
@@ -138,6 +145,7 @@ export default function Monitor() {
         NProgress.done();
         break;
       case InitiateStage.FAILED:
+        break;
       default:
         break;
     }

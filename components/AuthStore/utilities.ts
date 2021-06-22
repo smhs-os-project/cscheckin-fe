@@ -1,5 +1,6 @@
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import { useEffect, useState } from "react";
+import Sentry from "../../utilities/sentry";
 import AuthStore from ".";
 
 export async function Logout(): Promise<void> {
@@ -27,6 +28,9 @@ export function useAuth(
         setAuth(theAuth);
         setLoading(false);
       } else {
+        Sentry.captureMessage(
+          "AuthStore.utilities.useAuth: The session of this user has been expired or is invalid."
+        );
         AuthStore.remove();
         setLoading(false);
         if (redirect) window.location.href = "/"; // redirect to login screen

@@ -6,6 +6,7 @@ import { ValidationError } from "myzod";
 import { useRouter } from "next/router";
 import ListChoicePageCard from "../../components/Page/ListChoicePageCard";
 import { useAuth } from "../../components/AuthStore/utilities";
+import Sentry from "../../utilities/sentry";
 
 export default function CheckinPrevious() {
   const pageId = "checkin-choose-previous";
@@ -23,6 +24,11 @@ export default function CheckinPrevious() {
         const course = CourseListResponseSchema.try(rawCourse);
 
         if (course instanceof ValidationError) {
+          Sentry.captureMessage(
+            `無法取得以往的簽到紀錄: ${JSON.stringify(rawCourse)}`,
+            Sentry.Severity.Error
+          );
+          Sentry.captureException(course);
           setMessage("無法取得以往的簽到紀錄。");
         } else {
           setPrevious(course);
@@ -30,6 +36,7 @@ export default function CheckinPrevious() {
         }
       });
     } else if (!loading) {
+      Sentry.captureMessage("未登入。", Sentry.Severity.Info);
       setMessage("未登入。");
     } else {
       setMessage("正在取得以往的簽到紀錄⋯⋯");

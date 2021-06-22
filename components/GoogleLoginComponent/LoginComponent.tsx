@@ -7,6 +7,7 @@ import type {
   GoogleLoginResponseOffline,
 } from "react-google-login";
 import GoogleLogin from "react-google-login";
+import Sentry from "../../utilities/sentry";
 import AuthStore from "../AuthStore";
 import getSpecifiedClientId from "./getSpecifiedClientId";
 
@@ -68,11 +69,23 @@ export default function LoginComponent({
   const [stage, setStage] = useState(Stage.INIT);
   const [clientId, setClientId] = useState<string | null>(null);
 
+  const transaction = Sentry.startTransaction({
+    name: "Google Login Component",
+  });
+
   const theOnFailure: typeof onFailure = async (e) => {
     setStage(Stage.FAILED);
-    if (typeof e === "object") setMessage(`發生錯誤：${JSON.stringify(e)}`);
-    else if (typeof e === "string") setMessage(`發生錯誤：${e}`);
-    else setMessage("發生內部錯誤。");
+    if (typeof e === "object") {
+      const eJson = JSON.stringify(e);
+      Sentry.captureMessage(eJson, Sentry.Severity.Error);
+      setMessage(`發生錯誤：${eJson}`);
+    } else if (typeof e === "string") {
+      Sentry.captureMessage(JSON.stringify(e), Sentry.Severity.Error);
+      setMessage(`發生錯誤：${e}`);
+    } else {
+      Sentry.captureMessage("發生內部錯誤。", Sentry.Severity.Error);
+      setMessage("發生內部錯誤。");
+    }
 
     if (onFailure) return onFailure(e);
     return undefined;
@@ -120,13 +133,17 @@ export default function LoginComponent({
           />
         );
       }
+      Sentry.captureMessage(`無此學校名稱 (${org})。`);
       setMessage(`無此學校名稱 (${org})。`);
       setStage(Stage.FAILED);
       break;
     }
     case Stage.COMPLETED:
+      transaction.finish();
       return <p>✅ 登入完成！</p>;
     case Stage.FAILED:
+      transaction.finish();
+      break;
     default:
       break;
   }

@@ -10,6 +10,7 @@ import { ValidationError } from "myzod";
 import { useRouter } from "next/router";
 import { useAuth } from "../../../components/AuthStore/utilities";
 import ListChoicePageCard from "../../../components/Page/ListChoicePageCard";
+import Sentry from "../../../utilities/sentry";
 
 export default function CheckinCreate() {
   const pageId = "checkin-choose-classroom";
@@ -27,6 +28,10 @@ export default function CheckinCreate() {
         const cr = GClassroomListResponseSchema.try(crRaw);
 
         if (cr instanceof ValidationError) {
+          Sentry.captureMessage(
+            "無法取得 Classroom 教室名單。",
+            Sentry.Severity.Error
+          );
           setMessage("無法取得 Classroom 教室名單。");
           NProgress.done();
           return;
@@ -37,9 +42,11 @@ export default function CheckinCreate() {
         NProgress.done();
       });
     } else if (!auth && !loading) {
+      Sentry.captureMessage("權限不足。", Sentry.Severity.Warning);
       setMessage("權限不足。");
     } else {
       NProgress.start();
+      Sentry.captureMessage("正在搜尋 Classroom 教室⋯⋯", Sentry.Severity.Log);
       setMessage("正在搜尋 Classroom 教室⋯⋯");
     }
   }, [auth, loading]);
@@ -69,12 +76,19 @@ export default function CheckinCreate() {
             const course = CourseResponseSchema.try(rawCourse);
 
             if (course instanceof ValidationError) {
-              console.error(rawCourse);
+              Sentry.captureMessage(
+                "無法建立課程簽到連結。請稍後重試。",
+                Sentry.Severity.Warning
+              );
               setMessage("無法建立課程簽到連結。請稍後重試。");
             } else {
               await router.push(`/checkin/monitor?id=${course.id}`);
             }
           } else {
+            Sentry.captureMessage(
+              "建立簽到連結中途遇到權限不足問題。請回到主畫面登出後重新登入。",
+              Sentry.Severity.Warning
+            );
             setMessage(
               "建立簽到連結中途遇到權限不足問題。請回到主畫面登出後重新登入。"
             );

@@ -1,9 +1,18 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import BasePage from "../components/Page/BasePage";
 import "jetbrains-mono-webfont";
+import Sentry from "../utilities/sentry";
 
 export default function NotFoundPage() {
+  const router = useRouter();
+
+  Sentry.captureMessage(
+    `有人進來 404 頁面了！(asPath: ${router.asPath})`,
+    Sentry.Severity.Info
+  );
+
   return (
     <BasePage id="not-found" title="404 找不到頁面">
       <section className="not-found-title">
