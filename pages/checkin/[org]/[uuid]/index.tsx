@@ -14,6 +14,7 @@ import LoginComponent, {
 } from "../../../../components/GoogleLoginComponent/LoginComponent";
 import HeaderPageCard from "../../../../components/Page/HeaderPageCard";
 import AuthStore from "../../../../components/AuthStore";
+import catcherBuilder from "../../../../utilities/catcher";
 
 enum Stage {
   FAILED = -1,
@@ -34,6 +35,10 @@ export default function Checkin() {
   const [stage, setStage] = useState(Stage.PREPARE);
   const [message, setMessage] = useState<string | null>(null);
   const [course, setCourse] = useState<CourseResponse | null>(null);
+
+  const catcher = catcherBuilder(setMessage, () => {
+    setStage(Stage.FAILED);
+  });
 
   /* NProgress */
   useEffect(() => {
@@ -84,10 +89,7 @@ export default function Checkin() {
 
             return undefined;
           })
-          .catch((error: Error) => {
-            setMessage(error.message);
-            setStage(Stage.FAILED);
-          });
+          .catch(catcher);
 
         break;
       }
@@ -102,10 +104,7 @@ export default function Checkin() {
             if (userInfo?.student) setStage(Stage.CHECK_IN);
             else setStage(Stage.REQUIRE_TO_REGISTER);
           })
-          .catch((error: Error) => {
-            setMessage(error.message);
-            setStage(Stage.FAILED);
-          });
+          .catch(catcher);
         break;
       }
       case Stage.REQUIRE_TO_REGISTER:
@@ -132,10 +131,7 @@ export default function Checkin() {
               new Error("簽到失敗。可能是因為課程已經結束，或是尚未開課。")
             );
           })
-          .catch((error: Error) => {
-            setMessage(error.message);
-            setStage(Stage.FAILED);
-          });
+          .catch(catcher);
         break;
       default:
         break;
