@@ -75,16 +75,51 @@ export default function LoginComponent({
 
   const theOnFailure: typeof onFailure = async (e) => {
     setStage(Stage.FAILED);
-    if (typeof e === "object") {
+    if (e && typeof e === "object") {
+      const castedE = e as { error: string; details?: string };
+      if (typeof castedE.error === "string") {
+        switch (castedE.error) {
+          case "popup_blocked_by_browser":
+            setMessage(
+              "您使用的瀏覽器不能正常開啟 Google 登入畫面，請檢查是否有阻擋「彈出視窗。」若是用 LINE 或 FB 打開本網頁，「使用 Safari 打開」或「在其他應用程式開啟」功能可協助您在其他瀏覽器開啟本畫面。"
+            );
+            break;
+          case "popup_closed_by_user":
+            setMessage(
+              "請不要關閉 Google 登入彈出視窗！若是用 LINE 或 FB 打開本網頁，「使用 Safari 打開」或「在其他應用程式開啟」功能可協助您在其他瀏覽器開啟本畫面。"
+            );
+            break;
+          case "idpiframe_initialization_failed":
+            switch (castedE.details) {
+              case "Cookies are not enabled in current environment.":
+                setMessage("請在您的瀏覽器啟用 Cookie。");
+                break;
+              default:
+                setMessage(
+                  "發生弔詭問題。已回報給開發者，請嘗試更換成另一個瀏覽器或另一台裝置，在此之前請利用右下角的「回報問題」告知我們。 (idpiframe_initialization_failed)"
+                );
+                break;
+            }
+            break;
+          default:
+            setMessage(
+              "發生弔詭問題。已回報給開發者。請嘗試更換成另一個瀏覽器或另一台裝置，在此之前請利用右下角的「回報問題」告知我們。 (castedE.error was not matched)"
+            );
+            break;
+        }
+      }
       const eJson = JSON.stringify(e);
-      Sentry.captureMessage(eJson, Sentry.Severity.Error);
-      setMessage(`發生錯誤：${eJson}`);
-    } else if (typeof e === "string") {
+      Sentry.captureMessage(`${message} - ${eJson}`, Sentry.Severity.Error);
+    } else if (e && typeof e === "string") {
       Sentry.captureMessage(JSON.stringify(e), Sentry.Severity.Error);
-      setMessage(`發生錯誤：${e}`);
+      setMessage(
+        `發生弔詭問題。已回報給開發者。請嘗試更換成另一個瀏覽器或另一台裝置，在此之前請利用右下角的「回報問題」告知我們。 (${e})`
+      );
     } else {
       Sentry.captureMessage("發生內部錯誤。", Sentry.Severity.Error);
-      setMessage("發生內部錯誤。");
+      setMessage(
+        "發生內部錯誤。已回報給開發者。請嘗試更換成另一個瀏覽器或另一台裝置，在此之前請利用右下角的「回報問題」告知我們。"
+      );
     }
 
     if (onFailure) return onFailure(e);
@@ -148,5 +183,5 @@ export default function LoginComponent({
       break;
   }
 
-  return <p>{message ?? "發生錯誤。"}</p>;
+  return <p className="break-all w-96">{message ?? "發生錯誤。"}</p>;
 }
