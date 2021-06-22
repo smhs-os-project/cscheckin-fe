@@ -15,7 +15,7 @@ enum Stage {
 
 export default function UserRegister() {
   const pageId = "user-register";
-  const pageTitle = "輸入班級座號";
+  const pageTitle = "更新班級座號資料";
   const pageDesc = "僅需輸入一次。";
 
   const router = useRouter();
@@ -70,7 +70,7 @@ export default function UserRegister() {
             return;
           }
 
-          setMessage("註冊失敗。請確認您輸入的資料無誤後再試。");
+          setMessage("更新失敗。請確認您輸入的資料無誤後再試。");
           setStage(Stage.FAILED);
         }}
       >
@@ -96,7 +96,7 @@ export default function UserRegister() {
           solid
           disabled={stage === Stage.SUBMIT}
         >
-          註冊 REGISTER
+          更新資料
         </BaseButton>
       </form>
     </HeaderPageCard>
