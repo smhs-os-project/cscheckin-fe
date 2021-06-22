@@ -31,6 +31,14 @@ export default class MyDocument extends Document {
           />
         </Head>
         <body>
+          <noscript
+            style={{
+              fontSize: "72px",
+              fontWeight: "bold",
+            }}
+          >
+            請勿關閉 JavaScript 功能！
+          </noscript>
           <Main />
           <NextScript />
         </body>
