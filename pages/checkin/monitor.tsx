@@ -182,13 +182,19 @@ export default function Monitor() {
           <div className="w-10/12 mb-5 text-center course-status">
             {getCourseStatus(courseState)}
           </div>
-          <div
-            className={`mb-5 course-status ${
-              stage === Stage.FAILED ? "text-red-500" : ""
-            }`}
-          >
-            {message}
-          </div>
+          {message && (
+            <div
+              className={`w-10/12 mb-5 text-center error-message ${
+                stage === Stage.FAILED ? "text-red-500" : ""
+              }`}
+            >
+              {message}
+              <br />
+              <span className="font-bold">
+                ⚠️ 如畫面卡住或無法運作，請重新整理 (F5) 網頁。
+              </span>
+            </div>
+          )}
           <div className="flex flex-col self-center p-4 mb-4 space-x-0 space-y-2 text-center md:space-y-0 md:space-x-2 md:flex-row justify-self-center">
             <BaseButton
               solid
