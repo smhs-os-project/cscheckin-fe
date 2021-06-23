@@ -138,12 +138,22 @@ export default function Checkin() {
           })
           .catch(catcher);
         break;
+      case Stage.SUCCESS:
+        if (hasLogout === false) {
+          AuthStore.retrieve()
+            .then((auth) => auth?.revoke())
+            .finally(() => {
+              AuthStore.remove();
+              setHasLogout(true);
+            });
+        }
+        break;
       default:
         break;
     }
 
     return undefined;
-  }, [stage, org, uuid]);
+  }, [stage, org, uuid, hasLogout]);
 
   // views
   switch (stage) {
@@ -176,14 +186,6 @@ export default function Checkin() {
       setStage(Stage.FAILED);
       break;
     case Stage.SUCCESS:
-      if (hasLogout === false) {
-        AuthStore.retrieve()
-          .then((auth) => auth?.revoke())
-          .finally(() => {
-            AuthStore.remove();
-            setHasLogout(true);
-          });
-      }
       return (
         <HeaderPageCard
           id={pageId}
