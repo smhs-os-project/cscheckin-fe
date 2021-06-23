@@ -36,6 +36,7 @@ export default function Checkin() {
   const [stage, setStage] = useState(Stage.PREPARE);
   const [message, setMessage] = useState<string | null>(null);
   const [course, setCourse] = useState<CourseResponse | null>(null);
+  const [hasLogout, setHasLogout] = useState(false);
 
   const catcher = catcherBuilder(setMessage, () => {
     setStage(Stage.FAILED);
@@ -175,11 +176,14 @@ export default function Checkin() {
       setStage(Stage.FAILED);
       break;
     case Stage.SUCCESS:
-      AuthStore.retrieve()
-        .then((auth) => auth?.revoke())
-        .finally(() => {
-          AuthStore.remove();
-        });
+      if (hasLogout === false) {
+        AuthStore.retrieve()
+          .then((auth) => auth?.revoke())
+          .finally(() => {
+            AuthStore.remove();
+            setHasLogout(true);
+          });
+      }
       return (
         <HeaderPageCard
           id={pageId}
