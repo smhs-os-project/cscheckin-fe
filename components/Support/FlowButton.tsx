@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import {
   faBug,
@@ -6,18 +6,25 @@ import {
   faQuestionCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { AuthUserResponse } from "cscheckin-js-sdk/dist/types";
 import { randTextColor } from "../../utilities/randcolor";
 import { useAuth } from "../AuthStore/utilities";
 
 export default function SupportBtn() {
   const router = useRouter();
   const [auth] = useAuth(false);
-  const [userData, setUserData] = useState<AuthUserResponse | null>(null);
 
-  useEffect(() => {
-    auth?.userInfo().then(setUserData);
-  }, [auth]);
+  const sendFeedback = async () => {
+    const userInfo = await auth?.userInfo();
+
+    window.open(
+      `https://cscin.tk/?action=feedback&name=${encodeURI(
+        userInfo?.name ?? ""
+      )}&email=${encodeURI(userInfo?.email ?? "")}&path=${encodeURI(
+        router.asPath
+      )}`,
+      "_blank"
+    );
+  };
 
   return (
     <div className="flex items-center mr-4 space-x-4">
@@ -66,14 +73,10 @@ export default function SupportBtn() {
         <span className="p-1 -mt-10 -ml-10 text-white bg-black rounded tooltip">
           回報問題
         </span>
-        <a
-          href={`https://cscin.tk/?action=feedback&name=${encodeURI(
-            userData?.name ?? ""
-          )}&email=${encodeURI(userData?.email ?? "")}&path=${encodeURI(
-            router.asPath
-          )}`}
-          target="_blank"
-          rel="noreferrer"
+        <button
+          type="button"
+          onClick={sendFeedback}
+          onKeyDown={(key) => key.key === "Enter" && sendFeedback()}
         >
           <div className="flex items-center">
             <FontAwesomeIcon
@@ -82,7 +85,7 @@ export default function SupportBtn() {
               className={`transition-all duration-300 ${randTextColor()}`}
             />
           </div>
-        </a>
+        </button>
       </button>
     </div>
   );
