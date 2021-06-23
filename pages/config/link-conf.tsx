@@ -7,7 +7,7 @@ import BaseInput from "../../components/BaseElements/BaseInput";
 import { END_DURATION, LATE_DURATION } from "../../components/LocalDB/consts";
 import { useConfig } from "../../components/LocalDB/utilities";
 import HeaderPageCard from "../../components/Page/HeaderPageCard";
-import Sentry from "../../utilities/sentry";
+// import Sentry from "../../utilities/sentry";
 
 const DEFAULT_LATE_DURATION = "10:00";
 const DEFAULT_END_DURATION = "60:00";
