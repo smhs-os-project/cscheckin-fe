@@ -51,10 +51,10 @@ function useWarn(): [string, (message: string) => void] {
   const [timeoutId, setTimeoutId] = useState<unknown>(undefined);
 
   if (warnMessage !== "") {
-    Sentry.captureMessage(
-      `link-conf: 警告訊息 (${warnMessage})`,
-      Sentry.Severity.Debug
-    );
+    // Sentry.captureMessage(
+    //   `link-conf: 警告訊息 (${warnMessage})`,
+    //   Sentry.Severity.Debug
+    // );
   }
 
   const warn = (message: string) => {

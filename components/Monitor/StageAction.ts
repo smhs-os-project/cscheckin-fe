@@ -36,37 +36,37 @@ export const ShareToClassroomAction: StageAction<string> = async ({
   auth,
   setMessage,
 }) => {
-  Sentry.captureMessage(
-    `正在分享到 Google Classroom⋯⋯ (ID: ${id})`,
-    Sentry.Severity.Debug
-  );
+  // Sentry.captureMessage(
+  //   `正在分享到 Google Classroom⋯⋯ (ID: ${id})`,
+  //   Sentry.Severity.Debug
+  // );
   if (typeof id === "string" && auth) {
     return ShareToClassroom(id, auth).then((strRaw) => {
       const str = ShareResponseSchema.try(strRaw);
       if (str instanceof ValidationError)
         return Promise.reject(new Error("連結分享失敗。"));
-      Sentry.captureMessage(
-        `成功分享到 Google Classroom。 (ID: ${id})`,
-        Sentry.Severity.Debug
-      );
+      // Sentry.captureMessage(
+      //   `成功分享到 Google Classroom。 (ID: ${id})`,
+      //   Sentry.Severity.Debug
+      // );
       setMessage("連結已分享至 Google Classroom。");
 
       return Promise.resolve(str.link);
     });
   }
 
-  Sentry.captureMessage("正在分享到 Google Classroom⋯⋯", Sentry.Severity.Debug);
+  // Sentry.captureMessage("正在分享到 Google Classroom⋯⋯", Sentry.Severity.Debug);
   return INVALID_ID_OR_AUTH();
 };
 
 export const EndCheckinAction: StageAction<void> = async ({ id, auth }) => {
-  Sentry.captureMessage(`正在結束簽到 (ID: ${id})⋯⋯`, Sentry.Severity.Debug);
+  // Sentry.captureMessage(`正在結束簽到 (ID: ${id})⋯⋯`, Sentry.Severity.Debug);
   if (typeof id === "string" && auth) {
     return CloseCourse(Number(id), auth).then((strRaw) => {
       if (!strRaw) {
         return Promise.reject(new Error("結束簽到失敗。"));
       }
-      Sentry.captureMessage(`成功結束簽到。(ID: ${id})`, Sentry.Severity.Debug);
+      // Sentry.captureMessage(`成功結束簽到。(ID: ${id})`, Sentry.Severity.Debug);
       return Promise.resolve();
     });
   }
@@ -78,10 +78,10 @@ export const GetCourseStateAction: StageAction<CheckinState> = async ({
   id,
   auth,
 }) => {
-  Sentry.captureMessage(
-    `正在取得課程狀態⋯⋯ (ID: ${id})`,
-    Sentry.Severity.Debug
-  );
+  // Sentry.captureMessage(
+  //   `正在取得課程狀態⋯⋯ (ID: ${id})`,
+  //   Sentry.Severity.Debug
+  // );
   if (typeof id === "string" && auth) {
     return GetCourseByID(Number(id), auth).then((rawCourse) => {
       const course = CourseResponseSchema.try(rawCourse);
@@ -91,24 +91,24 @@ export const GetCourseStateAction: StageAction<CheckinState> = async ({
       }
 
       if (isBefore(course.start_timestamp, course.expire_time)) {
-        Sentry.captureMessage(
-          `課程狀態：無法簽到 (ID: ${id})`,
-          Sentry.Severity.Debug
-        );
+        // Sentry.captureMessage(
+        //   `課程狀態：無法簽到 (ID: ${id})`,
+        //   Sentry.Severity.Debug
+        // );
         return Promise.resolve(CheckinState.NOT_CHECKED_IN);
       }
       if (isBefore(course.start_timestamp, course.late_time)) {
-        Sentry.captureMessage(
-          `課程狀態：遲到簽到 (ID: ${id})`,
-          Sentry.Severity.Debug
-        );
+        // Sentry.captureMessage(
+        //   `課程狀態：遲到簽到 (ID: ${id})`,
+        //   Sentry.Severity.Debug
+        // );
         return Promise.resolve(CheckinState.LATE);
       }
 
-      Sentry.captureMessage(
-        `課程狀態：準時簽到 (ID: ${id})`,
-        Sentry.Severity.Debug
-      );
+      // Sentry.captureMessage(
+      //   `課程狀態：準時簽到 (ID: ${id})`,
+      //   Sentry.Severity.Debug
+      // );
       return Promise.resolve(CheckinState.ON_TIME);
     });
   }
@@ -116,10 +116,10 @@ export const GetCourseStateAction: StageAction<CheckinState> = async ({
 };
 
 export const GetLinkAction: StageAction<string> = async ({ id, auth }) => {
-  Sentry.captureMessage(
-    `正在取得課程連結⋯⋯ (ID: ${id})`,
-    Sentry.Severity.Debug
-  );
+  // Sentry.captureMessage(
+  //   `正在取得課程連結⋯⋯ (ID: ${id})`,
+  //   Sentry.Severity.Debug
+  // );
   if (typeof id === "string" && auth) {
     // gsl = Get
     return GetShareLink(id, auth).then((gslRaw) => {
@@ -128,10 +128,10 @@ export const GetLinkAction: StageAction<string> = async ({ id, auth }) => {
       if (gsl instanceof ValidationError)
         return Promise.reject(new Error("連結取得失敗。"));
 
-      Sentry.captureMessage(
-        `成功取得課程連結 (ID: ${id}, Link: ${gsl.link})`,
-        Sentry.Severity.Debug
-      );
+      // Sentry.captureMessage(
+      //   `成功取得課程連結 (ID: ${id}, Link: ${gsl.link})`,
+      //   Sentry.Severity.Debug
+      // );
       return Promise.resolve(gsl.link);
     });
   }
@@ -141,10 +141,10 @@ export const GetLinkAction: StageAction<string> = async ({ id, auth }) => {
 
 export const GetCheckinListAction: StageAction<TeacherCheckinListResponse> =
   async ({ id, auth }) => {
-    Sentry.captureMessage(
-      `正在取得簽到名單⋯⋯ (ID: ${id})`,
-      Sentry.Severity.Debug
-    );
+    // Sentry.captureMessage(
+    //   `正在取得簽到名單⋯⋯ (ID: ${id})`,
+    //   Sentry.Severity.Debug
+    // );
     if (typeof id === "string" && auth) {
       // cl = Check-in List
       return CheckinList(id, auth).then((clRaw) => {
@@ -152,10 +152,10 @@ export const GetCheckinListAction: StageAction<TeacherCheckinListResponse> =
         if (cl instanceof ValidationError) {
           return Promise.reject(new Error("無法取得簽到資料。"));
         }
-        Sentry.captureMessage(
-          `成功取得簽到名單 (ID: ${id})`,
-          Sentry.Severity.Debug
-        );
+        // Sentry.captureMessage(
+        //   `成功取得簽到名單 (ID: ${id})`,
+        //   Sentry.Severity.Debug
+        // );
         return Promise.resolve(cl);
       });
     }
@@ -164,17 +164,17 @@ export const GetCheckinListAction: StageAction<TeacherCheckinListResponse> =
   };
 
 export const SyncListAction: StageAction<void> = async ({ id, auth }) => {
-  Sentry.captureMessage(
-    `正在同步簽到名單⋯⋯ (ID: ${id})`,
-    Sentry.Severity.Debug
-  );
+  // Sentry.captureMessage(
+  //   `正在同步簽到名單⋯⋯ (ID: ${id})`,
+  //   Sentry.Severity.Debug
+  // );
   if (typeof id === "string" && auth) {
     return SyncCourseMembers(Number(id), auth).then((success) => {
       if (!success) return Promise.reject(new Error("無法更新學生名單。"));
-      Sentry.captureMessage(
-        `成功同步簽到名單 (ID: ${id})`,
-        Sentry.Severity.Debug
-      );
+      // Sentry.captureMessage(
+      //   `成功同步簽到名單 (ID: ${id})`,
+      //   Sentry.Severity.Debug
+      // );
       return Promise.resolve();
     });
   }
