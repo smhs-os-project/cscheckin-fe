@@ -81,18 +81,20 @@ export default function LoginComponent({
         switch (castedE.error) {
           case "popup_blocked_by_browser":
             setMessage(
-              "您使用的瀏覽器不能正常開啟 Google 登入畫面，請檢查是否有阻擋「彈出視窗。」若是用 LINE 或 FB 打開本網頁，「使用 Safari 打開」或「在其他應用程式開啟」功能可協助您在其他瀏覽器開啟本畫面。"
+              "您使用的瀏覽器不能正常開啟 Google 登入畫面，請檢查是否有阻擋「彈出視窗。」若是用 LINE 或 FB 打開本網頁，「使用 Safari 打開」或「在其他應用程式開啟」功能可協助您在其他瀏覽器開啟本畫面。如果是誤觸，請重新整理(F5)網頁。有其他疑問，請進入說明中心尋求協助。"
             );
             break;
           case "popup_closed_by_user":
             setMessage(
-              "請不要關閉 Google 登入彈出視窗！若是用 LINE 或 FB 打開本網頁，「使用 Safari 打開」或「在其他應用程式開啟」功能可協助您在其他瀏覽器開啟本畫面。"
+              "請不要關閉 Google 登入彈出視窗！若是用 LINE 或 FB 打開本網頁，「使用 Safari 打開」或「在其他應用程式開啟」功能可協助您在其他瀏覽器開啟本畫面。如果是誤觸，請重新整理(F5)網頁。有其他疑問，請進入說明中心尋求協助。"
             );
             break;
           case "idpiframe_initialization_failed":
             switch (castedE.details) {
               case "Cookies are not enabled in current environment.":
-                setMessage("請在您的瀏覽器啟用 Cookie。");
+                setMessage(
+                  "請在您的瀏覽器啟用 Cookie。解決後，請重新整理(F5)網頁。有其他疑問，請進入說明中心尋求協助。"
+                );
                 break;
               default:
                 setMessage(
