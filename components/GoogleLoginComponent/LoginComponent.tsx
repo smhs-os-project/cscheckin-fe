@@ -108,8 +108,9 @@ export default function LoginComponent({
             break;
         }
       }
+
       const eJson = JSON.stringify(e);
-      Sentry.captureMessage(`${message} - ${eJson}`, Sentry.Severity.Error);
+      Sentry.captureMessage(eJson, Sentry.Severity.Error);
     } else if (e && typeof e === "string") {
       Sentry.captureMessage(JSON.stringify(e), Sentry.Severity.Error);
       setMessage(
