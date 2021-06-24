@@ -8,6 +8,15 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const moduleExports = {
   // Your existing module.exports
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/sso',
+        destination: '/sso/login',
+        permanent: false,
+      },
+    ]
+  },
 };
 
 const SentryWebpackPluginOptions = {
