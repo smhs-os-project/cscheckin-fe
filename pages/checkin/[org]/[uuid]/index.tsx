@@ -3,19 +3,17 @@ import {
   GetCourseByUUID,
   isBefore,
 } from "cscheckin-js-sdk";
-import type { Organization, CourseResponse } from "cscheckin-js-sdk/dist/types";
+import type { CourseResponse } from "cscheckin-js-sdk/dist/types";
 import { CourseResponseSchema } from "cscheckin-js-sdk/dist/types";
 import { ValidationError } from "myzod";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import NProgress from "nprogress";
-import LoginComponent, {
-  Scope,
-} from "../../../../components/GoogleLoginComponent/LoginComponent";
 import HeaderPageCard from "../../../../components/Page/HeaderPageCard";
 import AuthStore from "../../../../components/AuthStore";
 import catcherBuilder from "../../../../utilities/catcher";
 import Sentry from "../../../../utilities/sentry";
+import { useAuth } from "../../../../components/AuthStore/utilities";
 
 enum Stage {
   FAILED = -1,
@@ -32,6 +30,7 @@ export default function Checkin() {
   const pageTitle = "學生簽到系統";
 
   const router = useRouter();
+  const [userAuth, loading] = useAuth(false);
   const { org, uuid, skip_login: skipLogin } = router.query;
   const [stage, setStage] = useState(Stage.PREPARE);
   const [message, setMessage] = useState<string | null>(null);
@@ -160,33 +159,32 @@ export default function Checkin() {
   // views
   switch (stage) {
     case Stage.LOGIN:
-      if (course) {
-        return (
-          <HeaderPageCard
-            id={pageId}
-            title={pageTitle}
-            desc={`簽到課程「${course?.name}」。`}
-          >
-            <LoginComponent
-              // we assumed user sent the valid organization,
-              // since we will check if it is valid within LoginComponent.
-              org={org as Organization}
-              scope={Scope.Student}
-              onLogin={async () => {
-                setStage(Stage.CHECK_IF_REGISTER);
-              }}
-              loginText="點此簽到"
-            />
-          </HeaderPageCard>
-        );
+      if (!userAuth && !loading) {
+        if (course && typeof org === "string" && typeof uuid === "string") {
+          void router.push(
+            `/sso/login?title=${encodeURIComponent(
+              `簽到「${course.name}」課程`
+            )}&description=${encodeURIComponent(
+              "登入您學校的 Google 帳戶即完成簽到。可能需要輸入您的班級座號。"
+            )}&org=${org}scope=student&redirect=${encodeURIComponent(
+              `/checkin/${org}/${uuid}`
+            )}`
+          );
+        } else {
+          Sentry.captureMessage(
+            "Stage.LOGIN: 無法擷取課程資訊。",
+            Sentry.Severity.Error
+          );
+          setMessage("無法擷取課程資訊。");
+          setStage(Stage.FAILED);
+          break;
+        }
+      } else if (userAuth) {
+        setStage(Stage.CHECK_IF_REGISTER);
+        break;
       }
-      Sentry.captureMessage(
-        "Stage.LOGIN: 無法擷取課程資訊。",
-        Sentry.Severity.Error
-      );
-      setMessage("無法擷取課程資訊。");
-      setStage(Stage.FAILED);
-      break;
+
+      return null; // loading
     case Stage.SUCCESS:
       return (
         <HeaderPageCard
