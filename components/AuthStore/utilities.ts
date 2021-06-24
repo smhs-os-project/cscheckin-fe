@@ -1,5 +1,6 @@
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Sentry from "../../utilities/sentry";
 import AuthStore from ".";
 
@@ -16,6 +17,7 @@ export async function Logout(): Promise<void> {
 export function useAuth(
   redirect = true
 ): [CSCAuth | null, boolean, () => Promise<void>] {
+  const router = useRouter();
   const [auth, setAuth] = useState<CSCAuth | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -33,7 +35,14 @@ export function useAuth(
         );
         AuthStore.remove();
         setLoading(false);
-        if (redirect) window.location.href = "/"; // redirect to login screen
+        // redirect to login screen
+        if (redirect) {
+          await router.push(
+            `/sso/login?description=登入階段過期或失效。重新登入後自動回到原畫面！&redirect=${encodeURIComponent(
+              router.asPath
+            )}`
+          );
+        }
       }
     })();
   });
