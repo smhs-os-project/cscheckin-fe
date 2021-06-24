@@ -177,8 +177,8 @@ export default function LoginComponent({
 
   return (
     <>
-      <p className="break-all w-96">{message ?? "發生錯誤。"}</p>
-      <p className="mt-2 break-all w-96">{ErrorMessageEndJsx}</p>
+      <p className="font-bold break-all w-96">{message ?? "發生錯誤。"}</p>
+      <div className="mt-2 break-all w-96">{ErrorMessageEndJsx}</div>
     </>
   );
 }
