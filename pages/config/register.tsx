@@ -59,7 +59,7 @@ export default function UserRegister() {
       // );
 
       if (typeof redirect === "string") {
-        void router.push(redirect);
+        void router.push(decodeURIComponent(redirect));
         return messageElement("設定完成。正在返回原頁面⋯⋯");
       }
       return messageElement("設定完成。");

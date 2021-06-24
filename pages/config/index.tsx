@@ -14,7 +14,9 @@ export default function ConfigList() {
           id: "configure-class-and-number",
           name: "設定班級座號",
           redirect: async () =>
-            router.push("/config/register?redirect=/config"),
+            router.push(
+              `/config/register?redirect=${encodeURIComponent("/config")}`
+            ),
         },
         {
           id: "back",
