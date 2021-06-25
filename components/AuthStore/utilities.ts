@@ -50,6 +50,7 @@ export function useAuth(
   async function logout() {
     await Logout();
     setAuth(null);
+    await router.push("/");
   }
 
   return [auth, loading, logout];
