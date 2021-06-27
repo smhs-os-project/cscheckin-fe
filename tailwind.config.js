@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        "sans": "'Fira Sans', 'Noto Sans TC', sans-serif",
+        "sans": "'PT Sans', 'Noto Sans TC', sans-serif",
         "serif": "'Noto Serif TC', serif",
         "mono": "'JetBrains Mono', monospace",
       },
