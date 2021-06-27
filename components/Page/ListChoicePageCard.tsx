@@ -1,6 +1,7 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { randBackgroundColor } from "../../utilities/randcolor";
 
 import HeaderPageCard from "./HeaderPageCard";
@@ -9,6 +10,7 @@ export interface ListChoicePageCardProps {
   id: string;
   title: string;
   desc: string;
+  icon: IconDefinition;
   /**
    * The choices.
    *
@@ -38,6 +40,7 @@ export default function ListChoicePageCard({
   id: pid,
   title,
   desc,
+  icon,
   children: content,
   message,
 }: ListChoicePageCardProps) {
@@ -50,6 +53,7 @@ export default function ListChoicePageCard({
       id={pid}
       title={title}
       desc={desc}
+      icon={icon}
       // we add padding if the message will show.
       contentPadding={shouldShowMessage}
     >
@@ -75,7 +79,7 @@ export default function ListChoicePageCard({
                 onClick={redirect}
               >
                 <div className="flex justify-between">
-                  <div>{name}</div>
+                  <div className="text-bold">{name}</div>
                   <div>
                     <FontAwesomeIcon icon={faArrowRight} />
                   </div>

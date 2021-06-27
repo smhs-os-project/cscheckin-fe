@@ -1,5 +1,6 @@
 import React from "react";
 import type { ReactNode } from "react";
+import BaseCard from "../Card/BaseCard";
 import BasePage from "./BasePage";
 
 export interface BasePageProps {
@@ -12,9 +13,7 @@ export default function BasePageCard({ title, id, children }: BasePageProps) {
   return (
     <BasePage title={title} id={id}>
       <div className="flex content-center justify-center">
-        <div className="overflow-hidden rounded shadow-lg main-content md:w-max">
-          {children}
-        </div>
+        <BaseCard>{children}</BaseCard>
       </div>
     </BasePage>
   );
