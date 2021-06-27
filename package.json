@@ -10,6 +10,7 @@
   "dependencies": {
     "@fontsource/fira-sans": "^4.4.2",
     "@fontsource/noto-sans-tc": "^4.3.0",
+    "@fontsource/pt-sans": "^4.4.5",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
