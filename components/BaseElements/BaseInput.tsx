@@ -32,7 +32,7 @@ export default function BaseInput({
         <input
           id="display-name-input"
           type={type}
-          className="p-2 border-b border-gray-600 outline-none"
+          className="p-2 border-b border-gray-600 bg-transparent outline-none"
           onChange={(event) => onChange && onChange(event.target.value)}
           value={value}
           placeholder={placeholder}
