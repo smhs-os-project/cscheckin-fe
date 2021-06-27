@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import BaseButton from "../BaseElements/BaseButton";
 
 export default function Navbar() {
   const router = useRouter();
@@ -33,8 +34,12 @@ export default function Navbar() {
           </Link>
         </button>
       </div>
-      <div className="col-start-3 col-end-3 justify-self-end">
-        {/* Your Content */}
+      <div className="col-start-3 col-end-3 space-x-2 justify-self-end">
+        <BaseButton solid>簽到連結管理</BaseButton>
+        <BaseButton>設定</BaseButton>
+        <BaseButton solid className="hover:bg-red-600 transition-colors">
+          USERNAME
+        </BaseButton>
       </div>
     </div>
   );
