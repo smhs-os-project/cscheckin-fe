@@ -7,11 +7,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { randTextColor } from "../../utilities/randcolor";
-import { useAuth } from "../AuthStore/utilities";
+import useAuth from "../AuthStore/useAuth";
 
 export default function SupportBtn() {
   const router = useRouter();
-  const [auth] = useAuth(false);
+  const { auth } = useAuth(false);
 
   const sendFeedback = async () => {
     const userInfo = await auth?.userInfo();
