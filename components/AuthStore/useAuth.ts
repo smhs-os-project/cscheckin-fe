@@ -3,9 +3,13 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import type { ErrorData } from "../../utilities/useError";
 import useError from "../../utilities/useError";
+import { Scope } from "../GoogleLoginComponent/LoginComponent";
 import AuthStore from ".";
 
-export default function useAuth(redirect = true): {
+export default function useAuth(
+  redirect = true,
+  identity: Scope = Scope.Teacher
+): {
   auth: CSCAuth | null;
   error: ErrorData | null;
 } {
@@ -26,11 +30,9 @@ export default function useAuth(redirect = true): {
           details: JSON.stringify(accessData),
         });
         AuthStore.remove();
-        // redirect to The login screen
-        // TODO: sometimes it is teacher :(
         if (redirect) {
           await router.push(
-            `/sso/teacher?redirect=${encodeURIComponent(router.asPath)}`
+            `/sso/${identity}?redirect=${encodeURIComponent(router.asPath)}`
           );
         }
       }
