@@ -69,7 +69,7 @@ export default function LoginComponent({
         message: "無法取得 client id 資料。",
         details: rError.toString(),
       });
-    } else {
+    } else if (rError) {
       setError({
         message: "無法取得 client id 資料。",
         details: `未知錯誤：${rError}`,
