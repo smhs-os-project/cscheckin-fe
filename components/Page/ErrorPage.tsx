@@ -1,5 +1,9 @@
 import React from "react";
-import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBug,
+  faExclamationTriangle,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BaseButton from "../BaseElements/BaseButton";
 import HeaderPageCard from "./HeaderPageCard";
 
@@ -15,30 +19,52 @@ export default function ErrorPage({
   return (
     <HeaderPageCard
       id="csc-error-page"
-      title="系統壞掉了 QQ"
-      desc="以下是問題的詳細內容，請告知我們！"
+      title={errorMessage}
+      desc="如有任何問題，歡迎詢問或回報給我們 ;w;"
       icon={faExclamationTriangle}
-      headerColor="red-800"
+      headerColor="red-600"
     >
-      <div className="flex space-x-3">
-        <div>錯誤訊息</div>
-        <div className="max-h-48">{errorMessage}</div>
+      <div className="error-info">
+        <table>
+          <tbody>
+            <tr>
+              <th className="text-left pr-3">發生時間</th>
+              <td className="max-h-48">{new Date().toLocaleString()}</td>
+            </tr>
+            <tr>
+              <th className="text-left pr-3">詳細資訊</th>
+              <td className="max-h-48">{errorDetails}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div className="error-details flex space-x-3">
-        <div>錯誤詳細資訊</div>
-        <div className="max-h-48">{errorDetails}</div>
-      </div>
-      <div className="error-tip mt-3 font-medium">
-        在問題修正之前，請先檢查您的瀏覽器是否關閉 Cookie
-        功能、是否過於老舊或者是操作失誤。
+      <div className="error-tip mt-1.5 pt-1.5 font-medium max-w-3xl leading-relaxed border-t-2 ">
+        會發生這個問題，可能是因為：
+        <ul className="list-disc list-inside ml-4">
+          <li>最上大字顯示的問題。</li>
+          <li>
+            您的瀏覽器關閉了 Cookie 功能
+            <br />
+            （瀏覽器通常將這個功能稱之為「『嚴格』反追蹤模式」）
+          </li>
+          <li>您的作業系統或瀏覽器太舊</li>
+        </ul>
         您可以戳戳下方的「再試一次」返回原頁面重新操作。
-        若問題持續發生，請點「問題回報」。
+        <br />
+        若問題持續發生，請「截圖」之後， 點右下角的「問題回報{" "}
+        <FontAwesomeIcon icon={faBug} />
+        」。
       </div>
-      <div className="operation-buttons mt-3">
-        <BaseButton solid className="border-red-800">
+      <div className="operation-buttons mt-3 space-x-3">
+        <BaseButton
+          solid
+          className="bg-red-600"
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
           再試一次
         </BaseButton>
-        <BaseButton className="bg-red-800">問題回報</BaseButton>
       </div>
     </HeaderPageCard>
   );
