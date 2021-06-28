@@ -4,6 +4,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { CreateCourse } from "cscheckin-js-sdk";
 import useSWR from "swr";
 import type { CourseResponse } from "cscheckin-js-sdk/dist/types";
+import NProgress from "nprogress";
 import HeaderPageCard from "../../../../../components/Page/HeaderPageCard";
 import RefreshButton from "../../../../../components/BaseElements/RefreshButton";
 import useAuth from "../../../../../components/AuthStore/useAuth";
@@ -27,8 +28,8 @@ export default function CSCCheckinManageCreateCourseInstant() {
   const [error, setError] = useError();
   const { data, error: courseError } = useSWR<CourseResponse | null, unknown>(
     ["course.create_course", auth, gcid],
-    async (_, inAuth, inGcid) => {
-      if (inAuth && typeof inGcid === "string")
+    async (_, inAuth: typeof auth, inGcid: typeof gcid) => {
+      if (inAuth)
         return CreateCourse(
           inGcid,
           {
@@ -44,6 +45,7 @@ export default function CSCCheckinManageCreateCourseInstant() {
 
   useEffect(() => {
     if (data) {
+      NProgress.done();
       void router.push(`/checkin/manage/dashboard/${data.id}`);
     }
   }, [data]);
@@ -66,14 +68,17 @@ export default function CSCCheckinManageCreateCourseInstant() {
     if (authError) setError(authError);
   }, [authError]);
 
-  if (error)
+  if (error) {
+    NProgress.done();
     return (
       <ErrorPage
         errorMessage={error.message}
         errorDetails={error.details ?? "未指定詳細資訊。"}
       />
     );
+  }
 
+  NProgress.start();
   return (
     <HeaderPageCard
       id="csc-manage-create-course-instant"
