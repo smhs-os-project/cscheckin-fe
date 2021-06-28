@@ -10,7 +10,7 @@ export default function CSCConfiguration() {
     <ListChoicePageCard
       id="csc-configuration"
       title="設定"
-      desc="設定您的班級、座號，以及簽到連結。"
+      desc="設定您的班級、座號，以及簽到連結的遲到時間。"
       icon={faCog}
     >
       {[
@@ -21,13 +21,13 @@ export default function CSCConfiguration() {
             await router.push("/config/info");
           },
         },
-        {
-          id: "duration-setup",
-          name: "設定遲到與結束簽到時間",
-          redirect: async () => {
-            await router.push("/config/checkin-duration");
-          },
-        },
+        // {
+        //   id: "duration-setup",
+        //   name: "設定遲到與結束簽到時間",
+        //   redirect: async () => {
+        //     await router.push("/config/checkin-duration");
+        //   },
+        // },
       ]}
     </ListChoicePageCard>
   );
