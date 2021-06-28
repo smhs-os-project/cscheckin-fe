@@ -1,5 +1,5 @@
 import React from "react";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import ListChoicePageCard from "../../../components/Page/ListChoicePageCard";
 
@@ -11,7 +11,7 @@ export default function CSCManageIndex() {
       id="csc-manage-home"
       title="簽到連結管理選單"
       desc="建立簽到連結，還是查看以往的簽到連結呢？"
-      icon={faCog}
+      icon={faUserCheck}
     >
       {[
         {
