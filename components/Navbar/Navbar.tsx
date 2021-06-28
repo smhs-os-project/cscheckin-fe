@@ -30,7 +30,7 @@ export default function Navbar() {
               <div className="w-max h-max">
                 <Image src="/icon.svg" width="36em" height="36em" />
               </div>
-              <div className="w-min h-min text-xl font-bold ml-2 pb-1">
+              <div className="w-min h-min text-xl font-bold ml-2 pb-1 hidden md:block">
                 CSCheckin
               </div>
             </div>
@@ -39,7 +39,7 @@ export default function Navbar() {
       </div>
       <div className="col-start-3 col-end-3 space-x-2 justify-self-end">
         <BaseButton solid onClick={async () => router.push("/checkin/manage")}>
-          簽到連結管理
+          <span className="hidden md:inline">簽到連結</span>管理
         </BaseButton>
         <BaseButton onClick={async () => router.push("/config")}>
           設定
