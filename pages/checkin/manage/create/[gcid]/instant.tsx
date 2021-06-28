@@ -21,7 +21,9 @@ export function useGcid() {
 export default function CSCCheckinManageCreateCourseInstant() {
   const router = useRouter();
   const gcid = useGcid();
-  const { auth, error: authError } = useAuth(false);
+  if (!gcid) return null;
+
+  const { auth, error: authError } = useAuth();
   const [error, setError] = useError();
   const { data, error: courseError } = useSWR<CourseResponse | null, unknown>(
     ["course.create_course", auth, gcid],
