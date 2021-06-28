@@ -1,9 +1,7 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { randBackgroundColor } from "../../utilities/randcolor";
 
+import FullWidthColoredButton from "../BaseElements/FullWidthColoredButton";
 import HeaderPageCard from "./HeaderPageCard";
 
 export interface ListChoicePageCardProps {
@@ -71,20 +69,9 @@ export default function ListChoicePageCard({
 
           return content.map(({ id: cid, name, redirect }) => (
             <div key={`${pid}-${cid}`}>
-              <button
-                className={`w-full px-6 py-10 text-left outline-none text-black hover:text-white transition-all duration-300 rounded-none ${randBackgroundColor(
-                  true
-                )}`}
-                type="button"
-                onClick={redirect}
-              >
-                <div className="flex justify-between">
-                  <div className="text-bold">{name}</div>
-                  <div>
-                    <FontAwesomeIcon icon={faArrowRight} />
-                  </div>
-                </div>
-              </button>
+              <FullWidthColoredButton onClick={redirect}>
+                {name}
+              </FullWidthColoredButton>
             </div>
           ));
         })()}
