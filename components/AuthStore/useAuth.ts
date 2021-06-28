@@ -30,7 +30,7 @@ export default function useAuth(redirect = true): {
         // TODO: sometimes it is teacher :(
         if (redirect) {
           await router.push(
-            `/sso/teacher?redirect=${decodeURIComponent(router.asPath)}`
+            `/sso/teacher?redirect=${encodeURIComponent(router.asPath)}`
           );
         }
       }
