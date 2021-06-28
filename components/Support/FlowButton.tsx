@@ -75,23 +75,22 @@ export default function SupportBtn() {
         </a>
       </button>
 
-      <button type="button" className="rounded-full has-tooltip">
+      <button
+        type="button"
+        className="rounded-full has-tooltip"
+        onClick={sendFeedback}
+        onKeyDown={(key) => key.key === "Enter" && sendFeedback()}
+      >
         <span className="p-1 -mt-10 -ml-10 text-white bg-black rounded tooltip">
           回報問題
         </span>
-        <button
-          type="button"
-          onClick={sendFeedback}
-          onKeyDown={(key) => key.key === "Enter" && sendFeedback()}
-        >
-          <div className="flex items-center">
-            <FontAwesomeIcon
-              icon={faBug}
-              size="2x"
-              className={`transition-all duration-300 ${randTextColor()}`}
-            />
-          </div>
-        </button>
+        <div className="flex items-center">
+          <FontAwesomeIcon
+            icon={faBug}
+            size="2x"
+            className={`transition-all duration-300 ${randTextColor()}`}
+          />
+        </div>
       </button>
     </div>
   );
