@@ -35,7 +35,8 @@ export function useAuth(
         );
         AuthStore.remove();
         setLoading(false);
-        // redirect to login screen
+        // redirect to The login screen
+        // TODO: need improve!
         if (redirect) {
           await router.push(
             `/sso/login?description=登入階段過期或失效。重新登入後自動回到原畫面！&redirect=${encodeURIComponent(
