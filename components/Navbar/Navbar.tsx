@@ -5,9 +5,12 @@ import { useRouter } from "next/router";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BaseButton from "../BaseElements/BaseButton";
+import AuthStore from "../AuthStore";
+import useAuth from "../AuthStore/useAuth";
 
 export default function Navbar() {
   const router = useRouter();
+  const { auth } = useAuth(false);
 
   return (
     <div className="grid items-center content-center p-8 grid-col-1 md:grid-col-3">
@@ -35,11 +38,24 @@ export default function Navbar() {
         </button>
       </div>
       <div className="col-start-3 col-end-3 space-x-2 justify-self-end">
-        <BaseButton solid>簽到連結管理</BaseButton>
-        <BaseButton>設定</BaseButton>
-        <BaseButton solid className="hover:bg-red-600 transition-colors">
-          USERNAME
+        <BaseButton solid onClick={async () => router.push("/checkin/manage")}>
+          簽到連結管理
         </BaseButton>
+        <BaseButton onClick={async () => router.push("/config")}>
+          設定
+        </BaseButton>
+        {auth && (
+          <BaseButton
+            solid
+            className="hover:bg-red-600 transition-colors"
+            onClick={() => {
+              AuthStore.remove();
+              window.location.href = "/";
+            }}
+          >
+            登出
+          </BaseButton>
+        )}
       </div>
     </div>
   );
