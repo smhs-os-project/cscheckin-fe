@@ -11,7 +11,7 @@ export default function useRedirect(
   return {
     async redirect() {
       if (typeof redirect === "string") {
-        await iRouter.push(redirect);
+        await iRouter.push(decodeURIComponent(redirect));
       } else if (defaultRedirect) {
         await iRouter.push(defaultRedirect);
       } else {
