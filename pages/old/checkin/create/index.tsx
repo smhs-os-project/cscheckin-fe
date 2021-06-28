@@ -8,9 +8,9 @@ import {
 } from "cscheckin-js-sdk/dist/types";
 import { ValidationError } from "myzod";
 import { useRouter } from "next/router";
-import { useAuth } from "../../../components/AuthStore/utilities";
-import ListChoicePageCard from "../../../components/Page/ListChoicePageCard";
-import Sentry from "../../../utilities/sentry";
+import { useAuth } from "../../../../components/AuthStore/useAuth";
+import ListChoicePageCard from "../../../../components/Page/ListChoicePageCard";
+import Sentry from "../../../../utilities/sentry";
 
 export default function CheckinCreate() {
   const pageId = "checkin-choose-classroom";

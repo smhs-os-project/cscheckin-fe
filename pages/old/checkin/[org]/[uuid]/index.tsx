@@ -9,11 +9,11 @@ import { ValidationError } from "myzod";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import NProgress from "nprogress";
-import HeaderPageCard from "../../../../components/Page/HeaderPageCard";
-import AuthStore from "../../../../components/AuthStore";
-import catcherBuilder from "../../../../utilities/catcher";
-import Sentry from "../../../../utilities/sentry";
-import { useAuth } from "../../../../components/AuthStore/utilities";
+import HeaderPageCard from "../../../../../components/Page/HeaderPageCard";
+import AuthStore from "../../../../../components/AuthStore";
+import catcherBuilder from "../../../../../utilities/catcher";
+import Sentry from "../../../../../utilities/sentry";
+import { useAuth } from "../../../../../components/AuthStore/useAuth";
 
 enum Stage {
   FAILED = -1,

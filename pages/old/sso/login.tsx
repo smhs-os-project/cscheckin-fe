@@ -5,14 +5,14 @@ import type { OrgInfoListResponse } from "cscheckin-js-sdk/dist/types";
 import { Organization } from "cscheckin-js-sdk/dist/types";
 import myzod, { ValidationError } from "myzod";
 import Link from "next/link";
-import Sentry from "../../utilities/sentry";
-import ListChoicePageCard from "../../components/Page/ListChoicePageCard";
-import getClientIdList from "../../components/GoogleLoginComponent/getClientIdList";
-import { ErrorMessageEndJsx } from "../../components/MessageConsts";
+import Sentry from "../../../utilities/sentry";
+import ListChoicePageCard from "../../../components/Page/ListChoicePageCard";
+import getClientIdList from "../../../components/GoogleLoginComponent/getClientIdList";
+import { ErrorMessageEndJsx } from "../../../components/MessageConsts";
 import LoginComponent, {
   Scope,
-} from "../../components/GoogleLoginComponent/LoginComponent";
-import HeaderPageCard from "../../components/Page/HeaderPageCard";
+} from "../../../components/GoogleLoginComponent/LoginComponent";
+import HeaderPageCard from "../../../components/Page/HeaderPageCard";
 
 const id = "csc-login";
 

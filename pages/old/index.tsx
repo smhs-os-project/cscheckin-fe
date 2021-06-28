@@ -1,7 +1,7 @@
 import router from "next/router";
 import React, { useEffect } from "react";
-import { useAuth } from "../components/AuthStore/utilities";
-import HeaderPageCard from "../components/Page/HeaderPageCard";
+import { useAuth } from "../../components/AuthStore/useAuth";
+import HeaderPageCard from "../../components/Page/HeaderPageCard";
 
 export default function Home() {
   // we write our own logic for redirecting

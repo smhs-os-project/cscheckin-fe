@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../../components/AuthStore/utilities";
-import BaseButton from "../../components/BaseElements/BaseButton";
-import BaseInput from "../../components/BaseElements/BaseInput";
-import HeaderPageCard from "../../components/Page/HeaderPageCard";
-import Sentry from "../../utilities/sentry";
+import { useAuth } from "../../../components/AuthStore/useAuth";
+import BaseButton from "../../../components/BaseElements/BaseButton";
+import BaseInput from "../../../components/BaseElements/BaseInput";
+import HeaderPageCard from "../../../components/Page/HeaderPageCard";
+import Sentry from "../../../utilities/sentry";
 
 enum Stage {
   FAILED = -1,

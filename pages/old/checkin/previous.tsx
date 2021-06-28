@@ -4,9 +4,9 @@ import { CourseListResponseSchema } from "cscheckin-js-sdk/dist/types";
 import { GetCoursesList } from "cscheckin-js-sdk";
 import { ValidationError } from "myzod";
 import { useRouter } from "next/router";
-import ListChoicePageCard from "../../components/Page/ListChoicePageCard";
-import { useAuth } from "../../components/AuthStore/utilities";
-import Sentry from "../../utilities/sentry";
+import ListChoicePageCard from "../../../components/Page/ListChoicePageCard";
+import { useAuth } from "../../../components/AuthStore/useAuth";
+import Sentry from "../../../utilities/sentry";
 
 export default function CheckinPrevious() {
   const pageId = "checkin-choose-previous";

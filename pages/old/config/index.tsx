@@ -1,6 +1,6 @@
 import React from "react";
 import router from "next/router";
-import ListChoicePageCard from "../../components/Page/ListChoicePageCard";
+import ListChoicePageCard from "../../../components/Page/ListChoicePageCard";
 
 export default function ConfigList() {
   return (

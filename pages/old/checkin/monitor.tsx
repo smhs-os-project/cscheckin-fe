@@ -6,12 +6,12 @@ import NProgress from "nprogress";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
-import { useAuth } from "../../components/AuthStore/utilities";
-import BaseButton from "../../components/BaseElements/BaseButton";
-import BasePage from "../../components/Page/BasePage";
-import catcherBuilder from "../../utilities/catcher";
-import type { StageDeps } from "../../components/Monitor/StageAction";
-import { randTextColor } from "../../utilities/randcolor";
+import { useAuth } from "../../../components/AuthStore/useAuth";
+import BaseButton from "../../../components/BaseElements/BaseButton";
+import BasePage from "../../../components/Page/BasePage";
+import catcherBuilder from "../../../utilities/catcher";
+import type { StageDeps } from "../../../components/Monitor/StageAction";
+import { randTextColor } from "../../../utilities/randcolor";
 import {
   EndCheckinAction,
   GetCheckinListAction,
@@ -19,12 +19,12 @@ import {
   GetLinkAction,
   ShareToClassroomAction,
   SyncListAction,
-} from "../../components/Monitor/StageAction";
+} from "../../../components/Monitor/StageAction";
 import {
   getCourseStatus,
   getCheckinStatusIcon,
-} from "../../components/Monitor/EnumToString";
-import Sentry from "../../utilities/sentry";
+} from "../../../components/Monitor/EnumToString";
+import Sentry from "../../../utilities/sentry";
 
 enum InitiateStage {
   FAILED = -1,

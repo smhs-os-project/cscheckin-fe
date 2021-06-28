@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-import { useAuth } from "../components/AuthStore/utilities";
-import ListChoicePageCard from "../components/Page/ListChoicePageCard";
+import { useAuth } from "../../components/AuthStore/useAuth";
+import ListChoicePageCard from "../../components/Page/ListChoicePageCard";
 
 export default function AdminMenu() {
   // TODO: more human-readable index

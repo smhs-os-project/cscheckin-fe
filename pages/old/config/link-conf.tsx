@@ -2,11 +2,14 @@ import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ReactNode } from "react";
 import React, { useState } from "react";
-import BaseButton from "../../components/BaseElements/BaseButton";
-import BaseInput from "../../components/BaseElements/BaseInput";
-import { END_DURATION, LATE_DURATION } from "../../components/LocalDB/consts";
-import { useConfig } from "../../components/LocalDB/utilities";
-import HeaderPageCard from "../../components/Page/HeaderPageCard";
+import BaseButton from "../../../components/BaseElements/BaseButton";
+import BaseInput from "../../../components/BaseElements/BaseInput";
+import {
+  END_DURATION,
+  LATE_DURATION,
+} from "../../../components/LocalDB/consts";
+import { useConfig } from "../../../components/LocalDB/utilities";
+import HeaderPageCard from "../../../components/Page/HeaderPageCard";
 // import Sentry from "../../utilities/sentry";
 
 const DEFAULT_LATE_DURATION = "10:00";
