@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
-import HeaderPageCard from "../../../components/Page/HeaderPageCard";
+import HeaderPageCard from "../../components/Page/HeaderPageCard";
 import LoginComponent, {
   Scope,
-} from "../../../components/GoogleLoginComponent/LoginComponent";
-import useError from "../../../utilities/useError";
-import ErrorPage from "../../../components/Page/ErrorPage";
-import useRedirect from "../../../utilities/useRedirect";
+} from "../../components/GoogleLoginComponent/LoginComponent";
+import useError from "../../utilities/useError";
+import ErrorPage from "../../components/Page/ErrorPage";
+import useRedirect from "../../utilities/useRedirect";
 
 export default function CSCSSOTeacherLogin() {
   const [loggedInFlag, setLoggingInFlag] = useState(false);

@@ -1,6 +1,6 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import HeaderPageCard from "../../../components/Page/HeaderPageCard";
+import HeaderPageCard from "../../components/Page/HeaderPageCard";
 
 export default function CSCStudentCheckinSuccess() {
   return (

@@ -1,6 +1,6 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import ListChoicePageCard from "../../../../../components/Page/ListChoicePageCard";
+import ListChoicePageCard from "../../../../components/Page/ListChoicePageCard";
 
 export default function CSCManagePrevious() {
   return (

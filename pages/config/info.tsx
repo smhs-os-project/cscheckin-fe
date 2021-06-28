@@ -1,8 +1,8 @@
 import React from "react";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
-import HeaderPageCard from "../../../components/Page/HeaderPageCard";
-import BaseInput from "../../../components/BaseElements/BaseInput";
-import BaseButton from "../../../components/BaseElements/BaseButton";
+import HeaderPageCard from "../../components/Page/HeaderPageCard";
+import BaseInput from "../../components/BaseElements/BaseInput";
+import BaseButton from "../../components/BaseElements/BaseButton";
 
 export default function CSCConfigInfoSetup() {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
-import ListChoicePageCard from "../../../../components/Page/ListChoicePageCard";
+import ListChoicePageCard from "../../../components/Page/ListChoicePageCard";
 
 export default function CSCManageIndex() {
   return (

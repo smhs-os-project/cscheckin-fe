@@ -5,10 +5,10 @@ import { GetClassroomsList } from "cscheckin-js-sdk";
 import type { GClassroomListResponse } from "cscheckin-js-sdk/dist/types";
 import { useRouter } from "next/router";
 import NProgress from "nprogress";
-import ListChoicePageCard from "../../../../../components/Page/ListChoicePageCard";
-import useError from "../../../../../utilities/useError";
-import useAuth from "../../../../../components/AuthStore/useAuth";
-import ErrorPage from "../../../../../components/Page/ErrorPage";
+import ListChoicePageCard from "../../../../components/Page/ListChoicePageCard";
+import useError from "../../../../utilities/useError";
+import useAuth from "../../../../components/AuthStore/useAuth";
+import ErrorPage from "../../../../components/Page/ErrorPage";
 
 export default function CSCManageCreateClassroom() {
   const router = useRouter();

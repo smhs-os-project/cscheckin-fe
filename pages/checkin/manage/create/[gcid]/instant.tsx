@@ -4,11 +4,11 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { CreateCourse } from "cscheckin-js-sdk";
 import useSWR from "swr";
 import type { CourseResponse } from "cscheckin-js-sdk/dist/types";
-import HeaderPageCard from "../../../../../../components/Page/HeaderPageCard";
-import RefreshButton from "../../../../../../components/BaseElements/RefreshButton";
-import useAuth from "../../../../../../components/AuthStore/useAuth";
-import useError from "../../../../../../utilities/useError";
-import ErrorPage from "../../../../../../components/Page/ErrorPage";
+import HeaderPageCard from "../../../../../components/Page/HeaderPageCard";
+import RefreshButton from "../../../../../components/BaseElements/RefreshButton";
+import useAuth from "../../../../../components/AuthStore/useAuth";
+import useError from "../../../../../utilities/useError";
+import ErrorPage from "../../../../../components/Page/ErrorPage";
 
 export function useGcid() {
   const router = useRouter();

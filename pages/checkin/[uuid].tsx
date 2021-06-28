@@ -1,7 +1,7 @@
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useRouter } from "next/router";
-import HeaderPageCard from "../../../components/Page/HeaderPageCard";
+import HeaderPageCard from "../../components/Page/HeaderPageCard";
 
 export default function CSCStudentCheckin() {
   const router = useRouter();
