@@ -11,8 +11,8 @@ const moduleExports = {
   async redirects() {
     return [
       {
-        source: '/sso',
-        destination: '/sso/login',
+        source: '/checkin/manage/create',
+        destination: '/checkin/manage/create/classroom',
         permanent: false,
       },
     ]
