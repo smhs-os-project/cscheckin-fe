@@ -71,10 +71,7 @@ export default function CSCCheckinManageCreateCourseInstant() {
   if (error) {
     NProgress.done();
     return (
-      <ErrorPage
-        errorMessage={error.message}
-        errorDetails={error.details ?? "未指定詳細資訊。"}
-      />
+      <ErrorPage errorMessage={error.message} errorDetails={error.details} />
     );
   }
 

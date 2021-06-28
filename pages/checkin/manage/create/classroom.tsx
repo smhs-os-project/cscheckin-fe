@@ -62,10 +62,7 @@ export default function CSCManageCreateClassroom() {
 
   if (error) {
     return (
-      <ErrorPage
-        errorMessage={error.message}
-        errorDetails={error.details ?? "選擇開課教室時發生未知錯誤。"}
-      />
+      <ErrorPage errorMessage={error.message} errorDetails={error.details} />
     );
   }
 

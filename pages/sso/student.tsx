@@ -15,10 +15,7 @@ export default function CSCSSOStudentLogin() {
 
   if (error) {
     return (
-      <ErrorPage
-        errorMessage={error.message}
-        errorDetails={error.details ?? "學生登入端無法完成登入操作。"}
-      />
+      <ErrorPage errorMessage={error.message} errorDetails={error.details} />
     );
   }
 

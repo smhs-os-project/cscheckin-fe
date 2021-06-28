@@ -15,10 +15,7 @@ export default function CSCSSOTeacherLogin() {
 
   if (error) {
     return (
-      <ErrorPage
-        errorMessage={error.message}
-        errorDetails={error.details ?? "教師登入端無法完成登入操作。"}
-      />
+      <ErrorPage errorMessage={error.message} errorDetails={error.details} />
     );
   }
 

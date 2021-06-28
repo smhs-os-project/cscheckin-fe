@@ -9,7 +9,7 @@ import HeaderPageCard from "./HeaderPageCard";
 
 export interface ErrorPageProps {
   errorMessage: string;
-  errorDetails: string;
+  errorDetails?: string;
 }
 
 export default function ErrorPage({
@@ -31,10 +31,12 @@ export default function ErrorPage({
               <th className="text-left pr-3">發生時間</th>
               <td className="max-h-48">{new Date().toLocaleString()}</td>
             </tr>
-            <tr>
-              <th className="text-left pr-3">詳細資訊</th>
-              <td className="max-h-48">{errorDetails}</td>
-            </tr>
+            {errorDetails && (
+              <tr>
+                <th className="text-left pr-3">詳細資訊</th>
+                <td className="max-h-48">{errorDetails}</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
