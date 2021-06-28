@@ -18,10 +18,13 @@ export default function CSCManageCreateClassroom() {
   const { data, error: listError } = useSWR<
     GClassroomListResponse | null,
     unknown
-  >(["sdk.logic.get_classrooms_list", auth, error], async (_, theAuth, err) => {
-    if (theAuth && !err) return GetClassroomsList(theAuth);
-    return null;
-  });
+  >(
+    ["sdk.logic.get_classrooms_list", auth, error],
+    async (_, iAuth: typeof auth, iError: typeof error) => {
+      if (iAuth && !iError) return GetClassroomsList(iAuth);
+      return null;
+    }
+  );
 
   useEffect(() => {
     if (error) {
