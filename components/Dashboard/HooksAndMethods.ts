@@ -128,12 +128,14 @@ export function closeCourseActionWrapper({
     if (
       auth &&
       (courseStatus === CheckinState.ON_TIME ||
-        courseStatus === CheckinState.LATE)
+        courseStatus === CheckinState.LATE) &&
+      id
     ) {
       try {
         const ok = await CloseCourse(Number(id), auth);
 
         if (ok) {
+          await refreshData(id, auth);
           setMessage("❌ 已經關閉課程。");
           setLockFlag(false);
         } else {
