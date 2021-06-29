@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BaseButton from "../BaseElements/BaseButton";
-import AuthStore from "../AuthStore";
 import useAuth from "../AuthStore/useAuth";
+import Logout from "../AuthStore/logout";
 
 export default function Navbar() {
   const router = useRouter();
@@ -48,10 +48,7 @@ export default function Navbar() {
           <BaseButton
             solid
             className="hover:bg-red-600 transition-colors"
-            onClick={() => {
-              AuthStore.remove();
-              window.location.href = "/";
-            }}
+            onClick={Logout}
           >
             登出
           </BaseButton>
