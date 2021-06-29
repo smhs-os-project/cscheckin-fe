@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { Checkin } from "cscheckin-js-sdk";
 import type { CheckinResponse } from "cscheckin-js-sdk/dist/types";
+import NProgress from "nprogress";
 import HeaderPageCard from "../../components/Page/HeaderPageCard";
 import ErrorPage from "../../components/Page/ErrorPage";
 import useAuth from "../../components/AuthStore/useAuth";
@@ -50,17 +51,20 @@ export function InnerCSCStudentCheckin({ uuid }: { uuid: string }) {
 
   useEffect(() => {
     if (data) {
+      NProgress.done();
       sdb.setObj(checkinData, data);
       void redirect();
     }
   }, [data, redirect]);
 
   if (error) {
+    NProgress.done();
     return (
       <ErrorPage errorMessage={error.message} errorDetails={error.details} />
     );
   }
 
+  NProgress.start();
   return (
     <HeaderPageCard
       id="checkin-student"
