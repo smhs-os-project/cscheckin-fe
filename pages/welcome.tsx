@@ -38,7 +38,7 @@ export default function CSCAdmin() {
     <ListChoicePageCard
       id="csc-welcome"
       title={`${userName ? `${userName}，` : ""}歡迎使用本系統！`}
-      desc="這個主畫面可以讓你建立及設定簽到連結。"
+      desc="這個主畫面可以讓您管理簽到連結，以及設定相關功能。"
       icon={faUserAlt}
     >
       {[
