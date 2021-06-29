@@ -200,7 +200,9 @@ function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
               </ul>
             </div>
             <BaseButton
-              onClick={async () => syncListAction().then(() => refreshData())}
+              onClick={async () =>
+                syncListAction().then(() => refreshData(id, auth))
+              }
               disabled={lockFlag}
             >
               更新資料
