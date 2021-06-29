@@ -194,7 +194,7 @@ function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
                 await Swal.fire(
                   "還沒準備好！",
                   "再等一下下，我們還在準備資料⋯⋯",
-                  "error"
+                  "warning"
                 );
             }}
           >
