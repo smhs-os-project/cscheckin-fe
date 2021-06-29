@@ -136,23 +136,23 @@ export function closeCourseActionWrapper({
 
         if (ok) {
           await refreshData(id, auth);
-          setMessage("❌ 已經關閉課程。");
+          setMessage("❌ 已經結束簽到。");
           setLockFlag(false);
         } else {
           setError({
-            message: "無法關閉課程 : (",
+            message: "無法結束簽到 : (",
             details: "API 返回「不成功」。",
           });
         }
       } catch (e: unknown) {
         if (e instanceof Error) {
           setError({
-            message: "無法關閉課程 : (",
+            message: "無法結束簽到 : (",
             details: e.message,
           });
         } else {
           setError({
-            message: "無法關閉課程 : (",
+            message: "無法結束簽到 : (",
             details: `${e}`,
           });
         }
