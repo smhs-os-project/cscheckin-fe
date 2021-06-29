@@ -6,6 +6,7 @@ import "@fontsource/noto-sans-tc";
 import "@fontsource/pt-sans";
 import "../styles/global.css";
 import "../styles/nprogress.css";
+import Client from "cscheckin-js-sdk/dist/request/client";
 import * as gtag from "../utilities/analytics";
 
 Router.events.on("routeChangeStart", () => {
@@ -21,6 +22,8 @@ Router.events.on("routeChangeError", () => {
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
+  Client.getInstance().BackendURI = "https://dev.api.csc.deershark.com/api";
+
   // mostly from https://github.com/vercel/next.js/blob/canary/examples/with-google-analytics/pages/_app.js
   const router = useRouter();
   useEffect(() => {
