@@ -1,6 +1,6 @@
 {
   "name": "cscheckin-fe",
-  "version": "1.0.2-sentry-hotfix",
+  "version": "2.0.0-preview.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
