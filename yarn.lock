@@ -1269,9 +1269,9 @@ crypto-browserify@3.12.0, crypto-browserify@^3.11.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
-cscheckin-js-sdk@smhs-os-project/cscheckin-js-sdk#refactor/swr:
-  version "2.0.1-preview.6"
-  resolved "https://codeload.github.com/smhs-os-project/cscheckin-js-sdk/tar.gz/26b7d22d365a150a9652efc8b0626b48e079e254"
+cscheckin-js-sdk@smhs-os-project/cscheckin-js-sdk:
+  version "2.0.1-preview.7"
+  resolved "https://codeload.github.com/smhs-os-project/cscheckin-js-sdk/tar.gz/8d3be5fbbb5fc16e8a718d79eecd2d2247b65e78"
   dependencies:
     "@sentry/browser" "^6.7.2"
     "@sentry/tracing" "^6.7.2"
