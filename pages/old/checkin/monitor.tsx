@@ -10,7 +10,7 @@ import { useAuth } from "../../../components/AuthStore/useAuth";
 import BaseButton from "../../../components/BaseElements/BaseButton";
 import BasePage from "../../../components/Page/BasePage";
 import catcherBuilder from "../../../utilities/catcher";
-import type { StageDeps } from "../../../components/Monitor/StageAction";
+import type { StageDeps } from "../../../components/Dashboard/StageAction";
 import { randTextColor } from "../../../utilities/randcolor";
 import {
   EndCheckinAction,
@@ -19,11 +19,11 @@ import {
   GetLinkAction,
   ShareToClassroomAction,
   SyncListAction,
-} from "../../../components/Monitor/StageAction";
+} from "../../../components/Dashboard/StageAction";
 import {
   getCourseStatus,
   getCheckinStatusIcon,
-} from "../../../components/Monitor/EnumToString";
+} from "../../../components/Dashboard/EnumToString";
 import Sentry from "../../../utilities/sentry";
 
 enum InitiateStage {
