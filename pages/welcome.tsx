@@ -51,7 +51,7 @@ export default function CSCAdmin() {
         },
         {
           id: "config-section",
-          name: "設定 CSC 系統",
+          name: "學生設定班級座號 / 教師設定簽到時限",
           redirect: async () => {
             await router.push("/config");
           },

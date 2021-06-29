@@ -21,13 +21,13 @@ export default function CSCConfiguration() {
             await router.push("/config/info");
           },
         },
-        // {
-        //   id: "duration-setup",
-        //   name: "設定遲到與結束簽到時間",
-        //   redirect: async () => {
-        //     await router.push("/config/checkin-duration");
-        //   },
-        // },
+        {
+          id: "duration-setup",
+          name: "設定遲到與結束簽到時間",
+          redirect: async () => {
+            await router.push("/config/checkin-duration");
+          },
+        },
       ]}
     </ListChoicePageCard>
   );
