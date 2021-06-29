@@ -23,7 +23,7 @@ export default function BaseButton({
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       type={submit ? "submit" : "button"}
-      className={`rounded px-4 py-1 ${solid ? solidC : borderC} h-10 ${
+      className={`rounded px-4 py-1 ${solid ? solidC : borderC} min-h-10 ${
         className || ""
       }`}
     >
