@@ -2,6 +2,7 @@ import type { AuthIdentRequest } from "cscheckin-js-sdk/dist/types";
 import { useEffect, useState } from "react";
 import useAuth from "../components/AuthStore/useAuth";
 import { Scope } from "../components/GoogleLoginComponent/LoginComponent";
+import { reportException } from "./reportExceptionMessage";
 
 export type UserInfo = AuthIdentRequest;
 
@@ -16,10 +17,13 @@ export default function useUserInfo(): {
   useEffect(() => {
     if (auth) {
       void (async () => {
-        const info = await auth.userInfo();
-
-        setUserInfo(info?.student ?? null);
-        setReady(false);
+        try {
+          const info = await auth.userInfo();
+          setUserInfo(info?.student ?? null);
+          setReady(true);
+        } catch (e) {
+          reportException(e, "failed to get user info");
+        }
       })();
     }
   }, [auth, setUserInfo, setReady]);
