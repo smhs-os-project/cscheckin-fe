@@ -10,7 +10,7 @@ import CommonDB from "../CommonDB";
  * setup.display-name
  * ```
  *
- * Every keys gotten and set will be prefixed with "KEY_PREFIX", thus
+ * All keys gotten and set will be prefixed with "KEY_PREFIX", thus
  * the key that LocalDB will add to `localStorage` is:
  *
  * ```js

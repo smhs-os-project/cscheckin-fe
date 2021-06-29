@@ -10,12 +10,10 @@ import {
   CloseCourse,
   GetCourseByID,
   GetShareLink,
-  isBefore,
   ShareToClassroom,
   SyncCourseMembers,
 } from "cscheckin-js-sdk";
 import { CheckinState } from "cscheckin-js-sdk/dist/types";
-import NProgress from "nprogress";
 import type { ErrorData } from "../../utilities/useError";
 
 export interface DashboardDeps {
@@ -163,34 +161,6 @@ export function syncListActionWrapper({
             details: `${e}`,
           });
         }
-      }
-    }
-  };
-}
-
-export function lockFlagEffectWrapper({ lockFlag }: DashboardDeps) {
-  return () => {
-    if (lockFlag) NProgress.start();
-    else NProgress.done();
-  };
-}
-
-export function courseStatusEffectWrapper({
-  courseInfo,
-  setCourseStatus,
-}: DashboardDeps) {
-  if (!setCourseStatus) throw new Error("lack some deps: setCourseStatus");
-
-  return () => {
-    if (courseInfo) {
-      if (isBefore(courseInfo.start_timestamp, courseInfo.expire_time)) {
-        // Date.now() > start time + end duration
-        setCourseStatus(CheckinState.NOT_CHECKED_IN);
-      } else if (isBefore(courseInfo.start_timestamp, courseInfo.late_time)) {
-        // Date.now() > start time + late duration
-        setCourseStatus(CheckinState.LATE);
-      } else {
-        setCourseStatus(CheckinState.ON_TIME);
       }
     }
   };

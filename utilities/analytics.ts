@@ -4,7 +4,7 @@
 export const GA_TRACKING_ID = process.env["NEXT_PUBLIC_GA_ID"];
 
 if (!GA_TRACKING_ID) {
-  throw new Error("you should specify NEXT_PUBLIC_GA_ID envvar.");
+  throw new Error("you should specify NEXT_PUBLIC_GA_ID environment variable.");
 }
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
