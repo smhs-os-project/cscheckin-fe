@@ -6,11 +6,11 @@ import { Scope } from "../components/GoogleLoginComponent/LoginComponent";
 export type UserInfo = AuthIdentRequest;
 
 export default function useUserInfo(): {
-  info: UserInfo | null;
-  preparing: boolean;
+  userInfo: UserInfo | null;
+  ready: boolean;
 } {
   const { auth } = useAuth(false, Scope.Student);
-  const [preparing, setPreparing] = useState(true);
+  const [ready, setReady] = useState(false);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   useEffect(() => {
@@ -19,10 +19,10 @@ export default function useUserInfo(): {
         const info = await auth.userInfo();
 
         setUserInfo(info?.student ?? null);
-        setPreparing(false);
+        setReady(false);
       })();
     }
-  }, [auth, setUserInfo, setPreparing]);
+  }, [auth, setUserInfo, setReady]);
 
-  return { info: userInfo, preparing };
+  return { userInfo, ready };
 }
