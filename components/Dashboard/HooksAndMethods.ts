@@ -1,5 +1,5 @@
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import type {
   ShareResponse,
   TeacherCheckinListResponse,
@@ -29,13 +29,24 @@ export interface DashboardDeps {
   setCourseStatus?: (val: CheckinState) => void;
 }
 
+export async function refreshData() {
+  await Promise.all(
+    [
+      "teacher.checkin_list",
+      "course.get_share_link",
+      "course.get_course.get_course_by_id",
+    ].map((key) => mutate(key))
+  );
+}
+
 export function useCheckinList(id: string, auth: CSCAuth | null) {
   return useSWR<TeacherCheckinListResponse | null, unknown>(
     ["teacher.checkin_list", id, auth],
     async (_, inId: string, inAuth: typeof auth) => {
       if (inAuth) return CheckinList(Number(inId), inAuth);
       return null;
-    }
+    },
+    { refreshInterval: 30000 }
   );
 }
 
@@ -55,7 +66,8 @@ export function useCourseInfo(id: string, auth: CSCAuth | null) {
     async (_, inId: string, inAuth: typeof auth) => {
       if (inAuth) return GetCourseByID(Number(inId), inAuth);
       return null;
-    }
+    },
+    { refreshInterval: 30000 }
   );
 }
 
