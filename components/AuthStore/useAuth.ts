@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import type { ErrorData } from "../../utilities/useError";
 import useError from "../../utilities/useError";
 import { Scope } from "../GoogleLoginComponent/LoginComponent";
+import { reportException } from "../../utilities/reportExceptionMessage";
 import AuthStore from ".";
 
 export default function useAuth(
@@ -22,19 +23,29 @@ export default function useAuth(
     const theAuth = await AuthStore.retrieve();
     const accessData = await theAuth?.getAccessData();
 
-    if (accessData && accessData.exp < Date.now()) {
-      setAuth(theAuth);
-    } else {
-      setError({
-        message: "登入憑證到期或是無效。請登出後重新登入。",
-        details: JSON.stringify(accessData),
-      });
-      AuthStore.remove();
-      if (redirect) {
-        await router.push(
-          `/sso/${identity}?redirect=${encodeURIComponent(router.asPath)}`
-        );
+    try {
+      if (
+        accessData &&
+        accessData.exp < Date.now() &&
+        (await theAuth?.userInfo())
+      ) {
+        setAuth(theAuth);
+        return;
       }
+    } catch (e) {
+      reportException(e);
+    }
+
+    setError({
+      message: "登入憑證到期或是無效。請登出後重新登入。",
+      details: JSON.stringify(accessData),
+    });
+    AuthStore.remove();
+
+    if (redirect) {
+      await router.push(
+        `/sso/${identity}?redirect=${encodeURIComponent(router.asPath)}`
+      );
     }
   }, [setAuth, setError, redirect, identity, router]);
 
