@@ -12,32 +12,35 @@ export default function useAuth(
 ): {
   auth: CSCAuth | null;
   error: ErrorData | null;
+  recheck: () => Promise<void>;
 } {
   const router = useRouter();
   const [error, setError] = useError();
   const [auth, setAuth] = useState<CSCAuth | null>(null);
 
-  useEffect(() => {
-    void (async () => {
-      const theAuth = await AuthStore.retrieve();
-      const accessData = await theAuth?.getAccessData();
+  const recheck = async () => {
+    const theAuth = await AuthStore.retrieve();
+    const accessData = await theAuth?.getAccessData();
 
-      if (accessData && accessData.exp < Date.now()) {
-        setAuth(theAuth);
-      } else {
-        setError({
-          message: "登入憑證到期或是無效。請登出後重新登入。",
-          details: JSON.stringify(accessData),
-        });
-        AuthStore.remove();
-        if (redirect) {
-          await router.push(
-            `/sso/${identity}?redirect=${encodeURIComponent(router.asPath)}`
-          );
-        }
+    if (accessData && accessData.exp < Date.now()) {
+      setAuth(theAuth);
+    } else {
+      setError({
+        message: "登入憑證到期或是無效。請登出後重新登入。",
+        details: JSON.stringify(accessData),
+      });
+      AuthStore.remove();
+      if (redirect) {
+        await router.push(
+          `/sso/${identity}?redirect=${encodeURIComponent(router.asPath)}`
+        );
       }
-    })();
+    }
+  };
+
+  useEffect(() => {
+    void recheck();
   }, []);
 
-  return { auth, error: error ?? null };
+  return { auth, error: error ?? null, recheck };
 }
