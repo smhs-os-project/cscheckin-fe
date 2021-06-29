@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
 import NProgress from "nprogress";
 import { isBefore } from "cscheckin-js-sdk";
+import Swal from "sweetalert2";
 import useAuth from "../../../../../components/AuthStore/useAuth";
 import useError from "../../../../../utilities/useError";
 import ErrorPage from "../../../../../components/Page/ErrorPage";
@@ -25,6 +26,7 @@ import {
   useCheckinList,
   useCourseInfo,
 } from "../../../../../components/Dashboard/HooksAndMethods";
+import FullWidthColoredButton from "../../../../../components/BaseElements/FullWidthColoredButton";
 
 function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
   const [error, setError] = useError();
@@ -151,7 +153,7 @@ function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
   return (
     <BasePage id="monitor" title="監控簽到連結" full>
       <div className="flex flex-col items-center justify-around xl:items-baseline xl:flex-row">
-        <section className="flex flex-col items-center content-center justify-center mb-5 shadow rounded-xl w-max">
+        <section className="flex flex-col items-center content-center justify-center mb-5 shadow rounded-xl">
           <div className="p-4 text-center link-section">
             <label htmlFor="#checkin-link" className="block text-xl text-align">
               把簽到連結擴散出去吧！
@@ -167,24 +169,40 @@ function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
               />
             </label>
           </div>
-          <div className="w-10/12 mb-5 text-center course-status">
+          <div className="w-11/12 mb-5 text-center course-status">
             {courseStatus && getCourseStatus(courseStatus)}
           </div>
-          <div className="w-10/12 mb-5 text-center message">{message}</div>
-          <div className="flex flex-col self-center p-4 mb-4 space-x-0 space-y-2 text-center xl:space-y-0 xl:space-x-2 xl:flex-row justify-self-center">
-            <BaseButton solid onClick={shareLinkAction} disabled={lockFlag}>
-              分享到 Classroom
-            </BaseButton>
-            <CopyToClipboard
-              text={checkinLink?.link ?? ""}
-              onCopy={() => {
-                setMessage("📝 已複製！");
-              }}
-            >
-              <BaseButton disabled={lockFlag}>複製連結</BaseButton>
-            </CopyToClipboard>
-            <BaseButton onClick={closeCourseAction}>結束簽到</BaseButton>
-          </div>
+          <div className="w-11/12 mb-5 text-center message">{message}</div>
+          <FullWidthColoredButton onClick={shareLinkAction}>
+            分享到 Classroom
+          </FullWidthColoredButton>
+          <CopyToClipboard
+            text={checkinLink?.link ?? ""}
+            onCopy={() => {
+              setMessage("📝 已複製！");
+            }}
+          >
+            <FullWidthColoredButton onClick={() => null}>
+              複製連結
+            </FullWidthColoredButton>
+          </CopyToClipboard>
+          <FullWidthColoredButton
+            onClick={async () => {
+              if (courseInfo)
+                window.location.href = `/checkin/manage/create/${courseInfo.google_classroom_id}/instant`;
+              else
+                await Swal.fire(
+                  "還沒準備好！",
+                  "再等一下下，我們還在準備資料⋯⋯",
+                  "error"
+                );
+            }}
+          >
+            重產簽到連結
+          </FullWidthColoredButton>
+          <FullWidthColoredButton onClick={closeCourseAction}>
+            結束簽到
+          </FullWidthColoredButton>
         </section>
         <section>
           <div className="flex items-center content-start justify-end mb-5">
