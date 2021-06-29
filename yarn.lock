@@ -3920,6 +3920,11 @@ supports-color@^8.0.0:
   dependencies:
     has-flag "^4.0.0"
 
+sweetalert2@^11.0.18:
+  version "11.0.18"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.0.18.tgz#9547859cc1a79815d5d02a6e0d1a3d44da3f8dc1"
+  integrity sha512-sF6huRQqqRGz7p9F8XFKSICl5hOiXjjpmnwAO8vlyJKAyMNZb2fvdok11JIGQjqcqVMIag/VLNWF4eEsIKQKGw==
+
 swr@^0.5.6:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/swr/-/swr-0.5.6.tgz#70bfe9bc9d7ac49a064be4a0f4acf57982e55a31"
