@@ -31,7 +31,7 @@ export interface DashboardDeps {
 
 export function useCheckinList(id: string, auth: CSCAuth | null) {
   return useSWR<TeacherCheckinListResponse | null, unknown>(
-    ["", id, auth],
+    ["teacher.checkin_list", id, auth],
     async (_, inId: string, inAuth: typeof auth) => {
       if (inAuth) return CheckinList(Number(inId), inAuth);
       return null;
@@ -41,7 +41,7 @@ export function useCheckinList(id: string, auth: CSCAuth | null) {
 
 export function useCheckinLink(id: string, auth: CSCAuth | null) {
   return useSWR<ShareResponse | null, unknown>(
-    ["", id, auth],
+    ["course.get_share_link", id, auth],
     async (_, inId: string, inAuth: typeof auth) => {
       if (inAuth) return GetShareLink(Number(inId), inAuth);
       return null;
@@ -51,7 +51,7 @@ export function useCheckinLink(id: string, auth: CSCAuth | null) {
 
 export function useCourseInfo(id: string, auth: CSCAuth | null) {
   return useSWR<CourseResponse | null, unknown>(
-    ["", id, auth],
+    ["course.get_course.get_course_by_id", id, auth],
     async (_, inId: string, inAuth: typeof auth) => {
       if (inAuth) return GetCourseByID(Number(inId), inAuth);
       return null;
@@ -73,9 +73,17 @@ export function shareLinkActionWrapper({
     setLockFlag(true);
     if (auth) {
       try {
-        await ShareToClassroom(Number(id), auth);
-        setMessage("✅ 分享成功！");
-        setLockFlag(false);
+        const ok = await ShareToClassroom(Number(id), auth);
+
+        if (ok) {
+          setMessage("✅ 分享成功！");
+          setLockFlag(false);
+        } else {
+          setError({
+            message: "無法分享連結到 Classroom : (",
+            details: "伺服器返回「不成功」",
+          });
+        }
       } catch (e: unknown) {
         if (e instanceof Error) {
           setError({
@@ -112,9 +120,17 @@ export function closeCourseActionWrapper({
         courseStatus === CheckinState.LATE)
     ) {
       try {
-        await CloseCourse(Number(id), auth);
-        setMessage("❌ 已經關閉課程。");
-        setLockFlag(false);
+        const ok = await CloseCourse(Number(id), auth);
+
+        if (ok) {
+          setMessage("❌ 已經關閉課程。");
+          setLockFlag(false);
+        } else {
+          setError({
+            message: "無法關閉課程 : (",
+            details: "API 返回「不成功」。",
+          });
+        }
       } catch (e: unknown) {
         if (e instanceof Error) {
           setError({
@@ -128,6 +144,9 @@ export function closeCourseActionWrapper({
           });
         }
       }
+    } else {
+      setMessage("😅 課程已經停止簽到，不用再按了！");
+      setLockFlag(false);
     }
   };
 }
@@ -146,9 +165,17 @@ export function syncListActionWrapper({
     setLockFlag(true);
     if (auth) {
       try {
-        await SyncCourseMembers(Number(id), auth);
-        setMessage("✅ 已經同步學生名單！");
-        setLockFlag(false);
+        const ok = await SyncCourseMembers(Number(id), auth);
+
+        if (ok) {
+          setMessage("✅ 已經同步學生名單！");
+          setLockFlag(false);
+        } else {
+          setError({
+            message: "無法同步課程 : (",
+            details: "API 返回「不成功」。",
+          });
+        }
       } catch (e: unknown) {
         if (e instanceof Error) {
           setError({
