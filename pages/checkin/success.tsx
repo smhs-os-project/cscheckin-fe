@@ -6,6 +6,7 @@ import type {
 } from "cscheckin-js-sdk/dist/types";
 import { CheckinResponseSchema } from "cscheckin-js-sdk/dist/types";
 import { ValidationError } from "myzod";
+import Link from "next/link";
 import HeaderPageCard from "../../components/Page/HeaderPageCard";
 import useAuth from "../../components/AuthStore/useAuth";
 import { Scope } from "../../components/GoogleLoginComponent/LoginComponent";
@@ -13,6 +14,7 @@ import SessionDB from "../../components/SessionDB";
 import { checkinData } from "../../components/SessionDB/consts";
 import ErrorPage from "../../components/Page/ErrorPage";
 import getStateBrief from "../../utilities/getStateBrief";
+import BaseButton from "../../components/BaseElements/BaseButton";
 
 const sdb = SessionDB.getInstance();
 
@@ -44,12 +46,17 @@ export function InnerCSCStudentCheckinSuccess({
           <p>簽到狀態：{getStateBrief(cdata.state)}</p>
           <p>姓名：{userInfo.name}</p>
           <p>信箱：{userInfo.email}</p>
+          <p>班級：{userInfo.student?.class ?? "⚠️ 未設定"}</p>
+          <p>座號：{userInfo.student?.number ?? "⚠️ 未設定"}</p>
         </>
       ) : (
         <p>正在載入身分資訊⋯⋯</p>
       )}
 
       <p>時間：{new Date().toLocaleString()}</p>
+      <Link href="/config/info">
+        <BaseButton className="mt-2">重設班級座號</BaseButton>
+      </Link>
     </HeaderPageCard>
   );
 }
