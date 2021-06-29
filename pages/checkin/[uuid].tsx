@@ -3,17 +3,24 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { Checkin } from "cscheckin-js-sdk";
+import type { CheckinResponse } from "cscheckin-js-sdk/dist/types";
 import HeaderPageCard from "../../components/Page/HeaderPageCard";
 import ErrorPage from "../../components/Page/ErrorPage";
 import useAuth from "../../components/AuthStore/useAuth";
 import useError from "../../utilities/useError";
 import RefreshButton from "../../components/BaseElements/RefreshButton";
 import { Scope } from "../../components/GoogleLoginComponent/LoginComponent";
+import useRedirect from "../../utilities/useRedirect";
+import SessionDB from "../../components/SessionDB";
+import { checkinData } from "../../components/SessionDB/consts";
+
+const sdb = SessionDB.getInstance();
 
 export function InnerCSCStudentCheckin({ uuid }: { uuid: string }) {
   const [error, setError] = useError();
+  const { redirect } = useRedirect("/checkin/success");
   const { auth, error: authError } = useAuth(true, Scope.Student);
-  const { data, error: respError } = useSWR<boolean | null, unknown>(
+  const { data, error: respError } = useSWR<CheckinResponse | null, unknown>(
     ["student.checkin", uuid, auth],
     async (_, iUUID: typeof uuid, iAuth: typeof auth) => {
       if (iAuth) {
@@ -30,21 +37,23 @@ export function InnerCSCStudentCheckin({ uuid }: { uuid: string }) {
   useEffect(() => {
     if (respError instanceof Error) {
       setError({
-        message: "無法簽到。",
-        details: respError.message,
+        message: "您未加入這間教室，或已經結束簽到。",
+        details: `伺服器端拒絕本次簽到請求。可能是因為您未加入這間教室，或已經結束簽到。錯誤代碼：${respError.message}`,
       });
     } else if (respError) {
       setError({
         message: "無法簽到。",
         details: `${respError}`,
       });
-    } else if (data === false) {
-      setError({
-        message: "您未加入這間教室，或已經結束簽到。",
-        details: `伺服器端拒絕本次簽到請求。可能是因為您未加入這間教室，或已經結束簽到。`,
-      });
     }
-  }, [respError, data, setError]);
+  }, [respError, setError]);
+
+  useEffect(() => {
+    if (data) {
+      sdb.setObj(checkinData, data);
+      void redirect();
+    }
+  }, [data, redirect]);
 
   if (error) {
     return (
