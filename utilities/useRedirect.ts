@@ -1,22 +1,30 @@
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function useRedirect(defaultRedirect?: string): {
-  redirect: () => Promise<{ success: boolean }>;
+  redirect: () => Promise<boolean>;
+  redirectTo: string | null;
 } {
-  const iRouter = useRouter();
-  const { redirect } = iRouter.query;
+  const router = useRouter();
+  const { redirect } = router.query;
+  const [redirectTo, setRedirectTo] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof redirect === "string") {
+      setRedirectTo(redirect);
+    } else if (defaultRedirect) {
+      setRedirectTo(defaultRedirect);
+    }
+  }, [redirect, defaultRedirect]);
 
   return {
     async redirect() {
-      if (typeof redirect === "string") {
-        await iRouter.push(decodeURIComponent(redirect));
-      } else if (defaultRedirect) {
-        await iRouter.push(defaultRedirect);
-      } else {
-        return { success: false };
+      if (redirectTo) {
+        return router.push(redirectTo);
       }
 
-      return { success: true };
+      return false;
     },
+    redirectTo,
   };
 }
