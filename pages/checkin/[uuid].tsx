@@ -69,7 +69,7 @@ export function InnerCSCStudentCheckin({ uuid }: { uuid: string }) {
       headerColor="blue-900"
       icon={faCheck}
     >
-      <p>如長時間無反應，請點選下方按鈕重新整理。</p>
+      <p>如超過 10 秒無反應，請點選下方按鈕重新整理。</p>
       <p>若問題持續，請按右下角「回報問題」告知我們。</p>
       <RefreshButton className="mt-3" />
     </HeaderPageCard>
