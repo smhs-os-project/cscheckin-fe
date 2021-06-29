@@ -149,7 +149,7 @@ function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
 
   return (
     <BasePage id="monitor" title="監控簽到連結" full>
-      <div className="flex flex-col items-center justify-around md:items-baseline md:flex-row">
+      <div className="flex flex-col items-center justify-around xl:items-baseline xl:flex-row">
         <section className="flex flex-col items-center content-center justify-center mb-5 shadow rounded-xl w-max">
           <div className="p-4 text-center link-section">
             <label htmlFor="#checkin-link" className="block text-xl text-align">
@@ -157,8 +157,7 @@ function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
               <input
                 type="input"
                 className="block mt-4 font-mono text-2xl border-b border-black outline-none"
-                placeholder="正在載入⋯⋯"
-                value={checkinLink?.link}
+                value={checkinLink?.link ?? "正在載入⋯⋯"}
                 id="checkin-link"
                 readOnly
                 onFocus={(e) => {
@@ -171,7 +170,7 @@ function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
             {courseStatus && getCourseStatus(courseStatus)}
           </div>
           <div className="w-10/12 mb-5 text-center message">{message}</div>
-          <div className="flex flex-col self-center p-4 mb-4 space-x-0 space-y-2 text-center md:space-y-0 md:space-x-2 md:flex-row justify-self-center">
+          <div className="flex flex-col self-center p-4 mb-4 space-x-0 space-y-2 text-center xl:space-y-0 xl:space-x-2 xl:flex-row justify-self-center">
             <BaseButton solid onClick={shareLinkAction} disabled={lockFlag}>
               分享到 Classroom
             </BaseButton>
@@ -199,11 +198,11 @@ function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
                 </li>
               </ul>
             </div>
-            <BaseButton onClick={syncListAction} disabled={lockFlag}>
+            <BaseButton onClick={() => syncListAction()} disabled={lockFlag}>
               更新資料
             </BaseButton>
           </div>
-          <table className="w-full table-text-lg table-py-4 table-px-4 md:table-px-12">
+          <table className="w-full table-text-lg table-py-4 table-px-4 xl:table-px-12">
             <thead>
               <tr className="border-b border-gray-500">
                 <th>簽到狀況</th>
