@@ -29,12 +29,11 @@ export interface DashboardDeps {
   setCourseStatus?: (val: CheckinState) => void;
 }
 
-export async function refreshData() {
+export async function refreshData(id: string, auth: CSCAuth | null) {
   await Promise.all(
     [
-      "teacher.checkin_list",
-      "course.get_share_link",
-      "course.get_course.get_course_by_id",
+      ["teacher.checkin_list", id, auth],
+      ["course.get_course.get_course_by_id", id, auth],
     ].map((key) => mutate(key))
   );
 }
