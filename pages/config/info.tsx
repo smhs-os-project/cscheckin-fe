@@ -9,38 +9,31 @@ import { Scope } from "../../components/GoogleLoginComponent/LoginComponent";
 import useError from "../../utilities/useError";
 import useRedirect from "../../utilities/useRedirect";
 import ErrorPage from "../../components/Page/ErrorPage";
+import useUserInfo from "../../utilities/useUserInfo";
 
 export default function CSCConfigInfoSetup() {
   const router = useRouter();
   const { auth, error: authError } = useAuth(true, Scope.Student);
   const { redirect } = useRedirect("/config");
+  const { info: userInfo, preparing: userInfoPrepared } = useUserInfo();
   const [error, setError] = useError();
   const [userClass, setUserClass] = useState("");
   const [userNumber, setUserNumber] = useState("");
   const [hasInitiated, setHasInitiated] = useState(false);
 
   useEffect(() => {
-    auth
-      ?.userInfo()
-      .then((userInfo) => {
-        if (
-          userInfo?.student &&
-          !hasInitiated &&
-          userClass === "" &&
-          userNumber === ""
-        ) {
-          const { class: userOriginalClass, number: userOriginalNumber } =
-            userInfo.student;
-
-          setUserClass(userOriginalClass);
-          setUserNumber(userOriginalNumber);
-          setHasInitiated(true);
-        }
-      })
-      .catch(() => {
-        /* ignore it */
-      });
-  }, [auth, userClass, userNumber, hasInitiated]);
+    if (
+      !hasInitiated &&
+      userInfoPrepared &&
+      userInfo &&
+      userClass === "" &&
+      userNumber === ""
+    ) {
+      setUserClass(userInfo.class);
+      setUserNumber(userInfo.number);
+      setHasInitiated(true);
+    }
+  }, [auth, userClass, userNumber, hasInitiated, userInfoPrepared, userInfo]);
 
   useEffect(() => {
     if (authError) setError(authError);
