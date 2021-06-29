@@ -10,11 +10,27 @@ import RefreshButton from "../../../../../components/BaseElements/RefreshButton"
 import useAuth from "../../../../../components/AuthStore/useAuth";
 import useError from "../../../../../utilities/useError";
 import ErrorPage from "../../../../../components/Page/ErrorPage";
+import { useConfig } from "../../../../../components/LocalDB/utilities";
+import {
+  END_DURATION,
+  END_DURATION_DEFAULT,
+  LATE_DURATION,
+  LATE_DURATION_DEFAULT,
+} from "../../../../../components/LocalDB/consts";
 
-function InnerCSCCheckinManageCreateCourseInstant({ gcid }: { gcid: string }) {
+function InnerCSCCheckinManageCreateCourseInstant({
+  gcid,
+  lateTime,
+  endTime,
+}: {
+  gcid: string;
+  lateTime: string;
+  endTime: string;
+}) {
   const router = useRouter();
   const { auth, error: authError } = useAuth();
   const [error, setError] = useError();
+
   const { data, error: courseError } = useSWR<CourseResponse | null, unknown>(
     ["course.create_course", auth, gcid],
     async (_, inAuth: typeof auth, inGcid: typeof gcid) => {
@@ -23,8 +39,8 @@ function InnerCSCCheckinManageCreateCourseInstant({ gcid }: { gcid: string }) {
           inGcid,
           {
             start_timestamp: new Date(),
-            late_time: "00:10:00", // TODO
-            expire_time: "00:50:00", // TODO
+            late_time: lateTime,
+            expire_time: endTime,
           },
           inAuth
         );
@@ -81,8 +97,10 @@ function InnerCSCCheckinManageCreateCourseInstant({ gcid }: { gcid: string }) {
 export default function CSCCheckinManageCreateCourseInstant() {
   const router = useRouter();
   const { gcid } = router.query;
+  const [lateTimeConfig, , ltReady] = useConfig(LATE_DURATION);
+  const [endTimeConfig, , etReady] = useConfig(END_DURATION);
 
-  if (!router.isReady) {
+  if (!router.isReady || !ltReady || !etReady) {
     return <p>正在初始化資料⋯⋯</p>;
   }
 
@@ -97,5 +115,11 @@ export default function CSCCheckinManageCreateCourseInstant() {
     );
   }
 
-  return <InnerCSCCheckinManageCreateCourseInstant gcid={gcid} />;
+  return (
+    <InnerCSCCheckinManageCreateCourseInstant
+      gcid={gcid}
+      lateTime={lateTimeConfig ?? LATE_DURATION_DEFAULT}
+      endTime={endTimeConfig ?? END_DURATION_DEFAULT}
+    />
+  );
 }
