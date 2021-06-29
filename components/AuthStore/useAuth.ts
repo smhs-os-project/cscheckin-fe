@@ -1,5 +1,5 @@
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import type { ErrorData } from "../../utilities/useError";
 import useError from "../../utilities/useError";
@@ -18,7 +18,7 @@ export default function useAuth(
   const [error, setError] = useError();
   const [auth, setAuth] = useState<CSCAuth | null>(null);
 
-  const recheck = async () => {
+  const recheck = useCallback(async () => {
     const theAuth = await AuthStore.retrieve();
     const accessData = await theAuth?.getAccessData();
 
@@ -36,11 +36,11 @@ export default function useAuth(
         );
       }
     }
-  };
+  }, [setAuth, setError, redirect, identity, router]);
 
   useEffect(() => {
     void recheck();
-  }, []);
+  }, [recheck]);
 
   return { auth, error: error ?? null, recheck };
 }

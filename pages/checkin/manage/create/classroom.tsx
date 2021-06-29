@@ -44,7 +44,7 @@ export default function CSCManageCreateClassroom() {
 
   useEffect(() => {
     if (authError) setError(authError);
-  }, [authError]);
+  }, [authError, setError]);
 
   useEffect(() => {
     if (listError instanceof Error) {
@@ -58,7 +58,7 @@ export default function CSCManageCreateClassroom() {
         details: `${listError}`,
       });
     }
-  }, [listError]);
+  }, [listError, setError]);
 
   if (error) {
     return (

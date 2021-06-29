@@ -1,4 +1,4 @@
-import type { CheckinState } from "cscheckin-js-sdk/dist/types";
+import { CheckinState } from "cscheckin-js-sdk/dist/types";
 
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
 import NProgress from "nprogress";
+import { isBefore } from "cscheckin-js-sdk";
 import useAuth from "../../../../../components/AuthStore/useAuth";
 import useError from "../../../../../utilities/useError";
 import ErrorPage from "../../../../../components/Page/ErrorPage";
@@ -17,8 +18,6 @@ import {
 import BaseButton from "../../../../../components/BaseElements/BaseButton";
 import {
   closeCourseActionWrapper,
-  courseStatusEffectWrapper,
-  lockFlagEffectWrapper,
   shareLinkActionWrapper,
   syncListActionWrapper,
   useCheckinLink,
@@ -26,20 +25,8 @@ import {
   useCourseInfo,
 } from "../../../../../components/Dashboard/HooksAndMethods";
 
-export default function CSCCheckinManageDashboard() {
-  const router = useRouter();
+function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
   const [error, setError] = useError();
-  const { id } = router.query;
-  if (!router.isReady) {
-    return <p>正在初始化資料⋯⋯</p>;
-  }
-  if (!(typeof id === "string" && /^\d+$/.exec(id))) {
-    setError({
-      message: "傳入的 course id 無效。",
-      details: `傳入的 course id 是 ${id}，不是由數字構成的字串。`,
-    });
-  }
-
   const [message, setMessage] = useState<string | null>(null);
   const [courseStatus, setCourseStatus] = useState<CheckinState | null>(null);
   const [lockFlag, setLockFlag] = useState(false);
@@ -81,22 +68,35 @@ export default function CSCCheckinManageDashboard() {
 
   useEffect(() => {
     void recheck(); // recheck the authentication while doing stuff
-  }, [lockFlag]);
+  }, [lockFlag, recheck]);
 
   useEffect(() => {
     if (courseStatus && courseInfo && checkinLink) setLockFlag(false);
     else setLockFlag(true);
   }, [courseStatus, courseInfo, checkinLink]);
 
-  useEffect(lockFlagEffectWrapper({ lockFlag }), [lockFlag]);
+  useEffect(() => {
+    if (lockFlag) NProgress.start();
+    else NProgress.done();
+  }, [lockFlag]);
 
-  useEffect(courseStatusEffectWrapper({ courseInfo, setCourseStatus }), [
-    lockFlag,
-  ]);
+  useEffect(() => {
+    if (courseInfo) {
+      if (isBefore(courseInfo.start_timestamp, courseInfo.expire_time)) {
+        // Date.now() > start time + end duration
+        setCourseStatus(CheckinState.NOT_CHECKED_IN);
+      } else if (isBefore(courseInfo.start_timestamp, courseInfo.late_time)) {
+        // Date.now() > start time + late duration
+        setCourseStatus(CheckinState.LATE);
+      } else {
+        setCourseStatus(CheckinState.ON_TIME);
+      }
+    }
+  }, [lockFlag, courseInfo]);
 
   useEffect(() => {
     if (authError) setError(authError);
-  }, [authError]);
+  }, [authError, setError]);
 
   useEffect(() => {
     if (courseRespError instanceof Error) {
@@ -110,7 +110,7 @@ export default function CSCCheckinManageDashboard() {
         details: `${courseRespError}`,
       });
     }
-  }, [courseRespError]);
+  }, [courseRespError, setError]);
 
   useEffect(() => {
     if (checkinLinkRespError instanceof Error) {
@@ -124,7 +124,7 @@ export default function CSCCheckinManageDashboard() {
         details: `${checkinLinkRespError}`,
       });
     }
-  }, [checkinLinkRespError]);
+  }, [checkinLinkRespError, setError]);
 
   useEffect(() => {
     if (checkinListRespError instanceof Error) {
@@ -138,7 +138,7 @@ export default function CSCCheckinManageDashboard() {
         details: `${checkinListRespError}`,
       });
     }
-  }, [checkinListRespError]);
+  }, [checkinListRespError, setError]);
 
   if (error) {
     NProgress.done();
@@ -230,4 +230,23 @@ export default function CSCCheckinManageDashboard() {
       </div>
     </BasePage>
   );
+}
+
+export default function CSCCheckinManageDashboard() {
+  const router = useRouter();
+  const { id } = router.query;
+  if (!router.isReady) {
+    return <p>正在初始化資料⋯⋯</p>;
+  }
+
+  if (!(typeof id === "string" && /^\d+$/.exec(id))) {
+    return (
+      <ErrorPage
+        errorMessage="傳入的 course id 無效。"
+        errorDetails={`傳入的 course id 是 ${id}，不是由數字構成的字串。`}
+      />
+    );
+  }
+
+  return <InnerCSCCheckinManageDashboard id={id} />;
 }

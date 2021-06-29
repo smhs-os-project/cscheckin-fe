@@ -1,11 +1,9 @@
-import type { NextRouter } from "next/router";
 import { useRouter } from "next/router";
 
-export default function useRedirect(
-  defaultRedirect?: string,
-  router?: NextRouter
-): { redirect: () => Promise<{ success: boolean }> } {
-  const iRouter = router || useRouter();
+export default function useRedirect(defaultRedirect?: string): {
+  redirect: () => Promise<{ success: boolean }>;
+} {
+  const iRouter = useRouter();
   const { redirect } = iRouter.query;
 
   return {

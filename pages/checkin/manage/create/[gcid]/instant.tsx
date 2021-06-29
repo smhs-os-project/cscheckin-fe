@@ -11,19 +11,8 @@ import useAuth from "../../../../../components/AuthStore/useAuth";
 import useError from "../../../../../utilities/useError";
 import ErrorPage from "../../../../../components/Page/ErrorPage";
 
-export function useGcid() {
+function InnerCSCCheckinManageCreateCourseInstant({ gcid }: { gcid: string }) {
   const router = useRouter();
-  const { gcid } = router.query;
-
-  if (typeof gcid === "string") return gcid;
-  return null;
-}
-
-export default function CSCCheckinManageCreateCourseInstant() {
-  const router = useRouter();
-  const gcid = useGcid();
-  if (!gcid) return null;
-
   const { auth, error: authError } = useAuth();
   const [error, setError] = useError();
   const { data, error: courseError } = useSWR<CourseResponse | null, unknown>(
@@ -48,7 +37,7 @@ export default function CSCCheckinManageCreateCourseInstant() {
       NProgress.done();
       void router.push(`/checkin/manage/dashboard/${data.id}`);
     }
-  }, [data]);
+  }, [data, router]);
 
   useEffect(() => {
     if (courseError instanceof Error) {
@@ -62,11 +51,11 @@ export default function CSCCheckinManageCreateCourseInstant() {
         details: `${courseError}`,
       });
     }
-  }, [courseError]);
+  }, [courseError, setError]);
 
   useEffect(() => {
     if (authError) setError(authError);
-  }, [authError]);
+  }, [authError, setError]);
 
   if (error) {
     NProgress.done();
@@ -88,4 +77,25 @@ export default function CSCCheckinManageCreateCourseInstant() {
       <RefreshButton className="mt-3" />
     </HeaderPageCard>
   );
+}
+export default function CSCCheckinManageCreateCourseInstant() {
+  const router = useRouter();
+  const { gcid } = router.query;
+
+  if (!router.isReady) {
+    return <p>正在初始化資料⋯⋯</p>;
+  }
+
+  if (!(typeof gcid === "string")) {
+    return (
+      <ErrorPage
+        errorMessage="傳入的 classroom id 無效。"
+        errorDetails={`傳入的 classroom id 是 ${gcid?.join(
+          ","
+        )}，不是有效字串。`}
+      />
+    );
+  }
+
+  return <InnerCSCCheckinManageCreateCourseInstant gcid={gcid} />;
 }

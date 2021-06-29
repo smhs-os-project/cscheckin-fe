@@ -64,18 +64,13 @@ export default function LoginComponent({
         message: "無法取得 client id 資料。",
         details: rError.message,
       });
-    } else if (typeof rError === "string") {
-      setError({
-        message: "無法取得 client id 資料。",
-        details: rError.toString(),
-      });
     } else if (rError) {
       setError({
         message: "無法取得 client id 資料。",
         details: `未知錯誤：${rError}`,
       });
     }
-  }, [data, rError]);
+  }, [data, rError, setError]);
 
   if (error) {
     return (

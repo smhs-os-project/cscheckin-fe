@@ -8,7 +8,7 @@ export default function CSCIndex() {
 
   useEffect(() => {
     if (auth) void router.push("/checkin/manage");
-  }, [auth]);
+  }, [auth, router]);
 
   return null;
 }

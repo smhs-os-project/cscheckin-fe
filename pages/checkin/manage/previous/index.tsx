@@ -34,11 +34,11 @@ export default function CSCManagePrevious() {
         details: `${respError}`,
       });
     }
-  }, [respError]);
+  }, [respError, setError]);
 
   useEffect(() => {
     if (authError) setError(authError);
-  }, [authError]);
+  }, [authError, setError]);
 
   useEffect(() => {
     if (!Array.isArray(data)) {

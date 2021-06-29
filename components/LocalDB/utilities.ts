@@ -23,7 +23,7 @@ export function useConfig(
     window.addEventListener("storage", (ev) => {
       if (ev.key === key) setValue(ev.newValue);
     });
-  }, []);
+  }, [setValue, key]);
 
   return [value, setter];
 }
