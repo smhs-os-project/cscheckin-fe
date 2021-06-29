@@ -18,6 +18,7 @@ import {
 import BaseButton from "../../../../../components/BaseElements/BaseButton";
 import {
   closeCourseActionWrapper,
+  refreshData,
   shareLinkActionWrapper,
   syncListActionWrapper,
   useCheckinLink,
@@ -198,7 +199,10 @@ function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
                 </li>
               </ul>
             </div>
-            <BaseButton onClick={() => syncListAction()} disabled={lockFlag}>
+            <BaseButton
+              onClick={async () => syncListAction().then(() => refreshData())}
+              disabled={lockFlag}
+            >
               更新資料
             </BaseButton>
           </div>
