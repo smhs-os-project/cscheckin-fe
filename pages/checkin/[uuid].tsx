@@ -8,10 +8,11 @@ import ErrorPage from "../../components/Page/ErrorPage";
 import useAuth from "../../components/AuthStore/useAuth";
 import useError from "../../utilities/useError";
 import RefreshButton from "../../components/BaseElements/RefreshButton";
+import { Scope } from "../../components/GoogleLoginComponent/LoginComponent";
 
 export function InnerCSCStudentCheckin({ uuid }: { uuid: string }) {
   const [error, setError] = useError();
-  const { auth, error: authError } = useAuth();
+  const { auth, error: authError } = useAuth(true, Scope.Student);
   const { data, error: respError } = useSWR<boolean | null, unknown>(
     ["student.checkin", uuid, auth],
     async (_, iUUID: typeof uuid, iAuth: typeof auth) => {
@@ -39,8 +40,8 @@ export function InnerCSCStudentCheckin({ uuid }: { uuid: string }) {
       });
     } else if (data === false) {
       setError({
-        message: "無法簽到。",
-        details: `伺服器端無法執行簽到請求。`,
+        message: "您未加入這間教室，或已經結束簽到。",
+        details: `伺服器端拒絕本次簽到請求。可能是因為您未加入這間教室，或已經結束簽到。`,
       });
     }
   }, [respError, data, setError]);
