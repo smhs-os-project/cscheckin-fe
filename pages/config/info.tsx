@@ -15,7 +15,7 @@ export default function CSCConfigInfoSetup() {
   const router = useRouter();
   const { auth, error: authError } = useAuth(true, Scope.Student);
   const { redirect } = useRedirect("/config");
-  const { info: userInfo, preparing: userInfoPrepared } = useUserInfo();
+  const { userInfo, ready: userInfoReady } = useUserInfo();
   const [error, setError] = useError();
   const [userClass, setUserClass] = useState("");
   const [userNumber, setUserNumber] = useState("");
@@ -24,7 +24,7 @@ export default function CSCConfigInfoSetup() {
   useEffect(() => {
     if (
       !hasInitiated &&
-      userInfoPrepared &&
+      userInfoReady &&
       userInfo &&
       userClass === "" &&
       userNumber === ""
@@ -33,7 +33,7 @@ export default function CSCConfigInfoSetup() {
       setUserNumber(userInfo.number);
       setHasInitiated(true);
     }
-  }, [auth, userClass, userNumber, hasInitiated, userInfoPrepared, userInfo]);
+  }, [auth, userClass, userNumber, hasInitiated, userInfoReady, userInfo]);
 
   useEffect(() => {
     if (authError) setError(authError);
