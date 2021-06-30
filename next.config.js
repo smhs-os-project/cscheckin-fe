@@ -36,8 +36,14 @@ const moduleExports = {
         permanent: false,
       },
       {   // to be compatible with v1
-        source: '/checkin/monitor?id=:cid',
-        destination: '/checkin/manage/dashboard/:cid',
+        source: '/checkin/monitor',
+        has: [
+          {
+            type: 'query',
+            key: 'id',
+          },
+        ],
+        destination: '/checkin/manage/dashboard/:id',
         permanent: false,
       },
       {   // to be compatible with v1
