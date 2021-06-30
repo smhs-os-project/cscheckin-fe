@@ -22,9 +22,9 @@ export function InnerCSCStudentCheckin({ uuid }: { uuid: string }) {
   const { redirect } = useRedirect("/checkin/success");
   const { auth, error: authError } = useAuth(true, Scope.Student);
   const { data, error: respError } = useSWR<CheckinResponse | null, unknown>(
-    ["student.checkin", uuid, auth],
-    async (_, iUUID: typeof uuid, iAuth: typeof auth) => {
-      if (iAuth) {
+    ["student.checkin", uuid, auth, error],
+    async (_, iUUID: typeof uuid, iAuth: typeof auth, iErr: typeof error) => {
+      if (iAuth && !iErr) {
         return Checkin(iUUID, iAuth);
       }
       return null;
