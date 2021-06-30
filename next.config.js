@@ -15,7 +15,37 @@ const moduleExports = {
         destination: '/checkin/manage/create/classroom',
         permanent: false,
       },
-    ]
+      {   // to be compatible with v1
+        source: '/checkin/:org/:uuid',
+        destination: '/checkin/:uuid',
+        permanent: true,
+      },
+      {   // to be compatible with v1
+        source: '/admin',
+        destination: '/welcome',
+        permanent: false, // as I don't know that would we use 'admin' later.
+      },
+      {   // to be compatible with v1
+        source: '/checkin/create',
+        destination: '/checkin/manage/create',
+        permanent: false,
+      },
+      {   // to be compatible with v1
+        source: '/checkin/previous',
+        destination: '/checkin/manage/previous',
+        permanent: false,
+      },
+      {   // to be compatible with v1
+        source: '/checkin/monitor?id=:cid',
+        destination: '/checkin/manage/dashboard/:cid',
+        permanent: false,
+      },
+      {   // to be compatible with v1
+        source: '/config/register',
+        destination: '/config/info',
+        permanent: false,
+      },
+    ];
   },
 };
 
