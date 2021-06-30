@@ -16,11 +16,6 @@ const moduleExports = {
         permanent: false,
       },
       {   // to be compatible with v1
-        source: '/checkin/:org/:uuid',
-        destination: '/checkin/:uuid',
-        permanent: true,
-      },
-      {   // to be compatible with v1
         source: '/admin',
         destination: '/welcome',
         permanent: false, // as I don't know that would we use 'admin' later.
@@ -50,6 +45,11 @@ const moduleExports = {
         source: '/config/register',
         destination: '/config/info',
         permanent: false,
+      },
+      {   // to be compatible with v1
+        source: '/checkin/:org((?!manage).+)/:uuid',
+        destination: '/checkin/:uuid',
+        permanent: true,
       },
     ];
   },
