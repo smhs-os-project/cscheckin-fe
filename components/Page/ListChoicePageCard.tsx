@@ -1,7 +1,7 @@
 import React from "react";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
-import FullWidthColoredButton from "../BaseElements/FullWidthColoredButton";
+import FullWidthColoredButton from "../Elements/Button/FullWidthColoredButton";
 import HeaderPageCard from "./HeaderPageCard";
 
 export interface ListChoicePageCardProps {

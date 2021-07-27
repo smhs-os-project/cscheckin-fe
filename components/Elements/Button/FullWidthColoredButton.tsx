@@ -5,7 +5,7 @@ import React from "react";
 import {
   backgroundColorConfiguration,
   randColor,
-} from "../../utilities/randcolor";
+} from "../../../utilities/randcolor";
 
 export interface FullWidthColoredButtonProps {
   onClick: () => void;

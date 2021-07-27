@@ -9,7 +9,7 @@ import HeaderPageCard from "../../components/Page/HeaderPageCard";
 import ErrorPage from "../../components/Page/ErrorPage";
 import useAuth from "../../components/AuthStore/useAuth";
 import useError from "../../utilities/useError";
-import RefreshButton from "../../components/BaseElements/RefreshButton";
+import RefreshButton from "../../components/Elements/Button/RefreshButton";
 import { Scope } from "../../components/GoogleLoginComponent/LoginComponent";
 import useRedirect from "../../utilities/useRedirect";
 import SessionDB from "../../components/SessionDB";

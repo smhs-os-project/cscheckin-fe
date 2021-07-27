@@ -4,8 +4,8 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import useRedirect from "../../utilities/useRedirect";
 import HeaderPageCard from "../../components/Page/HeaderPageCard";
-import BaseInput from "../../components/BaseElements/BaseInput";
-import BaseButton from "../../components/BaseElements/BaseButton";
+import BaseInput from "../../components/Elements/Input/BaseInput";
+import BaseButton from "../../components/Elements/Button/BaseButton";
 import { useConfig } from "../../components/LocalDB/utilities";
 import {
   END_DURATION,

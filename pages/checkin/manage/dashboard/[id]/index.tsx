@@ -16,7 +16,7 @@ import {
   getCheckinStatusIcon,
   getCourseStatus,
 } from "../../../../../components/Dashboard/EnumToString";
-import BaseButton from "../../../../../components/BaseElements/BaseButton";
+import BaseButton from "../../../../../components/Elements/Button/BaseButton";
 import {
   closeCourseActionWrapper,
   refreshData,
@@ -26,7 +26,7 @@ import {
   useCheckinList,
   useCourseInfo,
 } from "../../../../../components/Dashboard/HooksAndMethods";
-import FullWidthColoredButton from "../../../../../components/BaseElements/FullWidthColoredButton";
+import FullWidthColoredButton from "../../../../../components/Elements/Button/FullWidthColoredButton";
 
 function InnerCSCCheckinManageDashboard({ id }: { id: string }) {
   const [error, setError] = useError();

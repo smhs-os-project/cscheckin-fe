@@ -14,7 +14,7 @@ import SessionDB from "../../components/SessionDB";
 import { checkinData } from "../../components/SessionDB/consts";
 import ErrorPage from "../../components/Page/ErrorPage";
 import getStateBrief from "../../utilities/getStateBrief";
-import BaseButton from "../../components/BaseElements/BaseButton";
+import BaseButton from "../../components/Elements/Button/BaseButton";
 
 const sdb = SessionDB.getInstance();
 

@@ -9,7 +9,7 @@ import useError from "../../utilities/useError";
 import ErrorPage from "../../components/Page/ErrorPage";
 import useRedirect from "../../utilities/useRedirect";
 import getUserInfo from "../../utilities/getUserInfo";
-import RefreshButton from "../../components/BaseElements/RefreshButton";
+import RefreshButton from "../../components/Elements/Button/RefreshButton";
 
 export default function CSCSSOStudentLogin() {
   const router = useRouter();

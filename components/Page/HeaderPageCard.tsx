@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import React from "react";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import HeaderCard from "../Card/HeaderCard";
+import HeaderCard from "../Elements/Card/HeaderCard";
 import BasePage from "./BasePage";
 
 export interface TitlePageCardProps {

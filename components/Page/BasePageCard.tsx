@@ -1,6 +1,6 @@
-import React from "react";
 import type { ReactNode } from "react";
-import BaseCard from "../Card/BaseCard";
+import React from "react";
+import BaseCard from "../Elements/Card/BaseCard";
 import BasePage from "./BasePage";
 
 export interface BasePageProps {

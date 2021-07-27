@@ -6,7 +6,7 @@ import useSWR from "swr";
 import type { CourseResponse } from "cscheckin-js-sdk/dist/types";
 import NProgress from "nprogress";
 import HeaderPageCard from "../../../../../components/Page/HeaderPageCard";
-import RefreshButton from "../../../../../components/BaseElements/RefreshButton";
+import RefreshButton from "../../../../../components/Elements/Button/RefreshButton";
 import useAuth from "../../../../../components/AuthStore/useAuth";
 import useError from "../../../../../utilities/useError";
 import ErrorPage from "../../../../../components/Page/ErrorPage";
