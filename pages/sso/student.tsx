@@ -54,13 +54,20 @@ export default function CSCSSOStudentLogin() {
           <RefreshButton className="mt-2" />
         </div>
       ) : (
-        <LoginComponent
-          scope={Scope.Student}
-          onLogin={async () => {
-            setLoggingInFlag(true);
-          }}
-          onFailure={async (e) => setError(e)}
-        />
+        <>
+          <LoginComponent
+            scope={Scope.Student}
+            onLogin={async () => {
+              setLoggingInFlag(true);
+            }}
+            onFailure={async (e) => setError(e)}
+          />
+          <div className="mt-4">
+            您是老師，想要管理連結的話：
+            <br />
+            請無視本畫面，點選右上角的「管理」。
+          </div>
+        </>
       )}
     </HeaderPageCard>
   );

@@ -29,14 +29,27 @@ export default function CSCSSOTeacherLogin() {
       {loggedInFlag ? (
         <p>✅ 登入成功！</p>
       ) : (
-        <LoginComponent
-          scope={Scope.Teacher}
-          onLogin={async () => {
-            setLoggingInFlag(true);
-            await redirect();
-          }}
-          onFailure={async (e) => setError(e)}
-        />
+        <>
+          <div className="text-red-600 mb-4">
+            請務必將「
+            <span className="font-bold">
+              選取要讓『CSCheckin-線上簽到』
+              <br />
+              存取的範圍」
+            </span>
+            下的核取框全部打勾，否則無法使用！
+            <br />
+            假如忘記打勾，請登出重新登入。
+          </div>
+          <LoginComponent
+            scope={Scope.Teacher}
+            onLogin={async () => {
+              setLoggingInFlag(true);
+              await redirect();
+            }}
+            onFailure={async (e) => setError(e)}
+          />
+        </>
       )}
     </HeaderPageCard>
   );
