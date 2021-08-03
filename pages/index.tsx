@@ -1,14 +1,10 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import useAuth from "../components/AuthStore/useAuth";
+import React from "react";
+import BasePage from "../components/Page/BasePage";
 
-export default function CSCIndex() {
-  const router = useRouter();
-  const { auth } = useAuth();
-
-  useEffect(() => {
-    if (auth) void router.push("/welcome");
-  }, [auth, router]);
-
-  return null;
+export default function Home() {
+  return (
+    <BasePage title="首頁" full>
+      {/* Your Content Here */}
+    </BasePage>
+  );
 }

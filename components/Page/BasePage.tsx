@@ -2,52 +2,37 @@ import React from "react";
 import Head from "next/head";
 import type { ReactNode } from "react";
 import Navbar from "../Navbar/Navbar";
-import SupportBtn from "../Support/FlowButton";
-import styles from "../../styles/BasePage.module.css";
+import { PRODUCT_NAME } from "../../consts";
 
 export interface BasePageProps {
-  id: string;
   children: ReactNode;
   full?: boolean;
   title: string;
+  navbar?: boolean;
 }
 
 export default function BasePage({
   title,
-  id,
   full = false,
+  navbar = true,
   children,
 }: BasePageProps) {
+  const fullScreenClass = full ? "w-screen h-screen" : "";
+  const fullClass = full ? "w-full h-full h-screen" : "";
+
   return (
-    <>
+    <section className={`page-root ${fullScreenClass}`}>
       <Head>
-        <title>CSCheckin - {title}</title>
+        <title>
+          {PRODUCT_NAME} - {title}
+        </title>
       </Head>
-      <section
-        className={`page-root page-${id} grid ${styles["basepageGrid"]} ${
-          full && "w-screen h-screen"
-        }`}
-      >
-        <section
-          className={`page-${id}`}
-          style={{
-            gridArea: "navbar",
-          }}
-        >
+      {navbar && (
+        <section>
           <Navbar />
         </section>
-        <section
-          className={`p-8 ${full && "h-full w-full"}`}
-          style={{
-            gridArea: "content",
-          }}
-        >
-          {children}
-        </section>
-        <section className="fixed bottom-5 right-5">
-          <SupportBtn />
-        </section>
-      </section>
-    </>
+      )}
+      <section className={`p-8 ${fullClass}`}>{children}</section>
+    </section>
   );
 }

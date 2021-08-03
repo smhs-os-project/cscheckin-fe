@@ -8,19 +8,3 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
-
-# Use 4 spaces for the Python files
-
-# The JSON files contain newlines inconsistently
-
-# Minified JavaScript files shouldn't be changed
-
-# Makefiles always use tabs for indentation
-[Makefile]
-indent_style = tab
-
-# Batch files use tabs for indentation
-
-[*.md]
-trim_trailing_whitespace = false
-

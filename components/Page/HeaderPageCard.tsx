@@ -1,30 +1,23 @@
-import type { ReactNode } from "react";
 import React from "react";
-import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import type { HeaderCardProps } from "../Elements/Card/HeaderCard";
 import HeaderCard from "../Elements/Card/HeaderCard";
+import type { BasePageProps } from "./BasePage";
 import BasePage from "./BasePage";
 
-export interface TitlePageCardProps {
-  id: string;
-  title: string;
-  desc: string;
-  headerColor?: string;
-  icon: IconDefinition;
-  children: ReactNode;
-  contentPadding?: boolean;
-}
+export interface HeaderPageCardProps extends BasePageProps, HeaderCardProps {}
 
-export default function TitlePageCard({
-  id,
+export default function HeaderPageCard({
   title,
   desc,
   icon,
   headerColor,
   children,
+  full,
+  navbar,
   contentPadding = true,
-}: TitlePageCardProps) {
+}: HeaderPageCardProps) {
   return (
-    <BasePage id={id} title={title}>
+    <BasePage title={title} full={full} navbar={navbar}>
       <div className="flex content-center justify-center">
         <HeaderCard
           title={title}

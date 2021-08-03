@@ -1,11 +1,15 @@
+import type { ReactNode } from "react";
 import React from "react";
 import BaseButton from "./BaseButton";
 
+export interface RefreshButtonProps {
+  className?: string;
+  children?: ReactNode;
+}
 export default function RefreshButton({
   className = "",
-}: {
-  className?: string;
-}) {
+  children = "重新整理",
+}: RefreshButtonProps) {
   return (
     <BaseButton
       className={className}
@@ -14,7 +18,7 @@ export default function RefreshButton({
         window.location.reload();
       }}
     >
-      重新整理
+      {children}
     </BaseButton>
   );
 }

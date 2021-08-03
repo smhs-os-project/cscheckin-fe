@@ -6,6 +6,7 @@ export interface BaseButtonProps
   children: ReactNode;
   solid?: boolean;
   submit?: boolean;
+  light?: boolean;
 }
 
 export default function BaseButton({
@@ -13,10 +14,13 @@ export default function BaseButton({
   children,
   solid = false,
   submit = false,
+  light = false,
   ...props
 }: BaseButtonProps) {
-  const solidC = "text-white bg-black";
-  const borderC = "border border-black";
+  const solidC = light ? "text-black bg-white" : "text-white bg-black";
+  const borderC = light
+    ? "border border-white text-white"
+    : "border border-black text-black";
 
   return (
     <button

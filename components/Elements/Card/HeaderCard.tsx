@@ -19,7 +19,7 @@ export default function HeaderCard({
   title,
   desc,
   headerColor = "black",
-  contentPadding,
+  contentPadding = true,
   children,
 }: HeaderCardProps) {
   const c = (css: string, determination?: boolean) =>

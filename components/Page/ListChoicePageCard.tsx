@@ -1,21 +1,21 @@
 import React from "react";
-import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-
-import FullWidthColoredButton from "../Elements/Button/FullWidthColoredButton";
+import dynamic from "next/dynamic";
+import type { HeaderPageCardProps } from "./HeaderPageCard";
 import HeaderPageCard from "./HeaderPageCard";
 
-export interface ListChoicePageCardProps {
-  id: string;
-  title: string;
-  desc: string;
-  icon: IconDefinition;
+const FullWidthColoredButton = dynamic(
+  () => import("../Elements/Button/FullWidthColoredButton")
+);
+
+export interface ListChoicePageCardProps
+  extends Omit<HeaderPageCardProps, "children"> {
   /**
    * The choices.
    *
    * Example:
    *
    * ```tsx
-   * <ListChoicePageCard {...props}>{
+   * <ListChoicePageCard {...props} choice={
    *  [
    *    {
    *      id: "",
@@ -23,10 +23,10 @@ export interface ListChoicePageCardProps {
    *      redirect: () => ...,
    *    }
    *  ]
-   * }</ListChoicePageCard>
+   * } />
    * ```
    */
-  children: {
+  choice: {
     id: string;
     name: string;
     redirect: () => void;
@@ -35,40 +35,42 @@ export interface ListChoicePageCardProps {
 }
 
 export default function ListChoicePageCard({
-  id: pid,
   title,
   desc,
   icon,
-  children: content,
+  choice,
   message,
+  full,
+  navbar,
 }: ListChoicePageCardProps) {
-  const noContent = content.length === 0;
+  const noContent = choice.length === 0;
   const hasMessage = !!message;
   const shouldShowMessage = hasMessage || noContent;
 
   return (
     <HeaderPageCard
-      id={pid}
       title={title}
       desc={desc}
       icon={icon}
+      full={full}
+      navbar={navbar}
       // we add padding if the message will show.
       contentPadding={shouldShowMessage}
     >
       <div className="flex flex-col w-full options">
         {(() => {
           // if user specified the message
-          if (message) {
+          if (hasMessage) {
             return <p>{message}</p>;
           }
 
           // if there is no any content
-          if (content.length === 0) {
+          if (noContent) {
             return <p>無資料。</p>;
           }
 
-          return content.map(({ id: cid, name, redirect }) => (
-            <div key={`${pid}-${cid}`}>
+          return choice.map(({ id: cid, name, redirect }) => (
+            <div key={`${title}-${cid}`}>
               <FullWidthColoredButton onClick={redirect}>
                 {name}
               </FullWidthColoredButton>

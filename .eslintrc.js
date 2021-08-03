@@ -9,7 +9,6 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:import/recommended',
     'plugin:import/typescript',
-    "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     'airbnb-typescript',
@@ -45,6 +44,6 @@ module.exports = {
     ],
     "react/jsx-key": 2,
     "arrow-body-style": 2,
-    "no-void": ["error", { "allowAsStatement": true }]
+    "no-void": ["error", { "allowAsStatement": true }],
   },
 };

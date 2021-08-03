@@ -2,34 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  .table-text-lg td,
-  .table-text-lg th {
-    @apply text-lg;
-  }
-
-  .table-py-4 td,
-  .table-py-4 th {
-    @apply py-4;
-  }
-
-  @variants responsive {
-    .table-px-4 td,
-    .table-px-4 th {
-      @apply px-4;
-    }
-
-    .table-px-12 td,
-    .table-px-12 th {
-      @apply px-12;
-    }
-  }
-}
-
-.tooltip {
-  @apply absolute transition-opacity opacity-0;
-}
-
-.has-tooltip:hover .tooltip {
-  @apply z-50 opacity-100;
-}

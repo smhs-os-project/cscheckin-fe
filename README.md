@@ -1,50 +1,89 @@
-# CSC點名系統 - 前端部分 [v2]
+# Next.js Template
 
-## 簡介
+## Technique
 
-在開始遠距教學後，「點名」是否已成為老師們每節課的惡夢呢？  
-想確保學生仍在線聽課，卻只能反覆查看著學生的到班狀態或請學生按舉手嗎？
+- TypeScript
+- Next.js
+  - React.js
+  - SWR
+- Tailwind CSS
+- Storybook
+- GitHub CI
+- Docker
+- *[OPTIONAL]* Sentry
+- *[OPTIONAL]* Google Analytics
 
-為了解決老師的點名問題，我們開發了這套點名系統，將大大簡化老師的麻煩！
+## Features
 
-> CSC 由 Class Simple Checkin 簡寫而來，旨在幫助課堂能夠快速簽到。
+- Automatically analyze code after pushing to GitHub
+  - Analyze with `CodeQL`
+  - Analyze with `njsscan`
+  - Test building production build with `yarn build`
+  - Test building Docker with `docker build`
+- Available to build as a Docker image
+  - Exclude all useless components for a production build
+    - For example, `storybook` and `eslint`
+- Built-in `.vercelignore` so that you can install dependencies with `yarn --production`
+  - Exclude all useless components for a production build
+    - For example, `storybook` and `eslint`
+- Built-in Sentry support
+- Built-in Google Analytics support
+- Built-in NProgress (process bar) support
+- Built-in ESLint support
+  - with featured ESLint rules
+  - strictly follow the `ESLint` rules
+- [Component Driven User Interfaces](https://www.componentdriven.org)
+  - Built-in Storybook support
 
-不需要額外安裝擴充程式，不受限於特定瀏覽器，不因為點名程序麻煩而耽誤了課堂時間與品質。  
-老師只需要「**登入，產生連結，按下分享**」，學生就能在老師呼叫時快速簽到。  
-更重要的是，整套系統皆能和老師們已經熟悉的 **Google Classroom** 「無縫接軌」！
+## Install Dependencies
 
-## 運作流程
+```bash
+yarn
+```
 
-我們目前規劃的流程為：「**老師產生簽到連結**」→「**學生簽到**」→「**老師查看出缺席紀錄**」，關於各步驟細節請見以下列表：
+## Configuration
 
-### 產生簽到連結
+- `consts.ts`
+  - `PRODUCT_NAME`: your project name
+  - `ENABLE_GA`: enable Google Analytics support
+  - `ENABLE_SENTRY`: enable Sentry support
+    - You should [initiate](https://docs.sentry.io/platforms/javascript/guides/nextjs/) your Sentry.
+    - We only provided the base architecture
+- `.env.local.example`
+  - Should copy to `.env.local`
+  - `NEXT_PUBLIC_GA_ID`: your Google Analytics ID after enabling `consts.ts` > `ENABLE_GA`
 
-1. 使用開設課程的學校 Google 帳號**一鍵登入**
-2. 從選單中選擇開設的課程及時間
-3. 按下「產生連結並分享」
-4. 連結就會自動發佈到 Google Classroom 中的訊息串
-5. 完成發布公告！
+## Development
 
-### 學生簽到
+I recommend to use WebStorm or Visual Studio Code to develop this template.
 
-1. 點選自動發佈到該科 Google Classroom 訊息串的連結
-2. 使用學校 Google 帳號**一鍵登入**
-3. 完成簽到程序！
+```
+yarn dev # dev server
+yarn storybook # storybook
+```
 
-### 查看出缺席紀錄
+### Linting
 
-1. 使用開設課程的學校 Google 帳號**一鍵登入**
-2. 開啟管理區域
-3. 即可看到各 Classroom 在各個時段的出缺席狀況
+```bash
+yarn eslint .
+```
 
-### 示範與教學影片（舊版）
+## Building
 
-<https://www.youtube.com/watch?v=I-7B6X8OiKg>
+### Local Deployment
 
-### 作者
+```bash
+yarn build
+yarn start
+```
 
-(C) 2021, smhs-dev-team.
+### with Docker
 
-### 贊助商 SPONSORS
+```bash
+docker build -t next-app .
+docker run -d --name your-next-app-instance -p 8080:3000 next-app
+```
 
-[![Vercel banner](https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg)](https://vercel.com/?utm_source=smhs-os-project&utm_campaign=oss)
+## Authors
+
+pan93412 and friends, 2021.

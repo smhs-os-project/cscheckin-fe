@@ -1,5 +1,0 @@
-.basepageGrid {
-  grid-template:
-    "navbar" min-content
-    "content" auto / 100vw;
-}
