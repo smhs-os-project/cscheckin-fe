@@ -17,7 +17,7 @@ export default function NotFoundPage() {
         path: router.asPath,
         receivedDescription: descriptionValue,
       });
-  }, [descriptionValue, descriptionLoading]);
+  }, [descriptionValue, descriptionLoading, router.asPath]);
 
   return (
     <HeaderPageCard

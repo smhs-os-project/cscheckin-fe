@@ -13,7 +13,7 @@ export default function useRedirect(defaultRedirect?: string): {
   useEffect(() => {
     if (notSpecified && defaultRedirect) setRedirectTo(defaultRedirect);
     else setRedirectTo(redirect);
-  }, [redirect, defaultRedirect]);
+  }, [redirect, defaultRedirect, notSpecified]);
 
   return {
     async redirect() {
