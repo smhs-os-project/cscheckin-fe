@@ -10,16 +10,11 @@ export default {
   argTypes: {
     headerColor: {
       options: [
-        "red-500", // bg-red-500
-        "blue-500", // bg-blue-500
-        "yellow-500", // bg-yellow-500
-        "green-500", // bg-green-500
-        "pink-500", // bg-pink-500
-        "red-800", // bg-red-800
-        "blue-800", // bg-blue-800
-        "yellow-800", // bg-yellow-800
-        "green-800", // bg-green-800
-        "pink-800", // bg-pink-800
+        "bg-primary",
+        "bg-accent",
+        "bg-positive",
+        "bg-neutral",
+        "bg-negative",
       ],
       control: "select",
     },
@@ -61,7 +56,7 @@ WithoutContentPadding.args = {
 export const WithColoredHeader = Template.bind({});
 WithColoredHeader.args = {
   ...StandardExample.args,
-  headerColor: "green-500",
+  headerColor: "bg-accent",
 };
 
 export const WithCustomIcon = Template.bind({});
