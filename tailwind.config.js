@@ -15,35 +15,50 @@ module.exports = {
         serif: "'Noto Serif TC', serif",
         mono: "'JetBrains Mono', Menlo, monospace",
       },
-    },
-  },
-  variants: {
-    extend: {
-      color: {
-        primary: "#263238",
-        secondary: "#EEEEEE",
-        accent: "#0A85F6",
-        positive: "#12B981",
-        neutral: "#F49E0B",
-        negative: "#EE4444",
+      padding: {
+        "card-y": "3rem",
+        "card-x": "4rem",
       },
-      fontSize: {
-        h1: "36px",
-        h2: "24px",
-        body: "16px",
-        button: "16px",
-      },
-      letterSpacing: {
-        h1: "0.25px",
-        body: "0.5px",
-        button: "0.5px",
-      },
-      fontWeight: {
-        header: 700,
-        body: 400,
-        button: 700,
+      border: {
+        button: "rgba(0, 0, 0, 0.25)",
       },
     },
+    colors: {
+      primary: "#263238",
+      secondary: "#EEEEEE",
+      secondaryHover: "#BBBBBB",
+      accent: "#0A85F6",
+      positive: "#12B981",
+      neutral: "#F49E0B",
+      negative: "#EE4444",
+    },
+    /**
+     * @param {(theme: string) => Record<string,string>} theme
+     * @return {Record<string, string>}
+     */
+    backgroundColor: (theme) => ({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      ...theme("colors"),
+      white: "#FFFFFF",
+    }),
+    fontSize: {
+      h1: "2.0rem",
+      h2: "1.125rem",
+      baseline: "1rem",
+      button: "1rem",
+    },
+    letterSpacing: {
+      header: "0.025em",
+      body: "0em",
+      button: "0.05em",
+    },
+    fontWeight: {
+      header: 700,
+      body: 400,
+      "solid-button": 700,
+      "fw-button": 700,
+    },
   },
+  variants: {},
   plugins: [],
 };
