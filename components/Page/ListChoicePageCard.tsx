@@ -4,7 +4,7 @@ import type { HeaderPageCardProps } from "./HeaderPageCard";
 import HeaderPageCard from "./HeaderPageCard";
 
 const FullWidthColoredButton = dynamic(
-  () => import("../Elements/Button/FullWidthColoredButton")
+  () => import("../Elements/Button/FullWidthButton")
 );
 
 export interface ListChoicePageCardProps
