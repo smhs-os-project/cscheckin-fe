@@ -11,10 +11,9 @@ export default {
 const Template: Story<BaseButtonProps> = ({
   children = <></>,
   solid,
-  light,
   submit,
 }: BaseButtonProps) => (
-  <BaseButton solid={solid} submit={submit} light={light}>
+  <BaseButton solid={solid} submit={submit}>
     {children}
   </BaseButton>
 );
@@ -34,19 +33,6 @@ export const BasicSubmitButton = Template.bind({});
 BasicSubmitButton.args = {
   children: "Click me!",
   submit: true,
-};
-
-export const BasicLightButton = Template.bind({});
-BasicLightButton.args = {
-  children: "Click me!",
-  light: true,
-};
-
-export const BasicSolidLightButton = Template.bind({});
-BasicSolidLightButton.args = {
-  children: "Click me!",
-  solid: true,
-  light: true,
 };
 
 export const BasicButtonWithReactElements = Template.bind({});

@@ -6,7 +6,6 @@ export interface BaseButtonProps
   children: ReactNode;
   solid?: boolean;
   submit?: boolean;
-  light?: boolean;
 }
 
 export default function BaseButton({
@@ -14,20 +13,17 @@ export default function BaseButton({
   children,
   solid = false,
   submit = false,
-  light = false,
   ...props
 }: BaseButtonProps) {
-  const solidC = light ? "text-black bg-white" : "text-white bg-black";
-  const borderC = light
-    ? "border border-white text-white"
-    : "border border-black text-black";
+  const solidC = "px-5 py-2 text-secondary bg-accent font-solid-button";
+  const borderC = "px-4 py-1 border-2 border-button text-primary";
 
   return (
     <button
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       type={submit ? "submit" : "button"}
-      className={`rounded px-4 py-1 ${solid ? solidC : borderC} min-h-10 ${
+      className={`rounded-lg ${solid ? solidC : borderC} min-h-10 ${
         className || ""
       }`}
     >
