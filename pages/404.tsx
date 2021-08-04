@@ -26,11 +26,18 @@ export default function NotFoundPage() {
       icon={faTimesCircle}
     >
       <div className="not-found-suggestion leading-relaxed">
-        <p>試試看：</p>
+        <p>我們已將此問題回報給開發者。請確認：</p>
         <ul className="list-disc ml-9">
           <li>
-            <div className="text-blue-700">
-              <Link href="/">回到首頁？</Link>
+            您造訪的頁面是正確的
+            <span className="text-auxiliary">（連結沒有輸錯）</span>
+          </li>
+        </ul>
+        <p className="mt-2">您可以：</p>
+        <ul className="list-disc ml-9">
+          <li>
+            <div className="text-link">
+              <Link href="/">回到首頁</Link>
             </div>
           </li>
         </ul>
