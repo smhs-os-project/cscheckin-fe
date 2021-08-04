@@ -15,7 +15,8 @@ export default function BaseButton({
   submit = false,
   ...props
 }: BaseButtonProps) {
-  const solidC = "px-5 py-2 text-secondary bg-accent font-solid-button";
+  const solidC =
+    "px-4 py-1 border-2 border-accent text-secondary bg-accent font-solid-button";
   const borderC = "px-4 py-1 border-2 border-button text-primary";
 
   return (

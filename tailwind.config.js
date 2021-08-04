@@ -21,6 +21,7 @@ module.exports = {
       },
       borderColor: {
         button: "rgba(0, 0, 0, 0.25)",
+        accent: "#0A85F6",
       },
     },
     colors: {
