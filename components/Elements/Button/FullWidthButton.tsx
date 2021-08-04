@@ -14,9 +14,14 @@ export default function FullWidthButton({
   children,
   rightIcon = false,
 }: FullWidthButtonProps) {
+  const common =
+    "px-6 py-8 rounded-xl w-full outline-none transition-color duration-300";
+  const text = "text-primary bg-white hover:bg-secondary-hover";
+  const font = "tracking-button font-button text-left";
+
   return (
     <button
-      className="bg-white w-full px-6 py-8 text-left outline-none text-primary transition-color duration-300 rounded-xl tracking-button font-button"
+      className={`${common} ${text} ${font}`}
       type="button"
       onClick={onClick}
     >
