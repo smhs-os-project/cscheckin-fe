@@ -50,13 +50,13 @@ module.exports = {
     letterSpacing: {
       header: "0.025em",
       body: "0em",
-      button: "0.05em",
+      button: "0.025em",
     },
     fontWeight: {
       header: 700,
       body: 400,
-      "solid-button": 700,
-      "fw-button": 700,
+      "solid-button": 600,
+      "fw-button": 600,
     },
   },
   variants: {},
