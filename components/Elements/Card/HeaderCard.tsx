@@ -27,11 +27,18 @@ function HeaderCardHeader({
   desc,
   headerColor = "bg-primary",
 }: HeaderCardHeaderProps) {
+  const flexDefaultCSS =
+    "flex flex-col items-center justify-items-center space-y-2";
+  const flexMediumCSS =
+    "md:flex-row md:justify-items-center md:space-x-12 md:space-y-0";
+  const textDefaultCSS = "text-center";
+  const textMediumCSS = "md:text-left";
+
   return (
     <section
-      className={`flex items-center space-x-12 w-full text-secondary ${headerColor} px-card-x py-card-y page-title tracking-header`}
+      className={`${flexDefaultCSS} ${flexMediumCSS} ${textDefaultCSS} ${textMediumCSS} w-full text-secondary ${headerColor} px-card-x py-card-y tracking-header`}
     >
-      <div>
+      <div className="mb-2 md:mb-auto">
         <FontAwesomeIcon icon={icon} size="3x" />
       </div>
       <div>
