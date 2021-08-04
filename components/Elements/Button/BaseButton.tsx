@@ -15,8 +15,7 @@ export default function BaseButton({
   submit = false,
   ...props
 }: BaseButtonProps) {
-  const solidC =
-    "px-4 py-1 border-2 border-accent text-secondary bg-accent font-solid-button";
+  const solidC = "px-4 py-1 border-2 border-accent text-secondary bg-accent";
   const borderC = "px-4 py-1 border-2 border-button text-primary";
 
   return (
@@ -24,7 +23,7 @@ export default function BaseButton({
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       type={submit ? "submit" : "button"}
-      className={`rounded-lg tracking-button ${
+      className={`rounded-lg font-button tracking-button ${
         solid ? solidC : borderC
       } min-h-10 ${className || ""}`}
     >
