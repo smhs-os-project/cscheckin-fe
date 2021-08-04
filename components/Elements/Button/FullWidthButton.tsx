@@ -16,11 +16,11 @@ export default function FullWidthButton({
 }: FullWidthButtonProps) {
   return (
     <button
-      className="bg-white w-full px-6 py-10 text-left outline-none text-primary transition-color duration-300 rounded-xl tracking-button"
+      className="bg-white w-full px-6 py-8 text-left outline-none text-primary transition-color duration-300 rounded-xl tracking-button font-button"
       type="button"
       onClick={onClick}
     >
-      <div className="flex justify-between font-fw-button">
+      <div className="flex justify-between items-center font-fw-button">
         <div className="text-bold">{children}</div>
         {rightIcon && (
           <div>
