@@ -30,7 +30,7 @@ module.exports = {
     colors: {
       primary: "#263238",
       secondary: "#EEEEEE",
-      secondaryHover: "#BBBBBB",
+      "secondary-hover": "#DDDDDD",
       accent: "#0A85F6",
       positive: "#12B981",
       neutral: "#F49E0B",
