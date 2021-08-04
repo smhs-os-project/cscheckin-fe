@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import type { HeaderPageCardProps } from "./HeaderPageCard";
 import HeaderPageCard from "./HeaderPageCard";
 
-const FullWidthColoredButton = dynamic(
+const FullWidthButton = dynamic(
   () => import("../Elements/Button/FullWidthButton")
 );
 
@@ -45,7 +45,6 @@ export default function ListChoicePageCard({
 }: ListChoicePageCardProps) {
   const noContent = choice.length === 0;
   const hasMessage = !!message;
-  const shouldShowMessage = hasMessage || noContent;
 
   return (
     <HeaderPageCard
@@ -54,8 +53,6 @@ export default function ListChoicePageCard({
       icon={icon}
       full={full}
       navbar={navbar}
-      // we add padding if the message will show.
-      contentPadding={shouldShowMessage}
     >
       <div className="flex flex-col w-full options">
         {(() => {
@@ -70,10 +67,10 @@ export default function ListChoicePageCard({
           }
 
           return choice.map(({ id: cid, name, redirect }) => (
-            <div key={`${title}-${cid}`}>
-              <FullWidthColoredButton onClick={redirect}>
+            <div className="mb-4" key={`${title}-${cid}`}>
+              <FullWidthButton rightIcon onClick={redirect}>
                 {name}
-              </FullWidthColoredButton>
+              </FullWidthButton>
             </div>
           ));
         })()}
