@@ -56,8 +56,7 @@ module.exports = {
     fontWeight: {
       header: 700,
       body: 400,
-      "solid-button": 600,
-      "fw-button": 600,
+      button: 500,
     },
   },
   variants: {},
