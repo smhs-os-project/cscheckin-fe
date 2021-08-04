@@ -43,7 +43,7 @@ export default function ErrorPage({
           borderColor="border-negative"
           textColor="text-negative"
         >
-          錯誤回報
+          問題回報
         </LargeButton>
       </div>
     </HeaderPageCard>
