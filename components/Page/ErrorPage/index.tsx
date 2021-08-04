@@ -15,6 +15,24 @@ export interface ErrorPageProps {
   errorDetails?: string;
 }
 
+const NegativeRefreshButton = () => (
+  <RefreshButton
+    className="flex-1"
+    backgroundColor="bg-negative"
+    solidBorderColor="bg-negative"
+  />
+);
+
+const NegativeErrorReportingButton = () => (
+  <LargeButton
+    className="flex-1"
+    borderColor="border-negative"
+    textColor="text-negative"
+  >
+    問題回報
+  </LargeButton>
+);
+
 export default function ErrorPage({
   errorMessage,
   errorDetails,
@@ -33,18 +51,8 @@ export default function ErrorPage({
         <ErrorHintText />
       </div>
       <div className="operation-buttons mt-5 flex space-x-2 justify-between">
-        <RefreshButton
-          className="flex-1"
-          backgroundColor="bg-negative"
-          solidBorderColor="bg-negative"
-        />
-        <LargeButton
-          className="flex-1"
-          borderColor="border-negative"
-          textColor="text-negative"
-        >
-          問題回報
-        </LargeButton>
+        <NegativeRefreshButton />
+        <NegativeErrorReportingButton />
       </div>
     </HeaderPageCard>
   );
