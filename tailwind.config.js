@@ -19,7 +19,7 @@ module.exports = {
         "card-y": "3rem",
         "card-x": "4rem",
       },
-      border: {
+      borderColor: {
         button: "rgba(0, 0, 0, 0.25)",
       },
     },
