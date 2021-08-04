@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  pre.details-block {
+    @apply bg-white p-2 rounded-lg whitespace-pre-wrap w-full
+  }
+}
