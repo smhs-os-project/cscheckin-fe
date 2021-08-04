@@ -22,6 +22,9 @@ module.exports = {
       borderColor: {
         button: "rgba(0, 0, 0, 0.25)",
         accent: "#0A85F6",
+        positive: "#12B981",
+        neutral: "#F49E0B",
+        negative: "#EE4444",
       },
     },
     colors: {
@@ -32,6 +35,7 @@ module.exports = {
       positive: "#12B981",
       neutral: "#F49E0B",
       negative: "#EE4444",
+      auxiliary: "#757575",
     },
     /**
      * @param {(theme: string) => Record<string,string>} theme
