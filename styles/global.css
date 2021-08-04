@@ -4,6 +4,6 @@
 
 @layer base {
   pre.details-block {
-    @apply bg-white p-2 rounded-lg whitespace-pre-wrap w-full
+    @apply bg-white p-2 rounded-lg whitespace-pre-wrap text-details;
   }
 }
