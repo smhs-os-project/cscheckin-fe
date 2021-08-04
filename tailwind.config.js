@@ -51,6 +51,7 @@ module.exports = {
       h2: "1.125rem",
       baseline: "1rem",
       button: "1rem",
+      details: "0.8rem",
     },
     letterSpacing: {
       header: "0.025em",
