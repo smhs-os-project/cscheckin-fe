@@ -58,7 +58,7 @@ export default function CSCConfigCheckinDuration() {
     <HeaderPageCard
       id="config-checkin-duration"
       title="設定遲到與結束簽到時間"
-      desc="設定一個簽到連結的遲到與結束簽到時間。"
+      desc="設定開課後多久屬於遲到，多久結束簽到。您仍然可以手動結束簽到。"
       icon={faCog}
     >
       <form
@@ -95,7 +95,7 @@ export default function CSCConfigCheckinDuration() {
         </p>
         <BaseInput
           id="late-time"
-          label="學生準時時限"
+          label="多久後屬於遲到"
           placeholder={`預設值：${LATE_DURATION_DEFAULT}`}
           value={time.late ?? ""}
           onChange={(value) => {
@@ -107,7 +107,7 @@ export default function CSCConfigCheckinDuration() {
         />
         <BaseInput
           id="end-time"
-          label="結束簽到時間"
+          label="多久後結束簽到"
           placeholder={`預設值：${END_DURATION_DEFAULT}`}
           value={time.end ?? ""}
           onChange={(value) => {
