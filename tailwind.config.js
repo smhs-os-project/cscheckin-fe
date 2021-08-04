@@ -36,6 +36,7 @@ module.exports = {
       neutral: "#F49E0B",
       negative: "#EE4444",
       auxiliary: "#757575",
+      link: "#0761B6",
     },
     /**
      * @param {(theme: string) => Record<string,string>} theme
