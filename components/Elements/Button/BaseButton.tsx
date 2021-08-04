@@ -23,9 +23,9 @@ export default function BaseButton({
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       type={submit ? "submit" : "button"}
-      className={`rounded-lg ${solid ? solidC : borderC} min-h-10 ${
-        className || ""
-      }`}
+      className={`rounded-lg tracking-button ${
+        solid ? solidC : borderC
+      } min-h-10 ${className || ""}`}
     >
       {children}
     </button>
