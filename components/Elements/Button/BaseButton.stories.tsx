@@ -12,8 +12,15 @@ const Template: Story<BaseButtonProps> = ({
   children = <></>,
   solid,
   submit,
+  borderColor,
+  textColor,
 }: BaseButtonProps) => (
-  <BaseButton solid={solid} submit={submit}>
+  <BaseButton
+    solid={solid}
+    submit={submit}
+    borderColor={borderColor}
+    textColor={textColor}
+  >
     {children}
   </BaseButton>
 );
@@ -44,4 +51,11 @@ BasicButtonWithReactElements.args = {
     </>
   ),
   submit: true,
+};
+
+export const BasicButtonWithCustomColor = Template.bind({});
+BasicButtonWithCustomColor.args = {
+  children: "Hi",
+  borderColor: "border-negative",
+  textColor: "text-negative",
 };
