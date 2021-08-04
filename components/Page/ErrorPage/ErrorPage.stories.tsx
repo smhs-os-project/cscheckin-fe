@@ -18,7 +18,7 @@ const Template: Story<ErrorPageProps> = ({
 export const WithDetails = Template.bind({});
 WithDetails.args = {
   errorMessage: "測試錯誤",
-  errorDetails: "測試錯誤詳細資訊",
+  errorDetails: "測試錯誤詳細資訊 Error Details 123456",
 };
 
 export const WithoutDetails = Template.bind({});
