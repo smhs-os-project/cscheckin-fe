@@ -3,6 +3,7 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
 import HeaderPageCard from "../HeaderPageCard";
 import LargeButton from "../../Elements/Button/LargeButton";
+import LargeButtonGroup from "../../Elements/Button/Group/LargeButtonGroup";
 
 const ErrorInfo = dynamic(() => import("./ErrorInfo"));
 const ErrorHintText = dynamic(() => import("./ErrorPageHint"));
@@ -16,19 +17,11 @@ export interface ErrorPageProps {
 }
 
 const NegativeRefreshButton = () => (
-  <RefreshButton
-    className="flex-1"
-    backgroundColor="bg-negative"
-    solidBorderColor="bg-negative"
-  />
+  <RefreshButton backgroundColor="bg-negative" solidBorderColor="bg-negative" />
 );
 
 const NegativeErrorReportingButton = () => (
-  <LargeButton
-    className="flex-1"
-    borderColor="border-negative"
-    textColor="text-negative"
-  >
+  <LargeButton borderColor="border-negative" textColor="text-negative">
     問題回報
   </LargeButton>
 );
@@ -50,9 +43,11 @@ export default function ErrorPage({
       <div className="error-hint mt-5">
         <ErrorHintText />
       </div>
-      <div className="operation-buttons mt-5 flex space-x-2 justify-between">
-        <NegativeRefreshButton />
-        <NegativeErrorReportingButton />
+      <div className="operation-buttons mt-5">
+        <LargeButtonGroup>
+          <NegativeRefreshButton />
+          <NegativeErrorReportingButton />
+        </LargeButtonGroup>
       </div>
     </HeaderPageCard>
   );
