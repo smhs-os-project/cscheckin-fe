@@ -49,7 +49,7 @@ export default function BaseButton({
   solidBorderColor = "border-accent",
   textColor: inputTextColor,
   backgroundColor = "bg-accent",
-  paddingClass = "px-4 py-1",
+  paddingClass = "px-6 py-2",
   borderClass = "border-2",
   ...props
 }: BaseButtonProps) {
