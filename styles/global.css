@@ -4,6 +4,10 @@
 
 @layer base {
   pre.details-block {
-    @apply bg-white p-2 rounded-lg whitespace-pre-wrap text-details;
+    @apply bg-on-surface p-2 rounded-lg whitespace-pre-wrap text-details;
+  }
+
+  input.under-shadow {
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25);
   }
 }
