@@ -38,6 +38,10 @@ export interface BaseButtonProps
    * 專用於指定邊框的 class。
    */
   borderClass?: string;
+  /**
+   * 是否全寬？
+   */
+  full?: boolean;
 }
 
 export default function BaseButton({
@@ -51,6 +55,7 @@ export default function BaseButton({
   backgroundColor = "bg-accent",
   paddingClass = "px-6 py-2",
   borderClass = "border-2",
+  full = false,
   ...props
 }: BaseButtonProps) {
   // If not specified inputTextColor, we assign the textColor to text-secondary
@@ -59,6 +64,7 @@ export default function BaseButton({
     inputTextColor || (solid ? "text-secondary" : "text-primary");
   const solidC = `${solidBorderColor} ${textColor} ${backgroundColor}`;
   const borderC = `${borderColor} ${textColor}`;
+  const fullC = full ? "w-full" : "";
 
   return (
     <button
@@ -67,7 +73,7 @@ export default function BaseButton({
       type={submit ? "submit" : "button"}
       className={`${paddingClass} ${borderClass} rounded-lg font-button tracking-button ${
         solid ? solidC : borderC
-      } min-h-10 ${className || ""}`}
+      } min-h-10 ${fullC} ${className || ""}`}
     >
       {children}
     </button>

@@ -14,12 +14,14 @@ const Template: Story<BaseButtonProps> = ({
   submit,
   borderColor,
   textColor,
+  full,
 }: BaseButtonProps) => (
   <BaseButton
     solid={solid}
     submit={submit}
     borderColor={borderColor}
     textColor={textColor}
+    full={full}
   >
     {children}
   </BaseButton>
@@ -58,4 +60,10 @@ BasicButtonWithCustomColor.args = {
   children: "Hi",
   borderColor: "border-negative",
   textColor: "text-negative",
+};
+
+export const BasicButtonWithFullWidth = Template.bind({});
+BasicButtonWithFullWidth.args = {
+  children: "Hi",
+  full: true,
 };
