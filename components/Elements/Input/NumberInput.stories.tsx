@@ -7,7 +7,11 @@ export default {
   component: NumberInput,
 } as Meta;
 
-const Template: Story = () => <NumberInput />;
+const Template: Story = () => (
+  <div className="p-10 bg-secondary">
+    <NumberInput />
+  </div>
+);
 
 export const NumberInputExample = Template.bind({});
 NumberInputExample.args = {};
