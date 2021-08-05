@@ -39,17 +39,19 @@ export default function DurationInput({
 
   return (
     <div className="flex items-center">
-      {prefix && <div>{prefix}</div>}
-      <NumberInput
-        value={value.h}
-        onChange={(hr) => setValue((prev) => ({ ...prev, h: hr }))}
-      />
-      <div>小時</div>
-      <NumberInput
-        value={value.m}
-        onChange={(min) => setValue((prev) => ({ ...prev, m: min }))}
-      />
-      <div>分鐘</div>
+      <div className="flex items-center space-x-6">
+        {prefix && <div>{prefix}</div>}
+        <NumberInput
+          value={value.h}
+          onChange={(hr) => setValue((prev) => ({ ...prev, h: hr }))}
+        />
+        <div>小時</div>
+        <NumberInput
+          value={value.m}
+          onChange={(min) => setValue((prev) => ({ ...prev, m: min }))}
+        />
+        <div>分鐘</div>
+      </div>
       {suffix && <div>{suffix}</div>}
     </div>
   );
