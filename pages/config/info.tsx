@@ -17,7 +17,7 @@ export default function ConfigInfo() {
         <BaseInput label="座號" />
       </section>
       <LargeButtonGroup>
-        <LargeButton solid className="w-full">
+        <LargeButton solid full>
           儲存
         </LargeButton>
       </LargeButtonGroup>
