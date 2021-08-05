@@ -1,6 +1,6 @@
 {
-  "name": "next-template",
-  "version": "0.3.0",
+  "name": "cscheckin-fe",
+  "version": "3.0.0-dev",
   "private": true,
   "scripts": {
     "dev": "next dev",
