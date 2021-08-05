@@ -9,20 +9,20 @@ export default {
 } as Meta;
 
 const Template: Story<BaseInputsProps> = ({
-  id,
   label,
   value,
-}: BaseInputsProps) => <BaseInput id={id} label={label} value={value} />;
+}: BaseInputsProps) => (
+  <div className="p-10 bg-secondary">
+    <BaseInput label={label} value={value} />
+  </div>
+);
 
 export const BasicLabelledInput = Template.bind({});
 BasicLabelledInput.args = {
-  id: "basic-label-input",
-  label: "Username",
-  value: "pan93412",
+  label: "班級",
 };
 
 export const BasicUnlabelledInput = Template.bind({});
 BasicUnlabelledInput.args = {
-  id: "basic-unlabelled-input",
-  value: "pan93412",
+  value: "15",
 };
