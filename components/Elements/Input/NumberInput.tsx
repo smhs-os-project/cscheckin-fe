@@ -15,7 +15,7 @@ export default function NumberInput({
     <>
       <input
         type="number"
-        className={`${backgroundColor} px-6 py-4 text-h2 rounded-xl text-center appearance-none mx-4 font-button`}
+        className={`${backgroundColor} px-6 py-4 text-number-input rounded-xl text-center appearance-none font-button`}
         min={0}
         max={99}
         placeholder="0"
