@@ -1,42 +1,49 @@
 import type { Meta, Story } from "@storybook/react";
 import React from "react";
-import type { BaseButtonProps } from "./BaseButton";
-import BaseButton from "./BaseButton";
+import type { LargeButtonProps } from "./LargeButton";
+import LargeButton from "./LargeButton";
 
 export default {
-  title: "Elements/Button/BaseButton",
-  component: BaseButton,
+  title: "Elements/Button/LargeButton",
+  component: LargeButton,
 } as Meta;
 
-const Template: Story<BaseButtonProps> = ({
-  children = <></>,
+const Template: Story<LargeButtonProps> = ({
+  children,
   solid,
   submit,
-}: BaseButtonProps) => (
-  <BaseButton solid={solid} submit={submit}>
+  full,
+}: LargeButtonProps) => (
+  <LargeButton solid={solid} submit={submit} full={full}>
     {children}
-  </BaseButton>
+  </LargeButton>
 );
 
-export const BasicButton = Template.bind({});
-BasicButton.args = {
+export const LargeButtonExample = Template.bind({});
+LargeButtonExample.args = {
   children: "Click me!",
 };
 
-export const BasicSolidButton = Template.bind({});
-BasicSolidButton.args = {
+export const LargeSolidButtonExample = Template.bind({});
+LargeSolidButtonExample.args = {
   children: "Click me!",
   solid: true,
 };
 
-export const BasicSubmitButton = Template.bind({});
-BasicSubmitButton.args = {
+export const LargeSubmitButtonExample = Template.bind({});
+LargeSubmitButtonExample.args = {
   children: "Click me!",
   submit: true,
 };
 
-export const BasicButtonWithReactElements = Template.bind({});
-BasicButtonWithReactElements.args = {
+export const LargeButtonWithFullWidth = Template.bind({});
+LargeButtonWithFullWidth.args = {
+  children: "Hi",
+  full: true,
+};
+
+export const LargeButtonWithReactElements = Template.bind({});
+LargeButtonWithReactElements.args = {
   children: (
     <>
       <span className="font-bold">AAA</span>
