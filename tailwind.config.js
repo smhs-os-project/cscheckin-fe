@@ -15,10 +15,6 @@ module.exports = {
         serif: "'Noto Serif TC', serif",
         mono: "'JetBrains Mono', Menlo, monospace",
       },
-      padding: {
-        "card-y": "3rem",
-        "card-x": "4rem",
-      },
       borderColor: {
         button: "rgba(0, 0, 0, 0.25)",
         accent: "#0A85F6",
@@ -55,7 +51,8 @@ module.exports = {
     }),
     fontSize: {
       h1: "2rem",
-      h2: "1.5rem",
+      "number-input": "1.75rem",
+      h2: "1.25rem",
       baseline: "1rem",
       button: "1rem",
       details: "0.8rem",
