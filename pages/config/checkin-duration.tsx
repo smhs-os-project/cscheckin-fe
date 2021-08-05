@@ -7,20 +7,18 @@ import LargeButton from "../../components/Elements/Button/LargeButton";
 
 function LateInputBox() {
   return (
-    <div className="flex items-center justify-center">
-      <div>開課</div>
-      <DurationInput />
-      <div>後自動劃記遲到</div>
+    <div className="flex items-center justify-between">
+      <div>開課後多久自動劃記遲到</div>
+      <DurationInput suffix="後" />
     </div>
   );
 }
 
 function EndInputBox() {
   return (
-    <div className="flex items-center justify-center">
-      <div>開課</div>
-      <DurationInput />
-      <div>後自動關閉簽到</div>
+    <div className="flex items-center justify-between">
+      <div>開課後多久自動關閉簽到</div>
+      <DurationInput suffix="後" />
     </div>
   );
 }
