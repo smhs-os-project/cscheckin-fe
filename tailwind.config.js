@@ -28,28 +28,34 @@ module.exports = {
       },
     },
     colors: {
+      // common
       primary: "#263238",
       secondary: "#EEEEEE",
       "secondary-hover": "#F4F4F4",
+      "on-surface": "#FFFFFF",
       accent: "#0A85F6",
       positive: "#12B981",
       neutral: "#F49E0B",
       negative: "#EE4444",
       auxiliary: "#757575",
       link: "#0761B6",
+
+      // text
+      "text-head": "#000000", // Navigation & Headlines
+      "text-primary": "#424242", // Primary & Buttons
+      "text-secondary": "#757575", // Secondary
+      "text-override": "#FFFFFF", // On Colored Surface
     },
     /**
      * @param {(theme: string) => Record<string,string>} theme
      * @return {Record<string, string>}
      */
     backgroundColor: (theme) => ({
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       ...theme("colors"),
-      white: "#FFFFFF",
     }),
     fontSize: {
-      h1: "2.0rem",
-      h2: "1.125rem",
+      h1: "2rem",
+      h2: "1.5rem",
       baseline: "1rem",
       button: "1rem",
       details: "0.8rem",
