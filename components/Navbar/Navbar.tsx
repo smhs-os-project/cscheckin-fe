@@ -29,7 +29,7 @@ export default function Navbar() {
   const variant = useNavbarVariant();
 
   return (
-    <div className="p-8 grid grid-col-1 md:grid-col-3 content-center items-center">
+    <div className="p-8 grid grid-col-1 md:grid-col-3 content-center items-center md:max-w-6xl mx-auto">
       <div className="col-start-1 col-end-1 flex space-x-2">
         <AutoPrevIcon />
         <NavbarIcon />
