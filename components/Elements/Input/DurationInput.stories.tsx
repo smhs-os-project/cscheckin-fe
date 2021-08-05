@@ -11,11 +11,28 @@ export default {
 const Template: Story<DurationInputProps> = ({
   onChange,
   value,
+  prefix,
+  suffix,
 }: DurationInputProps) => (
   <div className="p-10 bg-secondary">
-    <DurationInput value={value} onChange={onChange} />
+    <DurationInput
+      value={value}
+      onChange={onChange}
+      prefix={prefix}
+      suffix={suffix}
+    />
   </div>
 );
 
 export const DurationInputExample = Template.bind({});
 DurationInputExample.args = {};
+
+export const WithPrefix = Template.bind({});
+WithPrefix.args = {
+  prefix: "再",
+};
+
+export const WithSuffix = Template.bind({});
+WithSuffix.args = {
+  suffix: "後",
+};

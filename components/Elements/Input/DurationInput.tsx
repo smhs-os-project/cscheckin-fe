@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import React, { useEffect, useState } from "react";
 import NumberInput from "./NumberInput";
 
@@ -15,11 +16,15 @@ export interface Duration {
 export interface DurationInputProps {
   value?: Duration;
   onChange?: (value: Duration) => void;
+  prefix?: ReactNode;
+  suffix?: ReactNode;
 }
 
 export default function DurationInput({
   value: receivedValue,
   onChange,
+  prefix,
+  suffix,
 }: DurationInputProps) {
   const [value, setValue] = useState<Duration>(
     receivedValue || {
@@ -34,6 +39,7 @@ export default function DurationInput({
 
   return (
     <div className="flex items-center">
+      {prefix && <div>{prefix}</div>}
       <NumberInput
         value={value.h}
         onChange={(hr) => setValue((prev) => ({ ...prev, h: hr }))}
@@ -44,6 +50,7 @@ export default function DurationInput({
         onChange={(min) => setValue((prev) => ({ ...prev, m: min }))}
       />
       <div>分鐘</div>
+      {suffix && <div>{suffix}</div>}
     </div>
   );
 }
