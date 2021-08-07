@@ -11,8 +11,8 @@ export default function useHttpBuilder<
   key: string,
   asyncFunction: (
     key: string,
-    auth?: CSCAuth,
-    payload?: Payload
+    auth: Auth,
+    payload: Payload
   ) => Promise<Response>,
   auth?: Auth,
   payload?: Payload
