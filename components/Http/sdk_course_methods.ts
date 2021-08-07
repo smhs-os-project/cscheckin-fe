@@ -62,3 +62,12 @@ export const useCourseShareLink = (courseId: number) =>
     auth.Auth,
     courseId
   );
+
+export default {
+  useCreateCourse,
+  useClassroomsList,
+  useCourseInfoById,
+  useCourseInfoByUUID,
+  useCoursesList,
+  useCourseShareLink,
+};

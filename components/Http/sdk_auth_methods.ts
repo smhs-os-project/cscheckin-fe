@@ -6,3 +6,7 @@ export const useClientId = () =>
     const clientId = await GetClientId();
     return clientId.client_id;
   });
+
+export default {
+  useClientId,
+};
