@@ -54,7 +54,7 @@ export default function ListChoicePageCard({
       full={full}
       navbar={navbar}
     >
-      <div className="flex flex-col w-full options">
+      <div className="flex flex-col w-full options space-y-5">
         {(() => {
           // if user specified the message
           if (hasMessage) {
@@ -67,7 +67,7 @@ export default function ListChoicePageCard({
           }
 
           return choice.map(({ id: cid, name, redirect }) => (
-            <div className="mb-4" key={`${title}-${cid}`}>
+            <div key={`${title}-${cid}`}>
               <FullWidthButton rightIcon onClick={redirect}>
                 {name}
               </FullWidthButton>

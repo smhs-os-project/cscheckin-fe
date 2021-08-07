@@ -35,7 +35,7 @@ function HeaderCardHeader({
 
   return (
     <section
-      className={`${flexDefaultCSS} ${flexMediumCSS} ${textDefaultCSS} ${textMediumCSS} w-full text-secondary ${headerColor} px-16 py-16 tracking-header`}
+      className={`${flexDefaultCSS} ${flexMediumCSS} ${textDefaultCSS} ${textMediumCSS} w-full text-secondary ${headerColor} px-10 py-10 tracking-header`}
     >
       <div className="mb-2 md:mb-0">
         <FontAwesomeIcon icon={icon} size="3x" />
@@ -58,7 +58,7 @@ export default function HeaderCard({
 }: HeaderCardProps) {
   const c = (css: string, determination?: boolean) =>
     determination ? css : "";
-  const needContentPadding = c("px-16 pt-16 pb-8 md:py-16", contentPadding);
+  const needContentPadding = c("px-5 py-5 md:px-10 md:py-10", contentPadding);
 
   return (
     <BaseCard>

@@ -7,7 +7,7 @@ export interface BaseCardProps {
 
 export default function BaseCard({ children }: BaseCardProps) {
   return (
-    <div className="overflow-hidden rounded-lg bg-secondary shadow-lg main-content md:max-w-2xl">
+    <div className="overflow-hidden rounded-lg bg-secondary shadow-lg main-content md:min-w-2xl max-w-2xl">
       {children}
     </div>
   );

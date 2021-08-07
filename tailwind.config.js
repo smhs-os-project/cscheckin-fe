@@ -22,6 +22,9 @@ module.exports = {
         neutral: "#F49E0B",
         negative: "#EE4444",
       },
+      minWidth: {
+        "2xl": "42rem",
+      },
     },
     colors: {
       // common

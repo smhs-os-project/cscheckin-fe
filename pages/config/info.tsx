@@ -12,7 +12,7 @@ export default function ConfigInfo() {
       desc="重新設定您的班級座號"
       icon={faCog}
     >
-      <section className="grid grid-cols-2 gap-4 mb-4">
+      <section className="grid grid-cols-2 gap-4 mb-4 w-full">
         <BaseInput label="班級" />
         <BaseInput label="座號" />
       </section>

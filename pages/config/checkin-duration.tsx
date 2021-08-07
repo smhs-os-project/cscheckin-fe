@@ -36,7 +36,6 @@ function EndInputBox() {
   );
 }
 
-// WIP: RWD & UI optimize
 export default function CheckinDurationConfig() {
   return (
     <HeaderPageCard
@@ -44,7 +43,7 @@ export default function CheckinDurationConfig() {
       desc="設定開課後多久屬於遲到，多久結束簽到。您仍然可以手動結束簽到。"
       icon={faCog}
     >
-      <div className="flex flex-col space-y-10 mb-8 mx-2 md:mx-0">
+      <div className="flex flex-col space-y-10 mb-8 md:mx-0">
         <LateInputBox />
         <EndInputBox />
       </div>
