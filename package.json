@@ -20,6 +20,7 @@
     "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.15",
     "autoprefixer": "^10.3.1",
+    "cscheckin-js-sdk": "git+https://github.com/smhs-os-project/cscheckin-js-sdk.git",
     "next": "^11.0.1",
     "nprogress": "^0.2.0",
     "postcss": "^8.3.6",
