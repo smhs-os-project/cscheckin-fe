@@ -1,6 +1,5 @@
 import CSCAuth from "cscheckin-js-sdk/dist/auth";
 import SessionDB from "../SessionDB";
-import CannotGetAuthHeader from "./exceptions/CannotGetAuthHeader";
 import NotRestoreCredentialYet from "./exceptions/NotRestoreCredentialYet";
 
 const AUTH_DATA_KEY = "auth.data";
@@ -9,7 +8,7 @@ const sessionDB = SessionDB.getInstance();
 export default class AuthStore {
   private static instance: AuthStore | null = null;
 
-  auth: CSCAuth | null = null;
+  private auth: CSCAuth | null = null;
 
   static getCommonInstance(): AuthStore {
     if (!this.instance) {
@@ -22,13 +21,13 @@ export default class AuthStore {
     this.auth = new CSCAuth(tokenId, accessToken);
   }
 
-  async getBearerToken(): Promise<string> | never {
+  get Auth(): CSCAuth {
     if (!this.auth) throw new NotRestoreCredentialYet();
+    return this.auth;
+  }
 
-    const header = await this.auth.getAuthenticationHeader();
-    if (!header) throw new CannotGetAuthHeader();
-
-    return header;
+  set Auth(auth: CSCAuth) {
+    this.auth = auth;
   }
 
   save(): void {
