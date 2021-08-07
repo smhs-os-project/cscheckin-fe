@@ -1,24 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useSWR from "swr";
+import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import useError from "../../utilities/ErrorReporting/useError";
 import type { HttpResponse } from "./HttpResponse";
 
-export default function useHttpBuilder<T>(
-  asyncFunction: () => Promise<T>
-): HttpResponse<T> {
-  const [data, setData] = useState<T>();
+export default function useHttpBuilder<Payload = unknown, Response = unknown>(
+  key: string,
+  asyncFunction: (
+    key: string,
+    auth?: CSCAuth,
+    payload?: Payload
+  ) => Promise<Response>,
+  auth?: CSCAuth,
+  payload?: Payload
+): HttpResponse<Response> {
   const [error, setError] = useError();
-  const [pending, setPending] = useState(true);
+  const response = useSWR([key, auth, payload], asyncFunction);
 
   useEffect(() => {
-    void asyncFunction()
-      .then((inData) => setData(inData))
-      .catch((err) => setError(err))
-      .finally(() => setPending(false));
-  });
+    setError(response.error);
+  }, [response.error, setError]);
 
   return {
-    data: data ?? null,
+    data: response.data ?? null,
     error,
-    pending,
+    pending: !(response.data || error),
   };
 }
