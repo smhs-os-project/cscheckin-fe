@@ -7,6 +7,7 @@ import ErrorPage from "../../Page/ErrorPage";
 import HeaderPageCard from "../../Page/HeaderPageCard";
 import type { Scope } from "./scope";
 import GoogleLoginComponent from "./GoogleLoginComponent";
+import parseGoogleLoginError from "./parseGoogleLoginError";
 
 export interface LoginUIProps {
   pageTitle?: string;
@@ -28,6 +29,7 @@ export default function LoginUI({
   pageIcon = faKey,
   scope,
 }: LoginUIProps) {
+  const [errorBrief, setErrorBrief] = useState("登入時發生錯誤。");
   const [error, setError] = useError();
   const [processing, setProcessing] = useState(false);
   const [credential, setCredential] = useState<Credential>();
@@ -38,16 +40,20 @@ export default function LoginUI({
   }, [credential]);
 
   if (error)
-    return (
-      <ErrorPage errorMessage="登入時發生錯誤。" errorDetails={error.message} />
-    );
+    return <ErrorPage errorMessage={errorBrief} errorDetails={error.message} />;
 
   return (
     <HeaderPageCard title={pageTitle} desc={pageDesc} icon={pageIcon}>
       <div className="m-4 flex space-x-4">
         <GoogleLoginComponent
           scope={scope}
-          onError={setError}
+          onError={(err, brief) => {
+            if (brief)
+              setErrorBrief(
+                (beforeBrief) => parseGoogleLoginError(brief) ?? beforeBrief
+              );
+            setError(err);
+          }}
           onLogin={({ accessToken, tokenId }) => {
             setProcessing(true);
             setCredential({

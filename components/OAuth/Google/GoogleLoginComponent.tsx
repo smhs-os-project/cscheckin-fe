@@ -11,10 +11,12 @@ import DivLoading from "../../Layout/DivLoading";
 import UnexpectedGoogleLoginResponse from "./exceptions/UnexpectedGoogleLoginResponse";
 import type { Scope } from "./scope";
 import { getScopeInfo } from "./scope";
+import type { GoogleLoginError } from "./parseGoogleLoginError";
+import { isGoogleLoginError } from "./parseGoogleLoginError";
 
 export interface GoogleLoginComponentProps {
   scope: Scope;
-  onError: (error: Error) => void;
+  onError: (error: Error, brief?: GoogleLoginError | null) => void;
   onLogin: (response: GoogleLoginResponse) => void;
 }
 
@@ -38,13 +40,17 @@ export default function GoogleLoginComponent({
   onLogin,
 }: GoogleLoginComponentProps) {
   const [requesting, setRequesting] = useState(false);
+  const [glErrorObject, setGlErrorObject] = useState<GoogleLoginError>();
   const [error, setError] = useError();
   const { data: clientId, error: clientIdError, pending } = useClientId();
 
   useEffect(() => {
-    if (error) onError(error);
+    if (error) {
+      if (glErrorObject) onError(error, glErrorObject);
+      else onError(error);
+    }
     if (clientIdError) onError(clientIdError);
-  }, [error, clientIdError, onError]);
+  }, [error, clientIdError, onError, glErrorObject]);
 
   if (pending) return <GettingClientId />;
 
@@ -63,6 +69,7 @@ export default function GoogleLoginComponent({
             }}
             onFailure={(e: unknown) => {
               setRequesting(false);
+              if (isGoogleLoginError(e)) setGlErrorObject(e);
               setError(e);
             }}
             onRequest={() => setRequesting(true)}
