@@ -12,6 +12,10 @@ export default class AuthStore {
 
   private auth: CSCAuth | null = null;
 
+  constructor() {
+    if (globalThis.window) this.restore();
+  }
+
   static getCommonInstance(): AuthStore {
     if (!this.instance) {
       this.instance = new AuthStore();
