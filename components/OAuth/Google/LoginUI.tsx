@@ -1,0 +1,63 @@
+import React, { useEffect, useState } from "react";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
+import useError from "../../../utilities/ErrorReporting/useError";
+import AuthStore from "../../Database/AuthStore";
+import ErrorPage from "../../Page/ErrorPage";
+import HeaderPageCard from "../../Page/HeaderPageCard";
+import type { Scope } from "./scope";
+import GoogleLoginComponent from "./GoogleLoginComponent";
+
+export interface LoginUIProps {
+  pageTitle?: string;
+  pageDesc?: string;
+  pageIcon?: IconDefinition;
+  scope: Scope;
+}
+
+interface Credential {
+  accessToken: string;
+  tokenId: string;
+}
+
+const authStore = AuthStore.getCommonInstance();
+
+export default function LoginUI({
+  pageTitle = "SSO 登入系統",
+  pageDesc = "登入本 CSC 簽到系統。",
+  pageIcon = faKey,
+  scope,
+}: LoginUIProps) {
+  const [error, setError] = useError();
+  const [processing, setProcessing] = useState(false);
+  const [credential, setCredential] = useState<Credential>();
+
+  useEffect(() => {
+    if (credential)
+      authStore.storeCredential(credential.tokenId, credential.accessToken);
+  }, [credential]);
+
+  if (error)
+    return (
+      <ErrorPage errorMessage="登入時發生錯誤。" errorDetails={error.message} />
+    );
+
+  return (
+    <HeaderPageCard title={pageTitle} desc={pageDesc} icon={pageIcon}>
+      <div className="m-4 flex space-x-4">
+        <GoogleLoginComponent
+          scope={scope}
+          onError={setError}
+          onLogin={({ accessToken, tokenId }) => {
+            setProcessing(true);
+            setCredential({
+              accessToken,
+              tokenId,
+            });
+          }}
+        />
+        {processing && <div>正在處理中⋯⋯</div>}
+      </div>
+    </HeaderPageCard>
+  );
+}

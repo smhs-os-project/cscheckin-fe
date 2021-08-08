@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
 import type {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
@@ -8,7 +6,17 @@ import type {
 import GoogleLogin from "react-google-login";
 import { useClientId } from "../../Http/sdk_auth_methods";
 import useError from "../../../utilities/ErrorReporting/useError";
+import DivItemsCenter from "../../Layout/DivItemsCenter";
+import DivLoading from "../../Layout/DivLoading";
 import UnexpectedGoogleLoginResponse from "./exceptions/UnexpectedGoogleLoginResponse";
+import type { Scope } from "./scope";
+import { getScopeInfo } from "./scope";
+
+export interface GoogleLoginComponentProps {
+  scope: Scope;
+  onError: (error: Error) => void;
+  onLogin: (response: GoogleLoginResponse) => void;
+}
 
 function isGoogleLoginResponse(
   obj: GoogleLoginResponse | GoogleLoginResponseOffline
@@ -16,26 +24,20 @@ function isGoogleLoginResponse(
   return "tokenId" in obj && "accessToken" in obj;
 }
 
-export interface GoogleLoginComponentProps {
-  onError: (error: Error) => void;
-  onLogin: (response: GoogleLoginResponse) => void;
+function GettingClientId() {
+  return <DivLoading>正在載入登入背景資訊⋯⋯</DivLoading>;
 }
 
-function GettingClientId() {
-  return (
-    <div className="flex items-center">
-      <div>
-        <FontAwesomeIcon icon={faSpinner} />
-      </div>
-      <div>正在載入登入按鈕⋯⋯</div>
-    </div>
-  );
+function LoggingInHint() {
+  return <DivLoading>正在登入⋯⋯</DivLoading>;
 }
 
 export default function GoogleLoginComponent({
+  scope,
   onError,
   onLogin,
 }: GoogleLoginComponentProps) {
+  const [requesting, setRequesting] = useState(false);
   const [error, setError] = useError();
   const { data: clientId, error: clientIdError, pending } = useClientId();
 
@@ -48,15 +50,26 @@ export default function GoogleLoginComponent({
 
   if (clientId) {
     return (
-      <GoogleLogin
-        clientId={clientId}
-        buttonText="登入系統"
-        onSuccess={(response) => {
-          if (isGoogleLoginResponse(response)) onLogin(response);
-          setError(new UnexpectedGoogleLoginResponse());
-        }}
-        onFailure={(e: unknown) => setError(e)}
-      />
+      <DivItemsCenter>
+        <div className="mr-2">
+          <GoogleLogin
+            scope={getScopeInfo(scope)}
+            clientId={clientId}
+            buttonText="登入系統"
+            onSuccess={(response) => {
+              setRequesting(false);
+              if (isGoogleLoginResponse(response)) onLogin(response);
+              setError(new UnexpectedGoogleLoginResponse());
+            }}
+            onFailure={(e: unknown) => {
+              setRequesting(false);
+              setError(e);
+            }}
+            onRequest={() => setRequesting(true)}
+          />
+        </div>
+        {requesting && <LoggingInHint />}
+      </DivItemsCenter>
     );
   }
 
