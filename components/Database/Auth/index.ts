@@ -1,6 +1,8 @@
 import CSCAuth from "cscheckin-js-sdk/dist/auth";
 import SessionDB from "../SessionDB";
-import NotRestoreCredentialYet from "./exceptions/NotRestoreCredentialYet";
+import InvalidCredential, {
+  InvalidCredentialStage,
+} from "./exceptions/InvalidCredential";
 
 const AUTH_DATA_KEY = "auth.data";
 const sessionDB = SessionDB.getInstance();
@@ -21,12 +23,24 @@ export default class AuthStore {
     this.auth = new CSCAuth(tokenId, accessToken);
   }
 
-  get Auth(): CSCAuth {
-    if (!this.auth) throw new NotRestoreCredentialYet();
-    return this.auth;
+  async getAuth(): Promise<CSCAuth> {
+    if (this.auth) {
+      const accessData = await this.auth.getAccessData();
+
+      if (accessData) {
+        if (accessData.exp >= Date.now()) return this.auth;
+        throw new InvalidCredential(InvalidCredentialStage.ACCESS_DATA_EXPIRED);
+      }
+
+      throw new InvalidCredential(
+        InvalidCredentialStage.ACCESS_DATA_CANNOT_FETCH
+      );
+    }
+
+    throw new InvalidCredential(InvalidCredentialStage.AUTH_NOT_DEFINED);
   }
 
-  set Auth(auth: CSCAuth) {
+  setAuth(auth: CSCAuth) {
     this.auth = auth;
   }
 

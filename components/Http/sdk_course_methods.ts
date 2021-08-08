@@ -7,36 +7,34 @@ import {
   GetShareLink,
 } from "cscheckin-js-sdk";
 import type { CreateCourseRequest } from "cscheckin-js-sdk/dist/types";
-import AuthStore from "../Database/Auth";
+import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import useHttpBuilder from "./useHttpBuilder";
-
-const auth = AuthStore.getCommonInstance();
 
 export interface CreateCoursePayload extends CreateCourseRequest {
   classroomId: string;
 }
 
-export const useCreateCourse = (payload: CreateCoursePayload) =>
+export const useCreateCourse = (payload: CreateCoursePayload, auth: CSCAuth) =>
   useHttpBuilder(
     "course/create_course",
     async (_, inAuth, { classroomId, ...request }) =>
       CreateCourse(classroomId, request, inAuth),
-    auth.Auth,
+    auth,
     payload
   );
 
-export const useClassroomsList = () =>
+export const useClassroomsList = (auth: CSCAuth) =>
   useHttpBuilder(
     "course/get_classrooms_list",
     async (_, inAuth) => GetClassroomsList(inAuth),
-    auth.Auth
+    auth
   );
 
-export const useCourseInfoById = (courseId: number) =>
+export const useCourseInfoById = (courseId: number, auth: CSCAuth) =>
   useHttpBuilder(
     "course/get_course_by_id",
     async (_, inAuth, inCourseId) => GetCourseByID(inCourseId, inAuth),
-    auth.Auth,
+    auth,
     courseId
   );
 
@@ -48,18 +46,18 @@ export const useCourseInfoByUUID = (courseUUID: string) =>
     courseUUID
   );
 
-export const useCoursesList = () =>
+export const useCoursesList = (auth: CSCAuth) =>
   useHttpBuilder(
     "course/get_courses_list",
     async (_, inAuth) => GetCoursesList(inAuth),
-    auth.Auth
+    auth
   );
 
-export const useCourseShareLink = (courseId: number) =>
+export const useCourseShareLink = (courseId: number, auth: CSCAuth) =>
   useHttpBuilder(
     "course/get_share_link",
     async (_, inAuth, inCourseId) => GetShareLink(inCourseId, inAuth),
-    auth.Auth,
+    auth,
     courseId
   );
 

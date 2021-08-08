@@ -1,22 +1,20 @@
 import { Checkin, CheckinList } from "cscheckin-js-sdk";
-import AuthStore from "../Database/Auth";
+import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import useHttpBuilder from "./useHttpBuilder";
 
-const auth = AuthStore.getCommonInstance();
-
-export const useCheckin = (courseUUID: string) =>
+export const useCheckin = (courseUUID: string, auth: CSCAuth) =>
   useHttpBuilder(
     "student/checkin",
     async (_, inAuth, inCourseUUID) => Checkin(inCourseUUID, inAuth),
-    auth.Auth,
+    auth,
     courseUUID
   );
 
-export const useCheckinList = (courseId: number) =>
+export const useCheckinList = (courseId: number, auth: CSCAuth) =>
   useHttpBuilder(
     "teacher/checkin_list",
     async (_, inAuth, inCourseId) => CheckinList(inCourseId, inAuth),
-    auth.Auth,
+    auth,
     courseId
   );
 
