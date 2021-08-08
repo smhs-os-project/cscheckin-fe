@@ -12,6 +12,10 @@ export default class AuthStore {
 
   private auth: CSCAuth | null = null;
 
+  private constructor() {
+    if (globalThis.window) this.restore();
+  }
+
   static getCommonInstance(): AuthStore {
     if (!this.instance) {
       this.instance = new AuthStore();
@@ -20,7 +24,7 @@ export default class AuthStore {
   }
 
   storeCredential(tokenId: string, accessToken: string): void {
-    this.auth = new CSCAuth(tokenId, accessToken);
+    this.setAuth(new CSCAuth(tokenId, accessToken));
   }
 
   async getAuth(): Promise<CSCAuth> {
@@ -28,7 +32,11 @@ export default class AuthStore {
       const accessData = await this.auth.getAccessData();
 
       if (accessData) {
-        if (accessData.exp >= Date.now()) return this.auth;
+        if (accessData.exp >= Date.now()) {
+          this.save();
+          return this.auth;
+        }
+
         throw new InvalidCredential(InvalidCredentialStage.ACCESS_DATA_EXPIRED);
       }
 
