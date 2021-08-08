@@ -5,6 +5,8 @@ COPY . fe
 WORKDIR fe
 
 # Install the dependencies
+RUN apk update
+RUN apk add git
 RUN yarn --production;
 
 # Build the frontend
