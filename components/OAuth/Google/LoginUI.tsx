@@ -5,6 +5,7 @@ import useError from "../../../utilities/ErrorReporting/useError";
 import AuthStore from "../../Database/AuthStore";
 import ErrorPage from "../../Page/ErrorPage";
 import HeaderPageCard from "../../Page/HeaderPageCard";
+import DivLoading from "../../Layout/DivLoading";
 import type { Scope } from "./scope";
 import GoogleLoginComponent from "./GoogleLoginComponent";
 import parseGoogleLoginError from "./parseGoogleLoginError";
@@ -44,7 +45,7 @@ export default function LoginUI({
 
   return (
     <HeaderPageCard title={pageTitle} desc={pageDesc} icon={pageIcon}>
-      <div className="m-4 flex space-x-4">
+      <div className="m-4 flex space-x-4 items-center">
         <GoogleLoginComponent
           scope={scope}
           onError={(err, brief) => {
@@ -62,7 +63,7 @@ export default function LoginUI({
             });
           }}
         />
-        {processing && <div>正在處理中⋯⋯</div>}
+        {processing && <DivLoading>正在處理中⋯⋯</DivLoading>}
       </div>
     </HeaderPageCard>
   );
