@@ -65,7 +65,7 @@ export default function GoogleLoginComponent({
             onSuccess={(response) => {
               setRequesting(false);
               if (isGoogleLoginResponse(response)) onLogin(response);
-              setError(new UnexpectedGoogleLoginResponse());
+              else setError(new UnexpectedGoogleLoginResponse());
             }}
             onFailure={(e: unknown) => {
               setRequesting(false);
