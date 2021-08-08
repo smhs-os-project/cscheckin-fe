@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import AuthStore from "../Database/AuthStore";
 import NavbarContent, { NavbarContentVariant } from "./NavbarContent";
 import NavbarIcon from "./NavbarIcon";
 import PrevIcon from "./PrevIcon";
+
+const authStore = AuthStore.getCommonInstance();
 
 function useNavbarVariant() {
   const router = useRouter();
@@ -11,6 +14,15 @@ function useNavbarVariant() {
   useEffect(() => {
     if (router && router.asPath === "/")
       setVariant(NavbarContentVariant.HOMEPAGE);
+
+    if (router.isReady && !router.asPath.startsWith("/sso")) {
+      void authStore
+        .getAuth()
+        .then(() => {
+          setVariant(NavbarContentVariant.LOGGED_IN);
+        })
+        .catch(() => router.push("/sso/teacher")); // redirect to login page
+    }
   }, [router]);
 
   return variant;
