@@ -6,11 +6,11 @@ export interface Duration {
   /**
    * Hour
    */
-  h: number;
+  h: number | null;
   /**
    * Minute
    */
-  m: number;
+  m: number | null;
 }
 
 export interface DurationInputProps {
@@ -28,8 +28,8 @@ export default function DurationInput({
 }: DurationInputProps) {
   const [value, setValue] = useState<Duration>(
     receivedValue || {
-      h: 0,
-      m: 0,
+      h: null,
+      m: null,
     }
   );
 
@@ -42,12 +42,12 @@ export default function DurationInput({
       <div className="flex items-center space-x-6">
         {prefix && <div>{prefix}</div>}
         <NumberInput
-          value={value.h}
+          value={value.h ?? undefined}
           onChange={(hr) => setValue((prev) => ({ ...prev, h: hr }))}
         />
         <div>小時</div>
         <NumberInput
-          value={value.m}
+          value={value.m ?? undefined}
           onChange={(min) => setValue((prev) => ({ ...prev, m: min }))}
         />
         <div>分鐘</div>
