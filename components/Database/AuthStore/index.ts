@@ -12,10 +12,6 @@ export default class AuthStore {
 
   private auth: CSCAuth | null = null;
 
-  private constructor() {
-    if (globalThis.window) this.restore();
-  }
-
   static getCommonInstance(): AuthStore {
     if (!this.instance) {
       this.instance = new AuthStore();
@@ -32,7 +28,7 @@ export default class AuthStore {
       const accessData = await this.auth.getAccessData();
 
       if (accessData) {
-        if (accessData.exp >= Date.now()) {
+        if (accessData.exp * 1000 >= Date.now()) {
           this.save();
           return this.auth;
         }
