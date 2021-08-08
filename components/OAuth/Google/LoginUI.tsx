@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 import useError from "../../../utilities/ErrorReporting/useError";
 import AuthStore from "../../Database/AuthStore";
 import ErrorPage from "../../Page/ErrorPage";
@@ -30,15 +31,18 @@ export default function LoginUI({
   pageIcon = faKey,
   scope,
 }: LoginUIProps) {
+  const router = useRouter();
   const [errorBrief, setErrorBrief] = useState("登入時發生錯誤。");
   const [error, setError] = useError();
   const [processing, setProcessing] = useState(false);
   const [credential, setCredential] = useState<Credential>();
 
   useEffect(() => {
-    if (credential)
+    if (credential) {
       authStore.storeCredential(credential.tokenId, credential.accessToken);
-  }, [credential]);
+      void router.push("/welcome");
+    }
+  }, [credential, router]);
 
   if (error)
     return <ErrorPage errorMessage={errorBrief} errorDetails={error.message} />;
