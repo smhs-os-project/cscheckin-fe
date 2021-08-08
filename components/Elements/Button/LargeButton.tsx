@@ -12,7 +12,7 @@ export default function LargeButton({
   return (
     // that is too much to specify explicitly!
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <BaseButton paddingClass={paddingClass} {...props}>
+    <BaseButton full paddingClass={paddingClass} {...props}>
       {children}
     </BaseButton>
   );
