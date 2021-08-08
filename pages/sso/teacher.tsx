@@ -6,7 +6,7 @@ export default function SSOTeacher() {
   return (
     <LoginUI
       pageTitle="SSO 教師登入系統"
-      pageDesc="登入一次，簽到無數次。"
+      pageDesc="登入後即可監控學生的簽到情況及管理簽到連結。"
       scope={Scope.Teacher}
     />
   );
