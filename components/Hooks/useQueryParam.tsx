@@ -22,7 +22,7 @@ export default function useQueryParam(paramName: string): QueryParamResponse {
   });
 
   useEffect(() => {
-    if (!router.isReady) return;
+    if (router && !router.isReady) return;
 
     if (typeof query === "string")
       setResponse({
@@ -36,7 +36,7 @@ export default function useQueryParam(paramName: string): QueryParamResponse {
       loading: false,
       notSpecified: true,
     });
-  }, [query, router.isReady]);
+  }, [query, router, router.isReady]);
 
   return response;
 }

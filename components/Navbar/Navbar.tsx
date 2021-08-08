@@ -21,7 +21,9 @@ function AutoPrevIcon() {
   const hidePrev = ["/", "/welcome"];
 
   return (
-    <PrevIcon show={router.isReady && !hidePrev.includes(router.asPath)} />
+    <PrevIcon
+      show={router && router.isReady && !hidePrev.includes(router.asPath)}
+    />
   );
 }
 
