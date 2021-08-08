@@ -6,5 +6,5 @@ export interface BaseButtonGroupProps {
 }
 
 export default function BaseButtonGroup({ children }: BaseButtonGroupProps) {
-  return <div className="space-x-3">{children}</div>;
+  return <div className="space-x-4">{children}</div>;
 }

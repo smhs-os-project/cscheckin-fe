@@ -7,7 +7,7 @@ export interface LargeButtonGroupProps {
 
 export default function LargeButtonGroup({ children }: LargeButtonGroupProps) {
   const flex = "flex justify-between flex-col md:flex-row";
-  const spacing = "space-y-2 md:space-y-0 md:space-x-2";
+  const spacing = "space-y-4 md:space-y-0 md:space-x-4";
 
   return (
     <>
