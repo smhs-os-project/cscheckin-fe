@@ -15,7 +15,7 @@ export default function CheckinManageIndexPage() {
         {
           id: "create-new",
           name: "建立新的簽到連結",
-          redirect: async () => router.push("/checkin/manage/create"),
+          redirect: async () => router.push("/checkin/manage/new"),
         },
         {
           id: "see-previous",
