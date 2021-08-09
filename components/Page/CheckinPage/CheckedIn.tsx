@@ -5,6 +5,7 @@ import type { CheckinResponse } from "cscheckin-js-sdk/dist/types";
 import dynamic from "next/dynamic";
 import { useUserInfo } from "../../Http/sdk_auth_methods";
 import type AuthenticatedPageProps from "../../Database/AuthStore/AuthenticatedPageProps";
+import { getCheckinStatusBrief } from "../../Http/Utility/courseEnumParser";
 
 const LargeButton = dynamic(() => import("../../Elements/Button/LargeButton"));
 const HeaderPageCard = dynamic(() => import("../HeaderPageCard"));
@@ -34,7 +35,7 @@ export default function CheckedIn({ auth, checkinData }: CheckedInProps) {
         {entry("簽到 ID", checkinData.id)}
         {entry("課程 ID", checkinData.course_id)}
         {entry("學生 ID", checkinData.student_id)}
-        {entry("簽到", checkinData.state)}
+        {entry("簽到", getCheckinStatusBrief(checkinData.state))}
         {entry("姓名", userInfo?.name)}
         {entry("信箱", userInfo?.email)}
         {entry("班級", userInfo && (userInfo.student?.class ?? "⚠️ 未設定"))}
