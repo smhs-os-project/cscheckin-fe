@@ -21,7 +21,7 @@ export default function useHttpBuilder<
   const response = useSWR([key, auth, payload], asyncFunction);
 
   useEffect(() => {
-    setError(response.error);
+    if (response.error) setError(response.error);
   }, [response.error, setError]);
 
   return {
