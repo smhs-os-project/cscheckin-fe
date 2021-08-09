@@ -9,7 +9,7 @@ export const useClientId = () =>
   });
 
 export const useUserInfo = (auth: CSCAuth) =>
-  useHttpBuilder("auth/user_info", async () => auth.getAccessData());
+  useHttpBuilder("auth/user_info", async () => auth.userInfo());
 
 export default {
   useClientId,
