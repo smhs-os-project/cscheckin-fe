@@ -6,6 +6,7 @@ import { useUserInfo } from "../components/Http/sdk_auth_methods";
 import useAuth from "../components/Database/AuthStore/useAuth";
 import type AuthenticatedPageProps from "../components/Database/AuthStore/AuthenticatedPageProps";
 import { Scope } from "../components/OAuth/Google/scope";
+import AuthStore from "../components/Database/AuthStore";
 
 const ListChoicePageCard = dynamic(
   () => import("../components/Page/ListChoicePageCard")
@@ -50,7 +51,10 @@ export function AuthenticatedWelcomePage({ auth }: AuthenticatedPageProps) {
         {
           id: "logout",
           name: "登出 CSC 系統",
-          redirect: async () => {},
+          redirect: async () => {
+            await AuthStore.getCommonInstance().logout();
+            await router.push("/");
+          },
         },
       ]}
     />
