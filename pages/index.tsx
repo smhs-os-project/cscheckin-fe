@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import BasePage from "../components/Page/BasePage";
 import BaseButtonGroup from "../components/Elements/Button/Group/BaseButtonGroup";
 import BaseButton from "../components/Elements/Button/BaseButton";
@@ -17,7 +18,9 @@ export default function Home() {
             線上點名不會再是老師的夢魘。
           </p>
           <BaseButtonGroup>
-            <BaseButton solid>教師端登入</BaseButton>
+            <Link href="/welcome">
+              <BaseButton solid>教師端登入</BaseButton>
+            </Link>
             <BaseButton>使用教學</BaseButton>
           </BaseButtonGroup>
         </div>
