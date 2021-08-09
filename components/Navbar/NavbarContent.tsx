@@ -1,12 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import BaseButton from "../Elements/Button/BaseButton";
-import AuthStore from "../Database/AuthStore";
-import UnexpectedGoogleLoginResponse from "../OAuth/Google/exceptions/UnexpectedGoogleLoginResponse";
 import DivItemsCenter from "../Layout/DivItemsCenter";
-
-const authStore = AuthStore.getCommonInstance();
+import useAuth from "../Database/AuthStore/useAuth";
+import type AuthenticatedPageProps from "../Database/AuthStore/AuthenticatedPageProps";
+import { useUserInfo } from "../Http/sdk_auth_methods";
 
 export enum NavbarContentVariant {
   HOMEPAGE,
@@ -16,11 +15,6 @@ export enum NavbarContentVariant {
 
 export interface NavbarContentProps {
   variant?: NavbarContentVariant;
-}
-
-interface UserInfo {
-  image: string;
-  username: string;
 }
 
 function HomepageVariant() {
@@ -39,23 +33,8 @@ function NotLoggedInVariant() {
   );
 }
 
-function LoggedInVariant() {
-  const [userInfo, setUserInfo] = useState<UserInfo>();
-
-  useEffect(() => {
-    void authStore
-      .getAuth()
-      .then((cscAuth) => cscAuth.userInfo())
-      .then((inUserInfo) => {
-        if (inUserInfo)
-          return setUserInfo({
-            image: inUserInfo.photo,
-            username: inUserInfo.name,
-          });
-        return Promise.reject(new UnexpectedGoogleLoginResponse());
-      })
-      .catch(() => null);
-  }, []);
+function LoggedInVariant({ auth }: AuthenticatedPageProps) {
+  const { data: userInfo } = useUserInfo(auth);
 
   return (
     <>
@@ -65,10 +44,10 @@ function LoggedInVariant() {
             <div
               className="rounded-xl w-12 h-12 bg-contain"
               style={{
-                backgroundImage: `url('${userInfo.image}')`,
+                backgroundImage: `url('${userInfo.photo}')`,
               }}
             />
-            <div>{userInfo.username}</div>
+            <div>{userInfo.name}</div>
           </DivItemsCenter>
         </div>
       )}
@@ -86,11 +65,20 @@ function LoggedInVariant() {
 export default function NavbarContent({
   variant = NavbarContentVariant.NOT_LOGGED_IN,
 }: NavbarContentProps) {
-  return (
-    <div className="flex items-center space-x-2">
-      {variant === NavbarContentVariant.HOMEPAGE && <HomepageVariant />}
-      {variant === NavbarContentVariant.NOT_LOGGED_IN && <NotLoggedInVariant />}
-      {variant === NavbarContentVariant.LOGGED_IN && <LoggedInVariant />}
-    </div>
-  );
+  const { auth, pending } = useAuth();
+
+  if (!pending)
+    return (
+      <div className="flex items-center space-x-2">
+        {variant === NavbarContentVariant.HOMEPAGE && <HomepageVariant />}
+        {variant === NavbarContentVariant.NOT_LOGGED_IN && (
+          <NotLoggedInVariant />
+        )}
+        {variant === NavbarContentVariant.LOGGED_IN && auth && (
+          <LoggedInVariant auth={auth} />
+        )}
+      </div>
+    );
+
+  return null;
 }
