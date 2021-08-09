@@ -6,9 +6,9 @@ import dynamic from "next/dynamic";
 import { useUserInfo } from "../../Http/sdk_auth_methods";
 import type AuthenticatedPageProps from "../../Database/AuthStore/AuthenticatedPageProps";
 import { getCheckinStatusBrief } from "../../Http/Utility/courseEnumParser";
+import HeaderPageCard from "../HeaderPageCard";
 
 const LargeButton = dynamic(() => import("../../Elements/Button/LargeButton"));
-const HeaderPageCard = dynamic(() => import("../HeaderPageCard"));
 
 interface CheckedInProps extends AuthenticatedPageProps {
   checkinData: CheckinResponse;

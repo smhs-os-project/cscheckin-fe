@@ -1,11 +1,7 @@
 import React from "react";
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
-
-const ListChoicePageCard = dynamic(
-  () => import("../../../components/Page/ListChoicePageCard")
-);
+import ListChoicePageCard from "../../../components/Page/ListChoicePageCard";
 
 export default function CheckinManageIndexPage() {
   const router = useRouter();

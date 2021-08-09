@@ -1,6 +1,8 @@
 import React from "react";
-import LoginUI from "../../components/OAuth/Google/LoginUI";
+import dynamic from "next/dynamic";
 import { Scope } from "../../components/OAuth/Google/scope";
+
+const LoginUI = dynamic(() => import("../../components/OAuth/Google/LoginUI"));
 
 export default function SSOTeacher() {
   return (

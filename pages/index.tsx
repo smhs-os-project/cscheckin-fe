@@ -1,10 +1,16 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import BasePage from "../components/Page/BasePage";
-import BaseButtonGroup from "../components/Elements/Button/Group/BaseButtonGroup";
-import BaseButton from "../components/Elements/Button/BaseButton";
+import dynamic from "next/dynamic";
 import CheckinMonitorImg from "../public/home/checkin-monitor.svg";
+import BasePage from "../components/Page/BasePage";
+
+const BaseButtonGroup = dynamic(
+  () => import("../components/Elements/Button/Group/BaseButtonGroup")
+);
+const BaseButton = dynamic(
+  () => import("../components/Elements/Button/BaseButton")
+);
 
 export default function Home() {
   return (

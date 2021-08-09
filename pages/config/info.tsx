@@ -1,10 +1,8 @@
 import React from "react";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
+import HeaderPageCard from "../../components/Page/HeaderPageCard";
 
-const HeaderPageCard = dynamic(
-  () => import("../../components/Page/HeaderPageCard")
-);
 const BaseInput = dynamic(
   () => import("../../components/Elements/Input/BaseInput")
 );

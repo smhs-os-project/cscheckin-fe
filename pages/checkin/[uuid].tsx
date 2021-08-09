@@ -6,12 +6,10 @@ import { Scope } from "../../components/OAuth/Google/scope";
 import type AuthenticatedPageProps from "../../components/Database/AuthStore/AuthenticatedPageProps";
 import { useCheckin } from "../../components/Http/sdk_checkin_methods";
 import useQueryParam from "../../components/Hooks/useQueryParam";
+import LoadingPage from "../../components/Page/LoadingPage";
+import ErrorPage from "../../components/Page/ErrorPage";
+import AuthErrorPage from "../../components/Database/AuthStore/AuthErrorPage";
 
-const AuthErrorPage = dynamic(
-  () => import("../../components/Database/AuthStore/AuthErrorPage")
-);
-const ErrorPage = dynamic(() => import("../../components/Page/ErrorPage"));
-const LoadingPage = dynamic(() => import("../../components/Page/LoadingPage"));
 const CheckedIn = dynamic(
   () => import("../../components/Page/CheckinPage/CheckedIn")
 );
