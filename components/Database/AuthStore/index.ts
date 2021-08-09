@@ -52,6 +52,11 @@ export default class AuthStore {
     this.auth = auth;
   }
 
+  logout() {
+    this.auth?.revoke();
+    this.auth = null;
+  }
+
   save(): void {
     if (this.auth) sessionDB.set(AUTH_DATA_KEY, this.auth.export());
   }
