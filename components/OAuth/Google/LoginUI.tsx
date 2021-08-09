@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import useError from "../../../utilities/ErrorReporting/useError";
 import AuthStore from "../../Database/AuthStore";
+import useRedirect from "../../Hooks/useRedirect";
 import type { Scope } from "./scope";
 import parseGoogleLoginError from "./parseGoogleLoginError";
 
@@ -33,17 +34,18 @@ export default function LoginUI({
   scope,
 }: LoginUIProps) {
   const router = useRouter();
+  const { redirectTo } = useRedirect("/welcome");
   const [errorBrief, setErrorBrief] = useState("登入時發生錯誤。");
   const [error, setError] = useError();
   const [processing, setProcessing] = useState(false);
   const [credential, setCredential] = useState<Credential>();
 
   useEffect(() => {
-    if (credential) {
+    if (credential && router.isReady && redirectTo) {
       authStore.storeCredential(credential.tokenId, credential.accessToken);
-      void router.push("/welcome");
+      void router.push(redirectTo);
     }
-  }, [credential, router]);
+  }, [credential, router, redirectTo]);
 
   if (error)
     return <ErrorPage errorMessage={errorBrief} errorDetails={error.message} />;
