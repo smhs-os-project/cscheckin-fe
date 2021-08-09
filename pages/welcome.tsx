@@ -1,13 +1,19 @@
 import React from "react";
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
-import ListChoicePageCard from "../components/Page/ListChoicePageCard";
-import ErrorPage from "../components/Page/ErrorPage";
+import dynamic from "next/dynamic";
 import { useUserInfo } from "../components/Http/sdk_auth_methods";
 import useAuth from "../components/Database/AuthStore/useAuth";
-import AuthErrorPage from "../components/Database/AuthStore/AuthErrorPage";
 import type AuthenticatedPageProps from "../components/Database/AuthStore/AuthenticatedPageProps";
 import { Scope } from "../components/OAuth/Google/scope";
+
+const ListChoicePageCard = dynamic(
+  () => import("../components/Page/ListChoicePageCard")
+);
+const ErrorPage = dynamic(() => import("../components/Page/ErrorPage"));
+const AuthErrorPage = dynamic(
+  () => import("../components/Database/AuthStore/AuthErrorPage")
+);
 
 export function AuthenticatedWelcomePage({ auth }: AuthenticatedPageProps) {
   const router = useRouter();

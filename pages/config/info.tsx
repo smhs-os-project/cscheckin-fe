@@ -1,9 +1,19 @@
 import React from "react";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
-import HeaderPageCard from "../../components/Page/HeaderPageCard";
-import BaseInput from "../../components/Elements/Input/BaseInput";
-import LargeButton from "../../components/Elements/Button/LargeButton";
-import LargeButtonGroup from "../../components/Elements/Button/Group/LargeButtonGroup";
+import dynamic from "next/dynamic";
+
+const HeaderPageCard = dynamic(
+  () => import("../../components/Page/HeaderPageCard")
+);
+const BaseInput = dynamic(
+  () => import("../../components/Elements/Input/BaseInput")
+);
+const LargeButton = dynamic(
+  () => import("../../components/Elements/Button/LargeButton")
+);
+const LargeButtonGroup = dynamic(
+  () => import("../../components/Elements/Button/Group/LargeButtonGroup")
+);
 
 export default function ConfigInfo() {
   return (

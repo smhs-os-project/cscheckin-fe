@@ -1,10 +1,20 @@
 import type { ReactNode } from "react";
 import React from "react";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
-import HeaderPageCard from "../../components/Page/HeaderPageCard";
-import DurationInput from "../../components/Elements/Input/DurationInput";
-import LargeButtonGroup from "../../components/Elements/Button/Group/LargeButtonGroup";
-import LargeButton from "../../components/Elements/Button/LargeButton";
+import dynamic from "next/dynamic";
+
+const HeaderPageCard = dynamic(
+  () => import("../../components/Page/HeaderPageCard")
+);
+const DurationInput = dynamic(
+  () => import("../../components/Elements/Input/DurationInput")
+);
+const LargeButtonGroup = dynamic(
+  () => import("../../components/Elements/Button/Group/LargeButtonGroup")
+);
+const LargeButton = dynamic(
+  () => import("../../components/Elements/Button/LargeButton")
+);
 
 interface InputBoxProps {
   children: ReactNode;
