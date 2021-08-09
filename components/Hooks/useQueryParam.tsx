@@ -31,12 +31,12 @@ export default function useQueryParam(paramName: string): QueryParamResponse {
         loading: false,
         notSpecified: false,
       });
-
-    setResponse({
-      value: null,
-      loading: false,
-      notSpecified: true,
-    });
+    else
+      setResponse({
+        value: null,
+        loading: false,
+        notSpecified: true,
+      });
   }, [query, router]);
 
   return response;
