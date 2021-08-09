@@ -32,7 +32,10 @@ export default class AuthStore {
       const accessData = await this.auth.getAccessData();
 
       if (accessData) {
-        if (accessData.exp * 1000 >= Date.now()) {
+        if (
+          accessData.exp * 1000 >= Date.now() &&
+          (await this.auth.userInfo())
+        ) {
           this.save();
           return this.auth;
         }
@@ -52,8 +55,8 @@ export default class AuthStore {
     this.auth = auth;
   }
 
-  logout() {
-    this.auth?.revoke();
+  async logout() {
+    await this.auth?.revoke();
     this.auth = null;
   }
 

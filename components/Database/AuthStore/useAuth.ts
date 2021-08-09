@@ -19,24 +19,29 @@ export default function useAuth(redirect?: Scope): AuthResponse {
   const [error, setError] = useError();
 
   useEffect(() => {
-    authStore
-      .getAuth()
-      .then((receivedAuth) => setAuth(receivedAuth))
-      .catch((e) => {
-        setError(e);
+    if (router && router.isReady && !auth && !error)
+      void authStore
+        .getAuth()
+        .then((receivedAuth) => setAuth(receivedAuth))
+        .catch((e) => {
+          setError(e);
 
-        switch (redirect) {
-          case Scope.Student:
-            return router.push("/sso/student");
-          case Scope.Teacher:
-            return router.push("/sso/teacher");
-          default:
-            break;
-        }
+          switch (redirect) {
+            case Scope.Student:
+              return router.push(
+                `/sso/student?redirect=${encodeURIComponent(router.asPath)}`
+              );
+            case Scope.Teacher:
+              return router.push(
+                `/sso/teacher?redirect=${encodeURIComponent(router.asPath)}`
+              );
+            default:
+              break;
+          }
 
-        return undefined;
-      });
-  }, [setError, redirect, router]);
+          return undefined;
+        });
+  }, [setError, redirect, router, auth, error]);
 
   return {
     auth: auth ?? null,
