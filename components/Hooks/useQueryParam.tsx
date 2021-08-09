@@ -22,7 +22,8 @@ export default function useQueryParam(paramName: string): QueryParamResponse {
   });
 
   useEffect(() => {
-    if (router && !router.isReady) return;
+    if (!router) return;
+    if (!router.isReady) return;
 
     if (typeof query === "string")
       setResponse({

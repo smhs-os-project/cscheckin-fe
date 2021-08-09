@@ -12,8 +12,8 @@ function useNavbarVariant() {
   const [variant, setVariant] = useState(NavbarContentVariant.NOT_LOGGED_IN);
 
   useEffect(() => {
-    if (router && router.asPath === "/")
-      setVariant(NavbarContentVariant.HOMEPAGE);
+    if (!router) return;
+    if (router.asPath === "/") setVariant(NavbarContentVariant.HOMEPAGE);
 
     if (router.isReady && !router.asPath.startsWith("/sso")) {
       void authStore
