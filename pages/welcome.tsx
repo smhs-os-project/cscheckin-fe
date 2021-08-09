@@ -1,42 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import ListChoicePageCard from "../components/Page/ListChoicePageCard";
-import AuthStore from "../components/Database/AuthStore";
-import useError from "../utilities/ErrorReporting/useError";
 import ErrorPage from "../components/Page/ErrorPage";
-import UnexpectedGoogleLoginResponse from "../components/OAuth/Google/exceptions/UnexpectedGoogleLoginResponse";
+import { useUserInfo } from "../components/Http/sdk_auth_methods";
+import useAuth from "../components/Database/AuthStore/useAuth";
+import AuthErrorPage from "../components/Database/AuthStore/AuthErrorPage";
+import type AuthenticatedPageProps from "../components/Database/AuthStore/AuthenticatedPageProps";
+import { Scope } from "../components/OAuth/Google/scope";
 
-const authStore = AuthStore.getCommonInstance();
-
-export default function WelcomePage() {
+export function AuthenticatedWelcomePage({ auth }: AuthenticatedPageProps) {
   const router = useRouter();
-  const [error, setError] = useError();
-  const [username, setUsername] = useState("");
+  const { data: userInfo, error: useUserInfoError } = useUserInfo(auth);
 
-  useEffect(() => {
-    if (setError)
-      void authStore
-        .getAuth()
-        .then((cscAuth) => cscAuth.userInfo())
-        .then((userInfo) => {
-          if (userInfo) return setUsername(userInfo.name);
-          return Promise.reject(new UnexpectedGoogleLoginResponse());
-        })
-        .catch(setError);
-  }, [setError]);
-
-  if (error)
+  if (useUserInfoError)
     return (
       <ErrorPage
-        errorMessage="無法載入系統歡迎介面。"
-        errorDetails={error.message}
+        errorMessage="無法取得使用者資訊。"
+        errorDetails={useUserInfoError?.message}
       />
     );
 
   return (
     <ListChoicePageCard
-      title={`${username === "" ? "" : `${username}，`}歡迎使用本系統！`}
+      title={`${userInfo ? `${userInfo.user}，` : ""}歡迎使用本系統！`}
       desc="這個主畫面可以讓您管理簽到連結，以及設定相關功能。"
       icon={faUserAlt}
       choice={[
@@ -54,12 +41,20 @@ export default function WelcomePage() {
             await router.push("/config");
           },
         },
-        // {
-        //   id: "logout",
-        //   name: "登出 CSC 系統",
-        //   redirect: Logout,
-        // },
+        {
+          id: "logout",
+          name: "登出 CSC 系統",
+          redirect: async () => {},
+        },
       ]}
     />
   );
+}
+
+export default function WelcomePage() {
+  const { auth, error: useAuthError } = useAuth(Scope.Teacher);
+
+  if (useAuthError) return <AuthErrorPage authError={useAuthError} />;
+  if (auth) return <AuthenticatedWelcomePage auth={auth} />;
+  return null;
 }
