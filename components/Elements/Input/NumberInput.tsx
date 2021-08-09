@@ -34,6 +34,13 @@ export default function NumberInput({
             appearance: none;
             margin: 0;
           }
+
+          /* https://www.wikitechy.com/tutorials/javascript/can-we-hide-the-html-5-number-inputs-spin-box */
+          input[type="number"] {
+            -moz-appearance: textfield;
+            margin: 0;
+            max-width: 4em;
+          }
         `}
       </style>
     </>
