@@ -37,7 +37,7 @@ export default function useQueryParam(paramName: string): QueryParamResponse {
       loading: false,
       notSpecified: true,
     });
-  }, [query, router, router.isReady]);
+  }, [query, router]);
 
   return response;
 }
