@@ -9,7 +9,7 @@ import ErrorPage from "../../../../components/Page/ErrorPage";
 import ListChoicePageCard from "../../../../components/Page/ListChoicePageCard";
 import { Scope } from "../../../../components/OAuth/Google/scope";
 
-export function AuthenticatedCheckinManagePreviousPage({
+function AuthenticatedCheckinManagePreviousPage({
   auth,
 }: AuthenticatedPageProps) {
   const { data, error } = useCoursesList(auth);

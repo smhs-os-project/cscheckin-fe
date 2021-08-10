@@ -17,7 +17,7 @@ interface PreparedCSCStudentCheckinProps extends AuthenticatedPageProps {
   uuid: string;
 }
 
-export function AuthenticatedCSCStudentCheckin({
+function AuthenticatedCSCStudentCheckin({
   auth,
   uuid,
 }: PreparedCSCStudentCheckinProps) {

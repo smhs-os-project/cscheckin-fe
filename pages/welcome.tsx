@@ -10,7 +10,7 @@ import ListChoicePageCard from "../components/Page/ListChoicePageCard";
 import ErrorPage from "../components/Page/ErrorPage";
 import AuthErrorPage from "../components/Database/AuthStore/AuthErrorPage";
 
-export function AuthenticatedWelcomePage({ auth }: AuthenticatedPageProps) {
+function AuthenticatedWelcomePage({ auth }: AuthenticatedPageProps) {
   const router = useRouter();
   const { data: userInfo, error: useUserInfoError } = useUserInfo(auth);
 
