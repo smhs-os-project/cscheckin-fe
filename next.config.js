@@ -15,6 +15,54 @@ const moduleExports = {
         destination: "/sso/teacher",
         permanent: false,
       },
+      {
+        // to be compatible with v2
+        source: "/checkin/manage/create/classroom",
+        destination: "/checkin/manage/new",
+        permanent: false,
+      },
+      {
+        // to be compatible with v1
+        source: "/admin",
+        destination: "/welcome",
+        permanent: false, // as I don't know that would we use 'admin' later.
+      },
+      {
+        // to be compatible with v1
+        source: "/checkin/create",
+        destination: "/checkin/manage/new",
+        permanent: false,
+      },
+      {
+        // to be compatible with v1
+        source: "/checkin/previous",
+        destination: "/checkin/manage/previous",
+        permanent: false,
+      },
+      {
+        // to be compatible with v1
+        source: "/checkin/monitor",
+        has: [
+          {
+            type: "query",
+            key: "id",
+          },
+        ],
+        destination: "/checkin/manage/dashboard/:id",
+        permanent: false,
+      },
+      {
+        // to be compatible with v1
+        source: "/config/register",
+        destination: "/config/info",
+        permanent: false,
+      },
+      {
+        // to be compatible with v1
+        source: "/checkin/:org((?!manage).+)/:uuid",
+        destination: "/checkin/:uuid",
+        permanent: true,
+      },
     ];
   },
 };
