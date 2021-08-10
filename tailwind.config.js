@@ -44,6 +44,9 @@ module.exports = {
       "text-primary": "#424242", // Primary & Buttons
       "text-secondary": "#757575", // Secondary
       "text-override": "#FFFFFF", // On Colored Surface
+
+      // the button of Page/Dashboard/StatusCard
+      "transparent-secondary": "rgba(255,255,255,0.25)",
     },
     /**
      * @param {(theme: string) => Record<string,string>} theme
@@ -51,6 +54,7 @@ module.exports = {
      */
     backgroundColor: (theme) => ({
       ...theme("colors"),
+      transparent: "rgba(0,0,0,0)",
     }),
     fontSize: {
       h1: "2rem",
