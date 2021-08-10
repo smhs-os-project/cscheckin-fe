@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import useError from "../../../utilities/ErrorReporting/useError";
 import { Scope } from "../../OAuth/Google/scope";
+import Sentry from "../../../utilities/ErrorReporting/sentry";
 import AuthStore from "./index";
 
 const authStore = AuthStore.getCommonInstance();
@@ -17,6 +18,23 @@ export default function useAuth(redirect?: Scope): AuthResponse {
   const router = useRouter();
   const [auth, setAuth] = useState<CSCAuth>();
   const [error, setError] = useError();
+
+  useEffect(() => {
+    if (auth) {
+      auth
+        .userInfo()
+        .then((user) => {
+          Sentry.setContext("user", {
+            name: user?.name ?? "not specified",
+            email: user?.email ?? "not specified",
+            isStudent: user?.student ? "yes" : "no",
+            studentNo: user?.student?.number ?? "not specified",
+            studentClass: user?.student?.class ?? "not specified",
+          });
+        })
+        .catch(() => null);
+    }
+  }, [auth]);
 
   useEffect(() => {
     if (router && router.isReady && !auth && !error)
