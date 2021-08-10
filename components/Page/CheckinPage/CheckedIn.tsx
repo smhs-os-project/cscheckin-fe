@@ -2,13 +2,11 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import React from "react";
 import type { CheckinResponse } from "cscheckin-js-sdk/dist/types";
-import dynamic from "next/dynamic";
 import { useUserInfo } from "../../Http/sdk_auth_methods";
 import type AuthenticatedPageProps from "../../Database/AuthStore/AuthenticatedPageProps";
 import GetCheckinStatusBrief from "../../Http/Utility/getCheckinStatusBrief";
 import HeaderPageCard from "../HeaderPageCard";
-
-const LargeButton = dynamic(() => import("../../Elements/Button/LargeButton"));
+import FullWidthButton from "../../Elements/Button/FullWidthButton";
 
 interface CheckedInProps extends AuthenticatedPageProps {
   checkinData: CheckinResponse;
@@ -31,7 +29,7 @@ export default function CheckedIn({ auth, checkinData }: CheckedInProps) {
       headerColor="bg-positive"
       icon={faCheck}
     >
-      <table className="mb-2">
+      <table className="mb-4">
         {entry("簽到 ID", checkinData.id)}
         {entry("課程 ID", checkinData.course_id)}
         {entry("學生 ID", checkinData.student_id)}
@@ -43,7 +41,9 @@ export default function CheckedIn({ auth, checkinData }: CheckedInProps) {
         {entry("時間", new Date(checkinData.updated_at).toLocaleString())}
       </table>
       <Link href="/config/info">
-        <LargeButton>重設班級座號</LargeButton>
+        <FullWidthButton onClick={() => null} rightIcon>
+          設定或重設班級座號
+        </FullWidthButton>
       </Link>
     </HeaderPageCard>
   );
