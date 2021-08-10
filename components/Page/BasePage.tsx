@@ -32,7 +32,9 @@ export default function BasePage({
           <Navbar />
         </section>
       )}
-      <section className={`p-8 ${fullClass}`}>{children}</section>
+      <section className={`p-8 md:max-w-6xl mx-auto ${fullClass}`}>
+        {children}
+      </section>
     </section>
   );
 }
