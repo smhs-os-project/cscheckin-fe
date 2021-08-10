@@ -42,17 +42,15 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     if (auth) {
-      auth
+      void auth
         .userInfo()
-        .then((user) => {
-          Sentry.setContext("user", {
-            name: user?.name ?? "not specified",
-            email: user?.email ?? "not specified",
-            isStudent: user?.student ? "yes" : "no",
-            studentNo: user?.student?.number ?? "not specified",
-            studentClass: user?.student?.class ?? "not specified",
-          });
-        })
+        .then((user) =>
+          Sentry.setUser({
+            id: user?.id.toString(),
+            username: user?.name,
+            email: user?.email,
+          })
+        )
         .catch(() => null);
     }
   }, [auth]);
