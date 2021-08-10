@@ -8,12 +8,12 @@ export interface EntryCardStatusTextProps {
 
 export interface EntryCardLeftProps {
   status: CheckinState;
-  userClass: string;
-  userNo: string;
+  userClass?: string;
+  userNo?: string;
 }
 
 export interface EntryCardRightProps extends EntryCardStatusTextProps {
-  userName: string;
+  userName?: string;
 }
 
 export type EntryCardProps = EntryCardLeftProps & EntryCardRightProps;
@@ -35,8 +35,12 @@ function EntryCardLeft({ userClass, userNo, status }: EntryCardLeftProps) {
       }}
     >
       <div className="self-center text-center">
-        <p className="text-details">{userClass}</p>
-        <p className="text-card-emphasize">{userNo}</p>
+        <p className="text-details">
+          {userClass && userClass.length ? userClass : "未設定"}
+        </p>
+        <p className="text-card-emphasize">
+          {userNo && userNo.length ? userNo : "未設定"}
+        </p>
       </div>
     </div>
   );
@@ -81,7 +85,7 @@ function EntryCardRight({
         <EntryCardStatusText status={status} checkedInAt={checkedInAt} />
       </small>
       <pre className="text-card-emphasize font-header overflow-scroll whitespace-pre-wrap">
-        {userName}
+        {userName && userName.length ? userName : "未設定"}
       </pre>
     </div>
   );
