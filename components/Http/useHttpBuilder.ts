@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import useSWR from "swr";
+import type { SWRConfiguration } from "swr/dist/types";
 import useError from "../../utilities/ErrorReporting/useError";
 import type { HttpResponse } from "./HttpResponse";
 
@@ -15,10 +16,15 @@ export default function useHttpBuilder<
     payload: Payload
   ) => Promise<Response>,
   auth?: Auth,
-  payload?: Payload
+  payload?: Payload,
+  swrConfiguration?: SWRConfiguration<Response, Error>
 ): HttpResponse<Response> {
   const [error, setError] = useError();
-  const response = useSWR([key, auth, payload], asyncFunction);
+  const response = useSWR(
+    [key, auth, payload],
+    asyncFunction,
+    swrConfiguration
+  );
 
   useEffect(() => {
     if (response.error) setError(response.error);
