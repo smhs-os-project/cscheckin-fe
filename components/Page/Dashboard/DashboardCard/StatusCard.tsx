@@ -67,7 +67,7 @@ function LateStatusCard() {
     <BaseStatusCard
       backgroundColor="bg-neutral"
       icon={faExclamationTriangle}
-      description="後續學生遲到"
+      description="後續學生算遲到"
     />
   );
 }
@@ -77,7 +77,7 @@ function CloseStatusCard() {
     <BaseStatusCard
       backgroundColor="bg-negative"
       icon={faTimesCircle}
-      description="已結束簽到"
+      description="簽到已結束"
     />
   );
 }
