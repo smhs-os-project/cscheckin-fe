@@ -14,4 +14,4 @@ export const ENABLE_GA = false;
  *
  * You MUST initiate your Sentry.
  */
-export const ENABLE_SENTRY = false;
+export const ENABLE_SENTRY = true;
