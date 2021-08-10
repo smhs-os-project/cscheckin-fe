@@ -1,7 +1,8 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
+import { CheckinState } from "cscheckin-js-sdk/dist/types";
 import type { StatusCardProps } from "./StatusCard";
-import StatusCard, { StatusCardStatus } from "./StatusCard";
+import StatusCard from "./StatusCard";
 
 export default {
   title: "Page/Dashboard/DashboardCard/StatusCard",
@@ -14,15 +15,15 @@ const Template: Story<StatusCardProps> = ({ status }: StatusCardProps) => (
 
 export const OpenStatusCard = Template.bind({});
 OpenStatusCard.args = {
-  status: StatusCardStatus.OPEN,
+  status: CheckinState.ON_TIME,
 };
 
 export const LateStatusCard = Template.bind({});
 LateStatusCard.args = {
-  status: StatusCardStatus.LATE,
+  status: CheckinState.LATE,
 };
 
 export const CloseStatusCard = Template.bind({});
 CloseStatusCard.args = {
-  status: StatusCardStatus.CLOSE,
+  status: CheckinState.NOT_CHECKED_IN,
 };

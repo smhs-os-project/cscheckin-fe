@@ -6,16 +6,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { CheckinState } from "cscheckin-js-sdk/dist/types";
 import BaseButton from "../../../Elements/Button/BaseButton";
 
-export enum StatusCardStatus {
-  OPEN = "open",
-  LATE = "late",
-  CLOSE = "close",
-}
-
 export interface StatusCardProps {
-  status: StatusCardStatus;
+  status: CheckinState;
 }
 
 function RegenerateLinkButton() {
@@ -62,7 +57,7 @@ function OpenStatusCard() {
     <BaseStatusCard
       backgroundColor="bg-accent"
       icon={faCheckCircle}
-      description="開放點名中"
+      description="開放簽到中"
     />
   );
 }
@@ -89,11 +84,11 @@ function CloseStatusCard() {
 
 export default function StatusCard({ status }: StatusCardProps) {
   switch (status) {
-    case StatusCardStatus.OPEN:
+    case CheckinState.ON_TIME:
       return <OpenStatusCard />;
-    case StatusCardStatus.LATE:
+    case CheckinState.LATE:
       return <LateStatusCard />;
-    case StatusCardStatus.CLOSE:
+    case CheckinState.NOT_CHECKED_IN:
       return <CloseStatusCard />;
     default:
       return null;
