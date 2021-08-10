@@ -99,7 +99,7 @@ export default function EntryCard({
   userNo,
 }: EntryCardProps) {
   return (
-    <div className="rounded overflow-hidden shadow min-w-full min-h-min cursor-pointer">
+    <div className="rounded-xl overflow-hidden shadow min-w-full min-h-min cursor-pointer">
       <div className="grid post-card-layout h-full">
         <EntryCardLeft status={status} userClass={userClass} userNo={userNo} />
         <EntryCardRight
