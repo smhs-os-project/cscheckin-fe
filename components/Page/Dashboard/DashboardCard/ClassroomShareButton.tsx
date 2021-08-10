@@ -30,6 +30,7 @@ export default function ClassroomShareButton({
 
         try {
           await ShareToClassroom(cid, auth);
+          await Swal.fire("分享成功！", "", "success");
         } catch (e: unknown) {
           setError(e);
         }
