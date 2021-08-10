@@ -23,10 +23,10 @@ export default function CourseLinkBlock({
         >
           <FontAwesomeIcon icon={faExpand} size="lg" />
         </button>
-        <div className="mx-auto">
+        <div className="w-min">
           <QRCode size={144} value={link} />
         </div>
-        <div className="overflow-hidden mt-4 sm:mt-0 text-center sm:text-left sm:ml-8 flex-grow">
+        <div className="overflow-hidden mt-4 sm:mt-0 text-center sm:text-left sm:ml-8">
           <p className="text-auxiliary">透過以下連結簽到</p>
           <BaseInput
             label="連結"
