@@ -18,7 +18,7 @@ export default function CourseLinkBlock({
       <section className="relative bg-on-surface flex flex-col sm:flex-row items-center p-8 rounded-xl">
         <button
           type="button"
-          className="absolute top-4 right-4"
+          className="absolute top-4 right-4 hidden"
           onClick={() => onFullScreen && onFullScreen()}
         >
           <FontAwesomeIcon icon={faExpand} size="lg" />
