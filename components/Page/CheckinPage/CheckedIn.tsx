@@ -19,7 +19,7 @@ export default function CheckedIn({ auth, checkinData }: CheckedInProps) {
   const entry = (title: string, value: unknown) =>
     value && (
       <tr className="mb-2">
-        <td className="text-auxiliary">{title}</td>
+        <td className="text-auxiliary pr-4">{title}</td>
         <td>{`${value}`}</td>
       </tr>
     );
@@ -28,7 +28,7 @@ export default function CheckedIn({ auth, checkinData }: CheckedInProps) {
     <HeaderPageCard
       title="Perfect!"
       desc="簽到完成。您可保存此簽到憑據。"
-      headerColor="green-900"
+      headerColor="bg-positive"
       icon={faCheck}
     >
       <table className="mb-2">
