@@ -57,6 +57,38 @@ export const useCourseInfoById = (courseId: number, auth: CSCAuth) =>
     courseId
   );
 
+export const useCourseStatusById = (
+  courseId: number,
+  auth: CSCAuth
+): HttpResponse<CheckinState> => {
+  const {
+    data: courseInfo,
+    error,
+    pending,
+  } = useCourseInfoById(courseId, auth);
+  const [courseStatus, setCourseStatus] = useState<CheckinState>();
+
+  useEffect(() => {
+    if (!pending && courseInfo) {
+      if (isBefore(courseInfo.start_timestamp, courseInfo.expire_time)) {
+        // Date.now() > start time + end duration
+        setCourseStatus(CheckinState.NOT_CHECKED_IN);
+      } else if (isBefore(courseInfo.start_timestamp, courseInfo.late_time)) {
+        // Date.now() > start time + late duration
+        setCourseStatus(CheckinState.LATE);
+      } else {
+        setCourseStatus(CheckinState.ON_TIME);
+      }
+    }
+  }, [pending, courseInfo]);
+
+  return {
+    data: courseStatus ?? null,
+    error,
+    pending,
+  };
+};
+
 export const useCourseInfoByUUID = (courseUUID: string) =>
   useHttpBuilder(
     "course/get_course_by_uuid",
