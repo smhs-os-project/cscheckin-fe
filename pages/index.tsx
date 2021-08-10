@@ -15,7 +15,7 @@ const BaseButton = dynamic(
 export default function Home() {
   return (
     <BasePage title="首頁">
-      <section className="flex h-full w-full justify-between items-center lg:max-w-5xl mx-auto leading-relaxed">
+      <section className="flex flex-col md:flex-row h-full w-full justify-between items-center lg:max-w-5xl mx-auto leading-relaxed">
         <div>
           <h1 className="text-h1 font-header">線上點名，其實不難。</h1>
           <p className="mb-4">

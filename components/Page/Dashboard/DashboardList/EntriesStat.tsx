@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { CheckinState } from "cscheckin-js-sdk/dist/types";
 import DivItemsCenter from "../../../Layout/DivItemsCenter";
 import BaseBadge from "../../../Elements/Badge/BaseBadge";
@@ -58,23 +58,23 @@ function EntriesLegend({ state, count }: EntriesLegendProps) {
 }
 
 export default function EntriesStat({ entries }: EntriesStatProps) {
-  const getLength = (state: CheckinState) =>
-    entries.filter((entry) => entry.state === state).length;
+  const getLength = useCallback(
+    (state: CheckinState) =>
+      entries.filter((entry) => entry.state === state).length,
+    [entries]
+  );
   const onTimeEntries = useMemo(
     () => getLength(CheckinState.ON_TIME),
-    [entries, getLength]
+    [getLength]
   );
-  const lateEntries = useMemo(
-    () => getLength(CheckinState.LATE),
-    [entries, getLength]
-  );
+  const lateEntries = useMemo(() => getLength(CheckinState.LATE), [getLength]);
   const notCheckedInEntries = useMemo(
     () => getLength(CheckinState.NOT_CHECKED_IN),
-    [entries, getLength]
+    [getLength]
   );
 
   return (
-    <div>
+    <div className="text-center md:text-left">
       <p className="text-h1 font-header mb-2">共 {entries.length} 位學生</p>
       <DivItemsCenter>
         <EntriesLegend state={CheckinState.ON_TIME} count={onTimeEntries} />

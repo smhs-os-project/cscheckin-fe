@@ -35,6 +35,20 @@ export default function BasePage({
       <section className={`p-8 md:max-w-6xl mx-auto ${fullClass}`}>
         {children}
       </section>
+      <section className="absolute right-4 bottom-4">
+        <div className="flex items-center mr-4 space-x-4">
+          <div className="invisible md:visible" />
+          <div className="inline p-1">
+            <span className="invisible md:visible">Powered by </span>
+            <span className="text-accent">
+              ▲
+              <a href="https://vercel.com/?utm_source=smhs-os-project&utm_campaign=oss">
+                Vercel
+              </a>
+            </span>
+          </div>
+        </div>
+      </section>
     </section>
   );
 }

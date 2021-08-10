@@ -18,9 +18,11 @@ function DashboardListHeader({
   entries,
 }: DashboardListHeaderProps) {
   return (
-    <section className="flex justify-between items-center mb-6">
-      <EntriesStat entries={entries} />
-      <div>
+    <section className="flex flex-col md:flex-row justify-center md:justify-between items-center md:mb-6">
+      <div className="mb-6 md:mb-0">
+        <EntriesStat entries={entries} />
+      </div>
+      <div className="mb-6 md:mb-0">
         <RefreshListButton classroomId={classroomId} auth={auth} />
       </div>
     </section>

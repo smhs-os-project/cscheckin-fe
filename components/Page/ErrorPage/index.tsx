@@ -1,9 +1,11 @@
 import React from "react";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 import HeaderPageCard from "../HeaderPageCard";
 import LargeButton from "../../Elements/Button/LargeButton";
 import LargeButtonGroup from "../../Elements/Button/Group/LargeButtonGroup";
+import useAuth from "../../Database/AuthStore/useAuth";
 
 const ErrorInfo = dynamic(() => import("./ErrorInfo"));
 const ErrorHintText = dynamic(() => import("./ErrorPageHint"));
@@ -17,14 +19,38 @@ export interface ErrorPageProps {
 }
 
 const NegativeRefreshButton = () => (
-  <RefreshButton backgroundColor="bg-negative" solidBorderColor="bg-negative" />
+  <RefreshButton backgroundColor="bg-negative" solidBorderColor="bg-negative">
+    再試一次
+  </RefreshButton>
 );
 
-const NegativeErrorReportingButton = () => (
-  <LargeButton borderColor="border-negative" textColor="text-negative">
-    問題回報
-  </LargeButton>
-);
+const NegativeErrorReportingButton = () => {
+  const router = useRouter();
+  const { auth } = useAuth();
+
+  return (
+    <LargeButton
+      solid
+      solidBorderColor="border-on-surface"
+      backgroundColor="bg-on-surface"
+      textColor="text-primary"
+      onClick={async () => {
+        const userInfo = await auth?.userInfo();
+
+        window.open(
+          `https://cscin.tk/?action=feedback&name=${encodeURI(
+            userInfo?.name ?? ""
+          )}&email=${encodeURI(userInfo?.email ?? "")}&path=${encodeURI(
+            router.asPath
+          )}`,
+          "_blank"
+        );
+      }}
+    >
+      問題回報
+    </LargeButton>
+  );
+};
 
 export default function ErrorPage({
   errorMessage,

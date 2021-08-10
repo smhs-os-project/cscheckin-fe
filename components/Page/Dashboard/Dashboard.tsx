@@ -16,7 +16,7 @@ export default function Dashboard({
   onFullScreen,
 }: DashboardProps) {
   return (
-    <section className="grid grid-cols-2 gap-12">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-12">
       <div>
         <DashboardCard
           link={link}

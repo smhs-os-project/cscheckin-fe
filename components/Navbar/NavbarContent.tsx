@@ -32,7 +32,9 @@ function NotLoggedInVariant() {
   return (
     <>
       <Link href="/sso/teacher">
-        <BaseButton solid>登入來建立簽到連結</BaseButton>
+        <BaseButton solid>
+          登入<span className="hidden">來建立簽到連結</span>
+        </BaseButton>
       </Link>
     </>
   );
@@ -52,12 +54,12 @@ function LoggedInVariant({ auth }: AuthenticatedPageProps) {
                 backgroundImage: `url('${userInfo.photo}')`,
               }}
             />
-            <div>{userInfo.name}</div>
+            <div className="hidden md:block">{userInfo.name}</div>
           </DivItemsCenter>
         </div>
       )}
       <Link href="/checkin/manage">
-        <BaseButton solid className="flex space-x-3">
+        <BaseButton solid className="flex space-x-3 hidden md:flex">
           <div>
             <FontAwesomeIcon icon={faLink} />
           </div>
@@ -65,7 +67,7 @@ function LoggedInVariant({ auth }: AuthenticatedPageProps) {
         </BaseButton>
       </Link>
       <Link href="/config">
-        <BaseButton>設定</BaseButton>
+        <BaseButton className="hidden md:block">設定</BaseButton>
       </Link>
     </>
   );

@@ -52,7 +52,7 @@ export default function LoginUI({
 
   return (
     <HeaderPageCard title={pageTitle} desc={pageDesc} icon={pageIcon}>
-      <div className="m-4 flex space-x-4 items-center">
+      <div className="m-4 flex justify-center space-x-4 items-center">
         <GoogleLoginComponent
           scope={scope}
           onError={(err, brief) => {
