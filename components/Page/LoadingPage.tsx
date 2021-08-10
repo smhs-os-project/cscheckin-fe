@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import dynamic from "next/dynamic";
+import NProgress from "nprogress";
 import HeaderPageCard from "./HeaderPageCard";
 
 const RefreshButton = dynamic(() => import("../Elements/Button/RefreshButton"));
@@ -10,6 +11,22 @@ export interface LoadingPageProps {
 }
 
 export default function LoadingPage({ reason }: LoadingPageProps) {
+  const [inProgress, setInProgress] = useState(false);
+
+  useEffect(() => {
+    if (!inProgress) {
+      setInProgress(true);
+      NProgress.start();
+    }
+
+    return function stopInProgress() {
+      if (inProgress) {
+        setInProgress(false);
+        NProgress.done();
+      }
+    };
+  }, [inProgress]);
+
   return (
     <HeaderPageCard
       title={reason}

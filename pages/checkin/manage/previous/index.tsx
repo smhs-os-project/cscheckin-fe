@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import NProgress from "nprogress";
+import React from "react";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import useAuth from "../../../../components/Database/AuthStore/useAuth";
 import AuthErrorPage from "../../../../components/Database/AuthStore/AuthErrorPage";
@@ -44,11 +43,6 @@ export function AuthenticatedCheckinManagePreviousPage({
 
 export default function CheckinManagePreviousPage() {
   const { auth, error } = useAuth();
-
-  useEffect(() => {
-    if (auth || error) NProgress.done();
-    else NProgress.start();
-  }, [auth, error]);
 
   if (error) return <AuthErrorPage authError={error} />;
   if (auth) return <AuthenticatedCheckinManagePreviousPage auth={auth} />;

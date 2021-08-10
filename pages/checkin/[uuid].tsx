@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import NProgress from "nprogress";
+import React from "react";
 import dynamic from "next/dynamic";
 import useAuth from "../../components/Database/AuthStore/useAuth";
 import { Scope } from "../../components/OAuth/Google/scope";
@@ -41,16 +40,7 @@ export function AuthenticatedCSCStudentCheckin({
 
 export default function CSCStudentCheckin() {
   const { auth, error } = useAuth(Scope.Student);
-  const {
-    value: uuid,
-    loading,
-    notSpecified: uuidNotSpecified,
-  } = useQueryParam("uuid");
-
-  useEffect(() => {
-    if (!loading && auth) NProgress.done();
-    else NProgress.start();
-  }, [auth, loading]);
+  const { value: uuid, notSpecified: uuidNotSpecified } = useQueryParam("uuid");
 
   if (error) return <AuthErrorPage authError={error} />;
 
