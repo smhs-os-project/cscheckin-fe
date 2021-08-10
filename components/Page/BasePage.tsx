@@ -1,6 +1,8 @@
 import React from "react";
 import Head from "next/head";
 import type { ReactNode } from "react";
+import { faBug } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "../Navbar/Navbar";
 import { PRODUCT_NAME } from "../../consts";
 
@@ -46,6 +48,12 @@ export default function BasePage({
                 Vercel
               </a>
             </span>
+          </div>
+          <div className="inline">
+            <a className="text-accent" href="https://cscin.tk/?action=feedback">
+              <FontAwesomeIcon icon={faBug} size="sm" />
+              <span className="hidden md:inline"> 意見回饋</span>
+            </a>
           </div>
         </div>
       </section>
