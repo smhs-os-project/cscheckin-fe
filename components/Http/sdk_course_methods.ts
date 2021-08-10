@@ -1,4 +1,5 @@
 import {
+  CreateCourse,
   GetClassroomsList,
   GetCourseByID,
   GetCourseByUUID,
@@ -6,7 +7,40 @@ import {
   GetShareLink,
 } from "cscheckin-js-sdk";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
+import { useEffect, useState } from "react";
+import type { CourseResponse } from "cscheckin-js-sdk/dist/types";
+import useError from "../../utilities/ErrorReporting/useError";
 import useHttpBuilder from "./useHttpBuilder";
+import type { HttpResponse } from "./HttpResponse";
+
+export const useCreateCourse = (
+  classroomId: string,
+  auth: CSCAuth
+): HttpResponse<CourseResponse> => {
+  const [error, setError] = useError();
+  const [data, setData] = useState<CourseResponse>();
+
+  useEffect(() => {
+    if (!data && !error)
+      void CreateCourse(
+        classroomId,
+        {
+          start_timestamp: new Date(),
+          late_time: "00:15:00",
+          expire_time: "01:00:00",
+        },
+        auth
+      )
+        .then((response) => setData(response))
+        .catch((recvError: unknown) => setError(recvError));
+  }, [auth, classroomId, setError, data, error]);
+
+  return {
+    data: data ?? null,
+    error,
+    pending: !data && !error,
+  };
+};
 
 export const useClassroomsList = (auth: CSCAuth) =>
   useHttpBuilder(
@@ -47,6 +81,7 @@ export const useCourseShareLink = (courseId: number, auth: CSCAuth) =>
   );
 
 export default {
+  useCreateCourse,
   useClassroomsList,
   useCourseInfoById,
   useCourseInfoByUUID,
