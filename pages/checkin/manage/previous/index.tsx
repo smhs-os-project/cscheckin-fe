@@ -1,5 +1,6 @@
 import React from "react";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 import useAuth from "../../../../components/Database/AuthStore/useAuth";
 import AuthErrorPage from "../../../../components/Database/AuthStore/AuthErrorPage";
 import LoadingPage from "../../../../components/Page/LoadingPage";
@@ -12,6 +13,7 @@ import { Scope } from "../../../../components/OAuth/Google/scope";
 function AuthenticatedCheckinManagePreviousPage({
   auth,
 }: AuthenticatedPageProps) {
+  const router = useRouter();
   const { data, error } = useCoursesList(auth);
 
   if (error)
@@ -33,7 +35,7 @@ function AuthenticatedCheckinManagePreviousPage({
           name: `${entry.name} - ${entry.start_timestamp.toLocaleString(
             "zh-TW"
           )}`,
-          redirect: () => `/checkin/manage/dashboard/${entry.id}`,
+          redirect: () => router.push(`/checkin/manage/dashboard/${entry.id}`),
         }))}
       />
     );
