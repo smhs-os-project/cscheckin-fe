@@ -74,6 +74,7 @@ module.exports = {
       header: 700,
       body: 400,
       button: 500,
+      badge: 500,
     },
   },
   variants: {},
