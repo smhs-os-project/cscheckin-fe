@@ -5,10 +5,12 @@ import {
   GetCourseByUUID,
   GetCoursesList,
   GetShareLink,
+  isBefore,
 } from "cscheckin-js-sdk";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import { useEffect, useState } from "react";
 import type { CourseResponse } from "cscheckin-js-sdk/dist/types";
+import { CheckinState } from "cscheckin-js-sdk/dist/types";
 import useError from "../../utilities/ErrorReporting/useError";
 import useHttpBuilder from "./useHttpBuilder";
 import type { HttpResponse } from "./HttpResponse";
@@ -54,7 +56,8 @@ export const useCourseInfoById = (courseId: number, auth: CSCAuth) =>
     "course/get_course_by_id",
     async (_, inAuth, inCourseId) => GetCourseByID(inCourseId, inAuth),
     auth,
-    courseId
+    courseId,
+    { refreshInterval: 30000 }
   );
 
 export const useCourseStatusById = (
@@ -101,7 +104,9 @@ export const useCoursesList = (auth: CSCAuth) =>
   useHttpBuilder(
     "course/get_courses_list",
     async (_, inAuth) => GetCoursesList(inAuth),
-    auth
+    auth,
+    undefined,
+    { refreshInterval: 30000 }
   );
 
 export const useCourseShareLink = (courseId: number, auth: CSCAuth) =>
