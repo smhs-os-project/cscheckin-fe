@@ -30,13 +30,16 @@ function AuthenticatedCheckinManagePreviousPage({
         title="查看以往簽到記錄"
         desc="依開課時間新到舊排序。"
         icon={faSearch}
-        choice={data.reverse().map((entry) => ({
-          id: `previous-courses-entry-${entry.google_classroom_id}-${entry.id}`,
-          name: `${entry.name} - ${entry.start_timestamp.toLocaleString(
-            "zh-TW"
-          )}`,
-          redirect: () => router.push(`/checkin/manage/dashboard/${entry.id}`),
-        }))}
+        choice={data
+          .sort((entryA, entryB) => entryB.id - entryA.id)
+          .map((entry) => ({
+            id: `previous-courses-entry-${entry.google_classroom_id}-${entry.id}`,
+            name: `${entry.name} - ${entry.start_timestamp.toLocaleString(
+              "zh-TW"
+            )}`,
+            redirect: () =>
+              router.push(`/checkin/manage/dashboard/${entry.id}`),
+          }))}
       />
     );
   }
