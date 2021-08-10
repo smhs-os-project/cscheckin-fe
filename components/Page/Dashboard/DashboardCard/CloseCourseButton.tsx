@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { ShareToClassroom } from "cscheckin-js-sdk";
+import { CloseCourse } from "cscheckin-js-sdk";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import NProgress from "nprogress";
-
 import Swal from "sweetalert2";
+import { mutate } from "swr";
 import LargeButton from "../../../Elements/Button/LargeButton";
 import useError from "../../../../utilities/ErrorReporting/useError";
 
@@ -32,7 +32,13 @@ export default function CloseCourseButton({
         NProgress.start();
 
         try {
-          await ShareToClassroom(cid, auth);
+          const response = await CloseCourse(cid, auth);
+          if (response) {
+            await Promise.all([
+              Swal.fire("成功關閉課程！", "", "success"),
+              await mutate(["course/get_course_by_id", auth, cid]),
+            ]);
+          } else await Swal.fire("操作失敗。", "", "warning");
         } catch (e: unknown) {
           setError(e);
         }
