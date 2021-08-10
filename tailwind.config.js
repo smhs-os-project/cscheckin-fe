@@ -63,6 +63,7 @@ module.exports = {
       baseline: "1rem",
       button: "1rem",
       details: "0.8rem",
+      "card-emphasize": "1.7rem",
     },
     letterSpacing: {
       header: "0.025em",
