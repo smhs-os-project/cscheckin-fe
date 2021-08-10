@@ -1,5 +1,8 @@
 FROM node:current-alpine
 
+# -- You should configure this
+ENV NEXT_PUBLIC_GA_ID=G-NM8XG9Q8ST
+
 # Copy this workdir to the docker image
 COPY . fe
 WORKDIR fe
