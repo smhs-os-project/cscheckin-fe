@@ -7,6 +7,7 @@ import type AuthenticatedPageProps from "../../../../components/Database/AuthSto
 import { useCoursesList } from "../../../../components/Http/sdk_course_methods";
 import ErrorPage from "../../../../components/Page/ErrorPage";
 import ListChoicePageCard from "../../../../components/Page/ListChoicePageCard";
+import { Scope } from "../../../../components/OAuth/Google/scope";
 
 export function AuthenticatedCheckinManagePreviousPage({
   auth,
@@ -42,7 +43,7 @@ export function AuthenticatedCheckinManagePreviousPage({
 }
 
 export default function CheckinManagePreviousPage() {
-  const { auth, error } = useAuth();
+  const { auth, error } = useAuth(Scope.Teacher);
 
   if (error) return <AuthErrorPage authError={error} />;
   if (auth) return <AuthenticatedCheckinManagePreviousPage auth={auth} />;

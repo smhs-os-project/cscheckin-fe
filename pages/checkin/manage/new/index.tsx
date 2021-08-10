@@ -8,6 +8,7 @@ import ErrorPage from "../../../../components/Page/ErrorPage";
 import LoadingPage from "../../../../components/Page/LoadingPage";
 import useAuth from "../../../../components/Database/AuthStore/useAuth";
 import AuthErrorPage from "../../../../components/Database/AuthStore/AuthErrorPage";
+import { Scope } from "../../../../components/OAuth/Google/scope";
 
 function ClassroomList({ auth }: AuthenticatedPageProps) {
   const router = useRouter();
@@ -40,7 +41,7 @@ function ClassroomList({ auth }: AuthenticatedPageProps) {
 }
 
 export default function CheckinManageNewPage() {
-  const { auth, error } = useAuth();
+  const { auth, error } = useAuth(Scope.Teacher);
 
   if (error) return <AuthErrorPage authError={error} />;
   if (auth) return <ClassroomList auth={auth} />;
