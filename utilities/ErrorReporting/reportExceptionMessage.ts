@@ -8,7 +8,6 @@ export function reportExceptionMessage(message: string, extra: Context = {}) {
       level: Sentry.Severity.Error,
       contexts: {
         details: {
-          reportWith: "reportExceptionMessage",
           ...extra,
         },
       },
@@ -21,7 +20,6 @@ export function reportException(exception: Error, extra: Context = {}) {
       level: Sentry.Severity.Error,
       contexts: {
         details: {
-          reportWith: "reportException",
           ...extra,
         },
       },
