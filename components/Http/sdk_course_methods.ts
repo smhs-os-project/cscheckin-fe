@@ -1,27 +1,12 @@
 import {
-  CreateCourse,
   GetClassroomsList,
   GetCourseByID,
   GetCourseByUUID,
   GetCoursesList,
   GetShareLink,
 } from "cscheckin-js-sdk";
-import type { CreateCourseRequest } from "cscheckin-js-sdk/dist/types";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import useHttpBuilder from "./useHttpBuilder";
-
-export interface CreateCoursePayload extends CreateCourseRequest {
-  classroomId: string;
-}
-
-export const useCreateCourse = (payload: CreateCoursePayload, auth: CSCAuth) =>
-  useHttpBuilder(
-    "course/create_course",
-    async (_, inAuth, { classroomId, ...request }) =>
-      CreateCourse(classroomId, request, inAuth),
-    auth,
-    payload
-  );
 
 export const useClassroomsList = (auth: CSCAuth) =>
   useHttpBuilder(
@@ -62,7 +47,6 @@ export const useCourseShareLink = (courseId: number, auth: CSCAuth) =>
   );
 
 export default {
-  useCreateCourse,
   useClassroomsList,
   useCourseInfoById,
   useCourseInfoByUUID,
