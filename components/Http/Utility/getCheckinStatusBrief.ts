@@ -1,6 +1,6 @@
 import { CheckinState } from "cscheckin-js-sdk/dist/types";
 
-export function getCheckinStatusBrief(state: CheckinState) {
+export default function GetCheckinStatusBrief(state: CheckinState) {
   switch (state) {
     case CheckinState.ON_TIME:
       return "✅ 準時";
