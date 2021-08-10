@@ -1,5 +1,6 @@
 import React from "react";
-import type { Meta } from "@storybook/react";
+import type { Meta, Story } from "@storybook/react";
+import type { StatusCardProps } from "./StatusCard";
 import StatusCard, { StatusCardStatus } from "./StatusCard";
 
 export default {
@@ -7,14 +8,21 @@ export default {
   component: StatusCard,
 } as Meta;
 
-export const OpenStatusCardExample = () => (
-  <StatusCard status={StatusCardStatus.OPEN} />
+const Template: Story<StatusCardProps> = ({ status }: StatusCardProps) => (
+  <StatusCard status={status} />
 );
 
-export const LateStatusCardExample = () => (
-  <StatusCard status={StatusCardStatus.LATE} />
-);
+export const OpenStatusCard = Template.bind({});
+OpenStatusCard.args = {
+  status: StatusCardStatus.OPEN,
+};
 
-export const CloseStatusCardExample = () => (
-  <StatusCard status={StatusCardStatus.CLOSE} />
-);
+export const LateStatusCard = Template.bind({});
+LateStatusCard.args = {
+  status: StatusCardStatus.LATE,
+};
+
+export const CloseStatusCard = Template.bind({});
+CloseStatusCard.args = {
+  status: StatusCardStatus.CLOSE,
+};

@@ -9,9 +9,9 @@ import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import BaseButton from "../../../Elements/Button/BaseButton";
 
 export enum StatusCardStatus {
-  OPEN,
-  LATE,
-  CLOSE,
+  OPEN = "open",
+  LATE = "late",
+  CLOSE = "close",
 }
 
 export interface StatusCardProps {
