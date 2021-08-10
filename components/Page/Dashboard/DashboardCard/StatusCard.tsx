@@ -2,6 +2,7 @@ import React from "react";
 import {
   faCheckCircle,
   faExclamationTriangle,
+  faSpinner,
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +11,7 @@ import { CheckinState } from "cscheckin-js-sdk/dist/types";
 import BaseButton from "../../../Elements/Button/BaseButton";
 
 export interface StatusCardProps {
-  status: CheckinState;
+  status?: CheckinState;
 }
 
 function RegenerateLinkButton() {
@@ -72,6 +73,16 @@ function LateStatusCard() {
   );
 }
 
+function UnknownStatusCard() {
+  return (
+    <BaseStatusCard
+      backgroundColor="bg-primary"
+      icon={faSpinner}
+      description="正在載入資料⋯⋯"
+    />
+  );
+}
+
 function CloseStatusCard() {
   return (
     <BaseStatusCard
@@ -91,6 +102,6 @@ export default function StatusCard({ status }: StatusCardProps) {
     case CheckinState.NOT_CHECKED_IN:
       return <CloseStatusCard />;
     default:
-      return null;
+      return <UnknownStatusCard />;
   }
 }
