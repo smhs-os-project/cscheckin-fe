@@ -47,7 +47,7 @@ function LoggedInVariant({ auth }: AuthenticatedPageProps) {
         <div className="font-button tracking-button mr-4">
           <DivItemsCenter>
             <div
-              className="rounded-xl w-12 h-12 bg-contain"
+              className="rounded-full w-12 h-12 bg-contain"
               style={{
                 backgroundImage: `url('${userInfo.photo}')`,
               }}
