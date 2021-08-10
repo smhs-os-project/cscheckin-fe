@@ -53,7 +53,6 @@ DashboardListExample.args = {
       userClass: "201",
       userNo: "4",
       userName: "王晉禾",
-      checkedInAt: new Date(Date.now()),
     },
   ],
 };

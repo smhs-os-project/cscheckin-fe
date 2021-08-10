@@ -3,7 +3,7 @@ import { CheckinState } from "cscheckin-js-sdk/dist/types";
 
 export interface EntryCardStatusTextProps {
   status: CheckinState;
-  checkedInAt: Date;
+  checkedInAt?: Date;
 }
 
 export interface EntryCardLeftProps {
@@ -47,7 +47,7 @@ function EntryCardStatusText({
   checkedInAt,
 }: EntryCardStatusTextProps) {
   const currentTime = useMemo(
-    () => checkedInAt.toLocaleTimeString("zh-TW"),
+    () => checkedInAt && checkedInAt.toLocaleTimeString("zh-TW"),
     [checkedInAt]
   );
 
