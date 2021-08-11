@@ -24,7 +24,7 @@ function AuthenticatedWelcomePage({ auth }: AuthenticatedPageProps) {
 
   return (
     <ListChoicePageCard
-      title={`${userInfo ? `${userInfo.name}，` : ""}歡迎使用本系統！`}
+      title={`${userInfo ? `${userInfo.name}老師，` : ""}歡迎使用本系統！`}
       desc="這個主畫面可以讓您管理簽到連結，以及設定相關功能。"
       icon={faUserAlt}
       choice={[
