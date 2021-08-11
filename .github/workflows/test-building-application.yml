@@ -47,3 +47,5 @@ jobs:
 
       - name: Build application in production mode
         run: yarn build
+        env:
+          NEXT_PUBLIC_GA_ID: G-NM8XG9Q8ST
