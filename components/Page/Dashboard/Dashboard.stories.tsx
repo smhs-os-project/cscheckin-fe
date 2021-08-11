@@ -12,6 +12,7 @@ export default {
 
 const Template: Story<DashboardProps> = ({
   auth,
+  courseId,
   classroomId,
   link,
   onFullScreen,
@@ -21,6 +22,7 @@ const Template: Story<DashboardProps> = ({
   <Dashboard
     auth={auth}
     studentsInfo={studentsInfo}
+    courseId={courseId}
     classroomId={classroomId}
     status={status}
     link={link}
@@ -34,7 +36,8 @@ DashboardExample.args = {
   status: CheckinState.ON_TIME,
   onFullScreen: () => null,
   auth: new CSCAuth("", ""),
-  classroomId: 0,
+  courseId: 0,
+  classroomId: "1337",
   studentsInfo: [
     {
       status: CheckinState.ON_TIME,
