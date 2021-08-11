@@ -12,6 +12,13 @@ import { useEffect, useState } from "react";
 import type { CourseResponse } from "cscheckin-js-sdk/dist/types";
 import { CheckinState } from "cscheckin-js-sdk/dist/types";
 import useError from "../../utilities/ErrorReporting/useError";
+import LocalDB from "../Database/LocalDB";
+import {
+  END_DURATION,
+  END_DURATION_DEFAULT,
+  LATE_DURATION,
+  LATE_DURATION_DEFAULT,
+} from "../Database/LocalDB/consts";
 import useHttpBuilder from "./useHttpBuilder";
 import type { HttpResponse } from "./HttpResponse";
 
@@ -23,13 +30,15 @@ export const useCreateCourse = (
   const [data, setData] = useState<CourseResponse>();
 
   useEffect(() => {
+    const localDB = LocalDB.getInstance();
+
     if (!data && !error)
       void CreateCourse(
         classroomId,
         {
           start_timestamp: new Date(),
-          late_time: "00:15:00",
-          expire_time: "01:00:00",
+          late_time: localDB.get(LATE_DURATION) ?? LATE_DURATION_DEFAULT,
+          expire_time: localDB.get(END_DURATION) ?? END_DURATION_DEFAULT,
         },
         auth
       )
