@@ -27,7 +27,9 @@ export default function Home() {
             <Link href="/welcome">
               <BaseButton solid>教師端登入</BaseButton>
             </Link>
-            <BaseButton>使用教學</BaseButton>
+            <a href="https://cscin.tk/join" target="_blank" rel="noreferrer">
+              <BaseButton>使用教學</BaseButton>
+            </a>
           </BaseButtonGroup>
         </div>
         <div className="justify-self-end">
