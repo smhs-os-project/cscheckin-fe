@@ -14,12 +14,12 @@ export interface QueryParamResponse {
  */
 export default function useQueryParam(paramName: string): QueryParamResponse {
   const router = useRouter();
-  const query = router.query[paramName];
   const [response, setResponse] = useState<QueryParamResponse>({
     value: null,
     loading: true,
     notSpecified: false,
   });
+  const query = router?.query[paramName];
 
   useEffect(() => {
     if (!router) return;
