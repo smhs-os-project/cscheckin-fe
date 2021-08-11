@@ -50,7 +50,7 @@ export default function BasePage({
             </span>
           </div>
           <div className="inline">
-            <a className="text-accent" href="https://cscin.tk/?action=feedback">
+            <a className="text-accent" href="https://cscin.tk/?action=feedback" target="_blank">
               <FontAwesomeIcon icon={faBug} size="sm" />
               <span className="hidden md:inline"> 意見回饋</span>
             </a>
