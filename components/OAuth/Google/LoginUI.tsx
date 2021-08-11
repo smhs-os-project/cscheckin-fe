@@ -41,7 +41,7 @@ export default function LoginUI({
   const [credential, setCredential] = useState<Credential>();
 
   useEffect(() => {
-    if (credential && router.isReady && redirectTo) {
+    if (credential && router && router.isReady && redirectTo) {
       authStore.storeCredential(credential.tokenId, credential.accessToken);
       void router.push(redirectTo);
     }
