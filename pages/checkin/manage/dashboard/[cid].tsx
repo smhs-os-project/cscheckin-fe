@@ -10,6 +10,7 @@ import LoadingPage from "../../../../components/Page/LoadingPage";
 import type AuthenticatedPageProps from "../../../../components/Database/AuthStore/AuthenticatedPageProps";
 import Dashboard from "../../../../components/Page/Dashboard/Dashboard";
 import {
+  useCourseInfoById,
   useCourseShareLink,
   useCourseStatusById,
 } from "../../../../components/Http/sdk_course_methods";
@@ -18,7 +19,7 @@ import BasePage from "../../../../components/Page/BasePage";
 
 interface AuthenticatedCheckinManageDashboardProps
   extends AuthenticatedPageProps {
-  cid: number;
+  courseId: number;
 }
 
 const fireError = async (errorBrief: string, errorMessage: string) =>
@@ -32,11 +33,12 @@ const fireError = async (errorBrief: string, errorMessage: string) =>
 
 function AuthenticatedCheckinManageDashboard({
   auth,
-  cid,
+  courseId,
 }: AuthenticatedCheckinManageDashboardProps) {
-  const linkResponse = useCourseShareLink(cid, auth);
-  const courseStatus = useCourseStatusById(cid, auth);
-  const checkinList = useCheckinList(cid, auth);
+  const linkResponse = useCourseShareLink(courseId, auth);
+  const courseInfo = useCourseInfoById(courseId, auth);
+  const courseStatus = useCourseStatusById(courseId, auth);
+  const checkinList = useCheckinList(courseId, auth);
   const studentsInfo = useMemo(
     () =>
       checkinList.data?.map((student) => ({
@@ -56,21 +58,38 @@ function AuthenticatedCheckinManageDashboard({
   useEffect(() => {
     if (linkResponse.error) {
       void fireError("無法取得簽到連結。", linkResponse.error.message);
+    } else if (courseInfo.error) {
+      void fireError("無法載入課程資訊。", courseInfo.error.message);
     } else if (courseStatus.error) {
-      void fireError("無法載入課程資訊。", courseStatus.error.message);
+      void fireError("無法載入課程狀態。", courseStatus.error.message);
     } else if (checkinList.error) {
       void fireError("無法載入學生名單。", checkinList.error.message);
     }
-  }, [linkResponse.error, courseStatus.error, checkinList.error]);
+  }, [
+    linkResponse.error,
+    courseInfo.error,
+    courseStatus.error,
+    checkinList.error,
+  ]);
 
   // loading
   useEffect(() => {
-    if (linkResponse.pending || courseStatus.pending || checkinList.pending) {
+    if (
+      linkResponse.pending ||
+      courseInfo.pending ||
+      courseStatus.pending ||
+      checkinList.pending
+    ) {
       NProgress.start();
     } else {
       NProgress.done();
     }
-  }, [linkResponse.pending, courseStatus.pending, checkinList.pending]);
+  }, [
+    linkResponse.pending,
+    courseInfo.pending,
+    courseStatus.pending,
+    checkinList.pending,
+  ]);
 
   return (
     <BasePage title="簽到連結監控面板">
@@ -79,7 +98,8 @@ function AuthenticatedCheckinManageDashboard({
         status={courseStatus.data ?? undefined}
         auth={auth}
         studentsInfo={studentsInfo}
-        classroomId={cid}
+        classroomId={courseInfo.data?.google_classroom_id ?? ""}
+        courseId={courseId}
       />
     </BasePage>
   );
@@ -100,7 +120,9 @@ export default function CheckinManageDashboard() {
     return <ErrorPage errorMessage="課程 ID 應該是組數字。" />;
   if (authError) return <AuthErrorPage authError={authError} />;
   if (auth && Number.isInteger(cidNumber))
-    return <AuthenticatedCheckinManageDashboard cid={cidNumber} auth={auth} />;
+    return (
+      <AuthenticatedCheckinManageDashboard courseId={cidNumber} auth={auth} />
+    );
 
   return <LoadingPage reason="正在載入監控頁面⋯⋯" />;
 }
