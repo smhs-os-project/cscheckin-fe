@@ -35,7 +35,7 @@ function HeaderCardHeader({
 
   return (
     <section
-      className={`${flexDefaultCSS} ${flexMediumCSS} ${textDefaultCSS} ${textMediumCSS} w-full text-secondary ${headerColor} px-10 py-10 tracking-header`}
+      className={`${flexDefaultCSS} ${flexMediumCSS} ${textDefaultCSS} ${textMediumCSS} w-full text-text-head-white ${headerColor} px-10 py-10 tracking-header`}
     >
       <div className="mb-2 md:mb-0">
         <FontAwesomeIcon icon={icon} size="3x" />

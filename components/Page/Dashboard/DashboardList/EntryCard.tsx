@@ -29,7 +29,7 @@ function EntryCardLeft({ userClass, userNo, status }: EntryCardLeftProps) {
 
   return (
     <div
-      className={`${backgroundColor} text-on-surface flex justify-center`}
+      className={`${backgroundColor} text-text-override flex justify-center`}
       style={{
         gridArea: "status",
       }}
@@ -81,7 +81,7 @@ function EntryCardRight({
         gridArea: "content",
       }}
     >
-      <small className="text-details text-auxiliary">
+      <small className="text-details text-text-secondary">
         <EntryCardStatusText status={status} checkedInAt={checkedInAt} />
       </small>
       <pre className="text-card-emphasize font-header whitespace-pre-wrap">

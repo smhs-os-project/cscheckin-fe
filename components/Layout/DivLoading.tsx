@@ -14,7 +14,7 @@ export default function DivLoading({ children }: DivLoadingProps) {
       <div>
         <FontAwesomeIcon icon={faSpinner} />
       </div>
-      <div className="text-auxiliary">{children}</div>
+      <div className="text-text-secondary">{children}</div>
     </DivItemsCenter>
   );
 }

@@ -27,7 +27,7 @@ export default function CourseLinkBlock({
           <QRCode size={144} value={link} />
         </div>
         <div className="overflow-hidden mt-4 sm:mt-0 text-center sm:text-left sm:ml-8">
-          <p className="text-auxiliary">透過以下連結簽到</p>
+          <p className="text-text-secondary">透過以下連結簽到</p>
           <BaseInput
             label="連結"
             paddingClass="px-6 py-2"

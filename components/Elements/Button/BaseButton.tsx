@@ -61,7 +61,7 @@ export default function BaseButton({
   // If not specified inputTextColor, we assign the textColor to text-secondary
   // if this is a solid button; otherwise, we assign to text-primary.
   const textColor =
-    inputTextColor || (solid ? "text-secondary" : "text-primary");
+    inputTextColor || (solid ? "text-secondary" : "text-text-primary");
   const solidC = `${solidBorderColor} ${textColor} ${backgroundColor}`;
   const borderC = `${borderColor} ${textColor}`;
   const fullC = full ? "w-full" : "";

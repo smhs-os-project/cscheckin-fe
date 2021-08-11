@@ -36,13 +36,13 @@ module.exports = {
       positive: "#12B981",
       neutral: "#F49E0B",
       negative: "#EE4444",
-      auxiliary: "#757575",
       link: "#0761B6",
 
       // text
       "text-head": "#000000", // Navigation & Headlines
+      "text-head-white": "#FFFFFF", // Navigation & Headlines
       "text-primary": "#424242", // Primary & Buttons
-      "text-secondary": "#757575", // Secondary
+      "text-secondary": "#757575", // Secondary (previously auxiliary)
       "text-override": "#FFFFFF", // On Colored Surface
 
       // the button of Page/Dashboard/StatusCard

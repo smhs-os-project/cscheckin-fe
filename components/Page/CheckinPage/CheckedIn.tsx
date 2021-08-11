@@ -17,7 +17,7 @@ export default function CheckedIn({ auth, checkinData }: CheckedInProps) {
   const entry = (title: string, value: unknown) =>
     value && (
       <tr>
-        <td className="text-auxiliary pr-4 pb-2">{title}</td>
+        <td className="text-text-secondary pr-4 pb-2">{title}</td>
         <td className="pb-2">{`${value}`}</td>
       </tr>
     );

@@ -52,7 +52,7 @@ function EntriesLegend({ state, count }: EntriesLegendProps) {
       <div className="flex-grow">
         <EntriesBadge state={state} />
       </div>
-      <div className="text-auxiliary">{count}</div>
+      <div className="text-text-secondary">{count}</div>
     </div>
   );
 }

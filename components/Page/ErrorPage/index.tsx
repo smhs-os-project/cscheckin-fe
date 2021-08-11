@@ -33,7 +33,7 @@ const NegativeErrorReportingButton = () => {
       solid
       solidBorderColor="border-on-surface"
       backgroundColor="bg-on-surface"
-      textColor="text-primary"
+      textColor="text-text-primary"
       onClick={async () => {
         const userInfo = await auth?.userInfo();
 

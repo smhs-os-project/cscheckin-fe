@@ -14,7 +14,7 @@ export interface BaseBadgeProps {
 
 export default function BaseBadge({
   paddingClass = "py-0.5 px-3",
-  fontClass = "font-button text-on-surface",
+  fontClass = "font-button text-text-override",
   roundClass = "rounded-2xl",
   backgroundClass = "bg-primary",
   widthClass = "max-w-max",

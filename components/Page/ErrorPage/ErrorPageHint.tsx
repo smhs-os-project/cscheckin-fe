@@ -7,7 +7,7 @@ export default function ErrorPageHint() {
       <ul className="list-disc list-inside ml-4">
         <li>
           瀏覽器是否關閉 Cookie 功能
-          <span className="text-auxiliary">
+          <span className="text-text-secondary">
             （瀏覽器通常將這個功能稱之為「『嚴格』反追蹤模式」）
           </span>
         </li>
@@ -17,13 +17,13 @@ export default function ErrorPageHint() {
         </li>
         <li>
           瀏覽器是否已經更新至最新版本
-          <span className="text-auxiliary">
+          <span className="text-text-secondary">
             （建議使用 Chrome、Edge、Firefox 或 Safari）
           </span>
         </li>
         <li>
           作業系統是否版本太舊
-          <span className="text-auxiliary">
+          <span className="text-text-secondary">
             （如 Windows XP、Mac OS X 10.6 等）
           </span>
         </li>
