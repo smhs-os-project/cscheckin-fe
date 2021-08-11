@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import useError from "../../../utilities/ErrorReporting/useError";
 import AuthStore from "../../Database/AuthStore";
 import useRedirect from "../../Hooks/useRedirect";
-import type { Scope } from "./scope";
+import { Scope } from "./scope";
 import parseGoogleLoginError from "./parseGoogleLoginError";
 
 const authStore = AuthStore.getCommonInstance();
@@ -52,6 +52,12 @@ export default function LoginUI({
 
   return (
     <HeaderPageCard title={pageTitle} desc={pageDesc} icon={pageIcon}>
+      {scope === Scope.Teacher && (
+        <div className="mb-4 text-text-primary text-center">
+          請務必將<b>「選取要讓『CSCheckin-線上簽到』存取的範圍」</b>下的核取框
+          <b>全部打勾</b>，否則無法使用！假如忘記打勾，請登出重新登入。
+        </div>
+      )}
       <div className="m-4 flex justify-center space-x-4 items-center">
         <GoogleLoginComponent
           scope={scope}
