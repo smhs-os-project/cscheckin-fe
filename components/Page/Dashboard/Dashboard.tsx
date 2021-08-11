@@ -1,8 +1,10 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import type { DashboardCardProps } from "./DashboardCard/DashboardCard";
-import DashboardCard from "./DashboardCard/DashboardCard";
 import type { DashboardListProps } from "./DashboardList/DashboardList";
-import DashboardList from "./DashboardList/DashboardList";
+
+const DashboardCard = dynamic(() => import("./DashboardCard/DashboardCard"));
+const DashboardList = dynamic(() => import("./DashboardList/DashboardList"));
 
 export type DashboardProps = DashboardCardProps & DashboardListProps;
 
