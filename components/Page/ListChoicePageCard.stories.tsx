@@ -65,7 +65,7 @@ WithoutContentPadding.args = {
 export const WithColoredHeader = Template.bind({});
 WithColoredHeader.args = {
   ...StandardExample.args,
-  headerColor: "green-500",
+  headerColor: "bg-accent",
 };
 
 export const WithCustomIcon = Template.bind({});
