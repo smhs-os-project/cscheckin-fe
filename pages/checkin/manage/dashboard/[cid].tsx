@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import Swal from "sweetalert2";
 import NProgress from "nprogress";
+import dynamic from "next/dynamic";
 import useAuth from "../../../../components/Database/AuthStore/useAuth";
 import { Scope } from "../../../../components/OAuth/Google/scope";
 import useQueryParam from "../../../../components/Hooks/useQueryParam";
@@ -8,7 +9,6 @@ import ErrorPage from "../../../../components/Page/ErrorPage";
 import AuthErrorPage from "../../../../components/Database/AuthStore/AuthErrorPage";
 import LoadingPage from "../../../../components/Page/LoadingPage";
 import type AuthenticatedPageProps from "../../../../components/Database/AuthStore/AuthenticatedPageProps";
-import Dashboard from "../../../../components/Page/Dashboard/Dashboard";
 import {
   useCourseInfoById,
   useCourseShareLink,
@@ -16,6 +16,10 @@ import {
 } from "../../../../components/Http/sdk_course_methods";
 import { useCheckinList } from "../../../../components/Http/sdk_checkin_methods";
 import BasePage from "../../../../components/Page/BasePage";
+
+const Dashboard = dynamic(
+  () => import("../../../../components/Page/Dashboard/Dashboard")
+);
 
 interface AuthenticatedCheckinManageDashboardProps
   extends AuthenticatedPageProps {
