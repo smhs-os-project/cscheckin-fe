@@ -11,11 +11,13 @@ export default {
 
 const Template: Story<CloseCourseButtonProps> = ({
   auth,
-  cid,
-}: CloseCourseButtonProps) => <CloseCourseButton auth={auth} cid={cid} />;
+  courseId,
+}: CloseCourseButtonProps) => (
+  <CloseCourseButton auth={auth} courseId={courseId} />
+);
 
 export const CloseCourseButtonExample = Template.bind({});
 CloseCourseButtonExample.args = {
   auth: new CSCAuth("", ""),
-  cid: 0,
+  courseId: 0,
 };

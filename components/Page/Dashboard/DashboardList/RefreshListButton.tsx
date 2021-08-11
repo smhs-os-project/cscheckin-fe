@@ -8,13 +8,13 @@ import BaseButton from "../../../Elements/Button/BaseButton";
 import useError from "../../../../utilities/ErrorReporting/useError";
 
 export interface RefreshListButtonProps {
-  classroomId: number;
+  courseId: number;
   auth: CSCAuth;
 }
 
 export default function RefreshListButton({
   auth,
-  classroomId,
+  courseId,
 }: RefreshListButtonProps) {
   const [error, setError] = useError();
 
@@ -27,8 +27,8 @@ export default function RefreshListButton({
       onClick={async () => {
         NProgress.start();
         try {
-          await SyncCourseMembers(classroomId, auth);
-          await mutate(["teacher/checkin_list", auth, classroomId]);
+          await SyncCourseMembers(courseId, auth);
+          await mutate(["teacher/checkin_list", auth, courseId]);
         } catch (e: unknown) {
           setError(e);
         }

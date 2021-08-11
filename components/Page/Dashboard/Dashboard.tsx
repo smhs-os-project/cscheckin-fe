@@ -4,11 +4,11 @@ import DashboardCard from "./DashboardCard/DashboardCard";
 import type { DashboardListProps } from "./DashboardList/DashboardList";
 import DashboardList from "./DashboardList/DashboardList";
 
-export type DashboardProps = Omit<DashboardCardProps, "cid"> &
-  DashboardListProps;
+export type DashboardProps = DashboardCardProps & DashboardListProps;
 
 export default function Dashboard({
   auth,
+  courseId,
   classroomId,
   link,
   status,
@@ -21,15 +21,16 @@ export default function Dashboard({
         <DashboardCard
           link={link}
           status={status}
-          cid={classroomId}
+          classroomId={classroomId}
           auth={auth}
           onFullScreen={onFullScreen}
+          courseId={courseId}
         />
       </div>
       <div>
         <DashboardList
           studentsInfo={studentsInfo}
-          classroomId={classroomId}
+          courseId={courseId}
           auth={auth}
         />
       </div>

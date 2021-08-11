@@ -11,11 +11,13 @@ export default {
 
 const Template: Story<ClassroomShareButtonProps> = ({
   auth,
-  cid,
-}: ClassroomShareButtonProps) => <ClassroomShareButton auth={auth} cid={cid} />;
+  courseId,
+}: ClassroomShareButtonProps) => (
+  <ClassroomShareButton auth={auth} courseId={courseId} />
+);
 
 export const ClassroomShareButtonExample = Template.bind({});
 ClassroomShareButtonExample.args = {
   auth: new CSCAuth("", ""),
-  cid: 0,
+  courseId: 0,
 };

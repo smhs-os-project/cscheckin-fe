@@ -16,21 +16,22 @@ export interface DashboardCardProps
 
 export default function DashboardCard({
   auth,
-  cid,
+  courseId,
+  classroomId,
   link,
   status,
   onFullScreen,
 }: DashboardCardProps) {
   return (
     <section className="dashboard-card rounded-xl bg-secondary overflow-hidden">
-      <StatusCard status={status} />
+      <StatusCard status={status} classroomId={classroomId} />
       <div className="flex flex-col space-y-4 m-8">
         <CourseLinkBlock link={link} onFullScreen={onFullScreen} />
         <LargeButtonGroup>
-          <ClassroomShareButton cid={cid} auth={auth} />
+          <ClassroomShareButton courseId={courseId} auth={auth} />
           <CopyLinkButton link={link} />
         </LargeButtonGroup>
-        <CloseCourseButton cid={cid} auth={auth} />
+        <CloseCourseButton courseId={courseId} auth={auth} />
       </div>
     </section>
   );

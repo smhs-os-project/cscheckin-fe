@@ -12,20 +12,16 @@ export default {
 
 const Template: Story<DashboardListProps> = ({
   auth,
-  classroomId,
+  courseId,
   studentsInfo,
 }: DashboardListProps) => (
-  <DashboardList
-    auth={auth}
-    classroomId={classroomId}
-    studentsInfo={studentsInfo}
-  />
+  <DashboardList auth={auth} courseId={courseId} studentsInfo={studentsInfo} />
 );
 
 export const DashboardListExample = Template.bind({});
 DashboardListExample.args = {
   auth: new CSCAuth("", ""),
-  classroomId: 0,
+  courseId: 0,
   studentsInfo: [
     {
       status: CheckinState.ON_TIME,

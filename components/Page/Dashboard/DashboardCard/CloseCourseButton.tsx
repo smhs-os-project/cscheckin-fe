@@ -8,12 +8,12 @@ import LargeButton from "../../../Elements/Button/LargeButton";
 import useError from "../../../../utilities/ErrorReporting/useError";
 
 export interface CloseCourseButtonProps {
-  cid: number;
+  courseId: number;
   auth: CSCAuth;
 }
 
 export default function CloseCourseButton({
-  cid,
+  courseId,
   auth,
 }: CloseCourseButtonProps) {
   const [error, setError] = useError();
@@ -32,11 +32,11 @@ export default function CloseCourseButton({
         NProgress.start();
 
         try {
-          const response = await CloseCourse(cid, auth);
+          const response = await CloseCourse(courseId, auth);
           if (response) {
             await Promise.all([
               Swal.fire("成功關閉課程！", "", "success"),
-              await mutate(["course/get_course_by_id", auth, cid]),
+              await mutate(["course/get_course_by_id", auth, courseId]),
             ]);
           } else await Swal.fire("操作失敗。", "", "warning");
         } catch (e: unknown) {

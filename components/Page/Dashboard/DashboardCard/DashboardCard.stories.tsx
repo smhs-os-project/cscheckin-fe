@@ -12,24 +12,27 @@ export default {
 
 const Template: Story<DashboardCardProps> = ({
   auth,
-  cid,
+  courseId,
   link,
   status,
   onFullScreen,
+  classroomId,
 }: DashboardCardProps) => (
   <DashboardCard
     auth={auth}
-    cid={cid}
+    courseId={courseId}
     status={status}
     link={link}
     onFullScreen={onFullScreen}
+    classroomId={classroomId}
   />
 );
 
 export const DashboardCardExample = Template.bind({});
 DashboardCardExample.args = {
   auth: new CSCAuth("", ""),
-  cid: 0,
+  courseId: 0,
+  classroomId: "1337",
   link: "https://cscin.tk/1cc1f2",
   status: CheckinState.ON_TIME,
   onFullScreen: () => null,

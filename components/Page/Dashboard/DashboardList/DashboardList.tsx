@@ -14,7 +14,7 @@ export type DashboardListProps = DashboardListListProps &
 
 function DashboardListHeader({
   auth,
-  classroomId,
+  courseId,
   entries,
 }: DashboardListHeaderProps) {
   return (
@@ -23,7 +23,7 @@ function DashboardListHeader({
         <EntriesStat entries={entries} />
       </div>
       <div className="mb-6 md:mb-0">
-        <RefreshListButton classroomId={classroomId} auth={auth} />
+        <RefreshListButton courseId={courseId} auth={auth} />
       </div>
     </section>
   );
@@ -49,7 +49,7 @@ function DashboardListList({ studentsInfo }: DashboardListListProps) {
 }
 export default function DashboardList({
   auth,
-  classroomId,
+  courseId,
   studentsInfo,
 }: DashboardListProps) {
   const entriesStatEntries = useMemo(
@@ -64,7 +64,7 @@ export default function DashboardList({
     <section>
       <DashboardListHeader
         entries={entriesStatEntries}
-        classroomId={classroomId}
+        courseId={courseId}
         auth={auth}
       />
       <DashboardListList studentsInfo={studentsInfo} />

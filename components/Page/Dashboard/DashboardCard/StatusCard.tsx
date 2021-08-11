@@ -8,33 +8,44 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { CheckinState } from "cscheckin-js-sdk/dist/types";
+import Link from "next/link";
 import BaseButton from "../../../Elements/Button/BaseButton";
 
 export interface StatusCardProps {
+  classroomId: string;
   status?: CheckinState;
 }
 
-function RegenerateLinkButton() {
-  return (
-    <BaseButton
-      textColor="text-secondary"
-      borderColor="border-transparent-secondary"
-    >
-      重新產生連結
-    </BaseButton>
-  );
+function RegenerateLinkButton({
+  classroomId,
+}: Pick<StatusCardProps, "classroomId">) {
+  if (classroomId && classroomId.length)
+    return (
+      <Link href={`/checkin/manage/new/${classroomId}/now`}>
+        <BaseButton
+          textColor="text-secondary"
+          borderColor="border-transparent-secondary"
+        >
+          重新產生連結
+        </BaseButton>
+      </Link>
+    );
+
+  return null;
 }
 
 interface BaseStatusCardProps {
   backgroundColor: string;
   icon: IconDefinition;
   description: string;
+  classroomId: string;
 }
 
 function BaseStatusCard({
   backgroundColor,
   icon,
   description,
+  classroomId,
 }: BaseStatusCardProps) {
   return (
     <section
@@ -47,61 +58,73 @@ function BaseStatusCard({
         <div className="text-h2">{description}</div>
       </div>
       <div>
-        <RegenerateLinkButton />
+        <RegenerateLinkButton classroomId={classroomId} />
       </div>
     </section>
   );
 }
 
-function OpenStatusCard() {
+function OpenStatusCard({
+  classroomId,
+}: Pick<BaseStatusCardProps, "classroomId">) {
   return (
     <BaseStatusCard
       backgroundColor="bg-accent"
       icon={faCheckCircle}
       description="開放簽到中"
+      classroomId={classroomId}
     />
   );
 }
 
-function LateStatusCard() {
+function LateStatusCard({
+  classroomId,
+}: Pick<BaseStatusCardProps, "classroomId">) {
   return (
     <BaseStatusCard
       backgroundColor="bg-neutral"
       icon={faExclamationTriangle}
       description="後續學生算遲到"
+      classroomId={classroomId}
     />
   );
 }
 
-function UnknownStatusCard() {
+function UnknownStatusCard({
+  classroomId,
+}: Pick<BaseStatusCardProps, "classroomId">) {
   return (
     <BaseStatusCard
       backgroundColor="bg-primary"
       icon={faSpinner}
       description="正在載入資料⋯⋯"
+      classroomId={classroomId}
     />
   );
 }
 
-function CloseStatusCard() {
+function CloseStatusCard({
+  classroomId,
+}: Pick<BaseStatusCardProps, "classroomId">) {
   return (
     <BaseStatusCard
       backgroundColor="bg-negative"
       icon={faTimesCircle}
       description="簽到已結束"
+      classroomId={classroomId}
     />
   );
 }
 
-export default function StatusCard({ status }: StatusCardProps) {
+export default function StatusCard({ status, classroomId }: StatusCardProps) {
   switch (status) {
     case CheckinState.ON_TIME:
-      return <OpenStatusCard />;
+      return <OpenStatusCard classroomId={classroomId} />;
     case CheckinState.LATE:
-      return <LateStatusCard />;
+      return <LateStatusCard classroomId={classroomId} />;
     case CheckinState.NOT_CHECKED_IN:
-      return <CloseStatusCard />;
+      return <CloseStatusCard classroomId={classroomId} />;
     default:
-      return <UnknownStatusCard />;
+      return <UnknownStatusCard classroomId={classroomId} />;
   }
 }

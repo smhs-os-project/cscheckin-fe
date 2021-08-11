@@ -11,13 +11,13 @@ export default {
 
 const Template: Story<RefreshListButtonProps> = ({
   auth,
-  classroomId,
+  courseId,
 }: RefreshListButtonProps) => (
-  <RefreshListButton auth={auth} classroomId={classroomId} />
+  <RefreshListButton auth={auth} courseId={courseId} />
 );
 
 export const RefreshListButtonExample = Template.bind({});
 RefreshListButtonExample.args = {
   auth: new CSCAuth("", ""),
-  classroomId: 1,
+  courseId: 1,
 };

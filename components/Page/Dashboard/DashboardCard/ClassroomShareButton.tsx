@@ -7,12 +7,12 @@ import useError from "../../../../utilities/ErrorReporting/useError";
 import FullWidthButton from "../../../Elements/Button/FullWidthButton";
 
 export interface ClassroomShareButtonProps {
-  cid: number;
+  courseId: number;
   auth: CSCAuth;
 }
 
 export default function ClassroomShareButton({
-  cid,
+  courseId,
   auth,
 }: ClassroomShareButtonProps) {
   const [error, setError] = useError();
@@ -29,7 +29,7 @@ export default function ClassroomShareButton({
         NProgress.start();
 
         try {
-          await ShareToClassroom(cid, auth);
+          await ShareToClassroom(courseId, auth);
           await Swal.fire("分享成功！", "", "success");
         } catch (e: unknown) {
           setError(e);
