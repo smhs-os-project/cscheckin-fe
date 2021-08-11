@@ -1,4 +1,4 @@
-# Next.js Template
+# CSCheckin (Frontend)
 
 ## Technique
 
