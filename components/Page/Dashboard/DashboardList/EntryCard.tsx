@@ -84,7 +84,7 @@ function EntryCardRight({
       <small className="text-details text-auxiliary">
         <EntryCardStatusText status={status} checkedInAt={checkedInAt} />
       </small>
-      <pre className="text-card-emphasize font-header overflow-scroll whitespace-pre-wrap">
+      <pre className="text-card-emphasize font-header whitespace-pre-wrap">
         {userName && userName.length ? userName : "未設定"}
       </pre>
     </div>
