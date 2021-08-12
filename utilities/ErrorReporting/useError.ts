@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { reportException } from "./reportExceptionMessage";
 
 export type PushErrorHandler = (error: unknown) => void;
 
@@ -16,8 +17,13 @@ export function unknownToError(error: unknown): Error {
 
 export default function useError(): [Error | null, PushErrorHandler] {
   const [error, setError] = useState<Error>();
+
   const pushErrorHandler: PushErrorHandler = (rawError) => {
-    if (rawError) setError(unknownToError(rawError));
+    if (rawError) {
+      const receivedErrorObject = unknownToError(rawError);
+      reportException(receivedErrorObject);
+      setError(receivedErrorObject);
+    }
   };
 
   return [error ?? null, pushErrorHandler];
