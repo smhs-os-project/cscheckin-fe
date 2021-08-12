@@ -1,4 +1,5 @@
 import CSCAuth from "cscheckin-js-sdk/dist/auth";
+import Sentry from "../../../utilities/ErrorReporting/sentry";
 import SessionDB from "../SessionDB";
 import InvalidCredential, {
   InvalidCredentialStage,
@@ -32,12 +33,17 @@ export default class AuthStore {
       const accessData = await this.auth.getAccessData();
 
       if (accessData) {
-        if (
-          accessData.exp * 1000 >= Date.now() &&
-          (await this.auth.userInfo())
-        ) {
-          this.save();
-          return this.auth;
+        if (accessData.exp * 1000 >= Date.now()) {
+          const userInfo = await this.auth.userInfo();
+
+          if (userInfo) {
+            this.save();
+            Sentry.setUser({
+              email: userInfo.email,
+              name: userInfo.name,
+            });
+            return this.auth;
+          }
         }
 
         throw new InvalidCredential(InvalidCredentialStage.ACCESS_DATA_EXPIRED);
@@ -57,6 +63,7 @@ export default class AuthStore {
 
   async logout() {
     await this.auth?.revoke();
+    Sentry.setUser(null);
     this.auth = null;
   }
 
