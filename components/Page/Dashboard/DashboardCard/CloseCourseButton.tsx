@@ -5,7 +5,7 @@ import NProgress from "nprogress";
 import Swal from "sweetalert2";
 import { mutate } from "swr";
 import LargeButton from "../../../Elements/Button/LargeButton";
-import useError from "../../../../utilities/ErrorReporting/useError";
+import useError from "../../../Hooks/useError";
 
 export interface CloseCourseButtonProps {
   courseId: number;

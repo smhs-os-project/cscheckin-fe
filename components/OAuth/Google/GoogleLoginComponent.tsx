@@ -5,7 +5,7 @@ import type {
 } from "react-google-login";
 import GoogleLogin from "react-google-login";
 import { useClientId } from "../../Http/sdk_auth_methods";
-import useError from "../../../utilities/ErrorReporting/useError";
+import useError from "../../Hooks/useError";
 import DivItemsCenter from "../../Layout/DivItemsCenter";
 import DivLoading from "../../Layout/DivLoading";
 import UnexpectedGoogleLoginResponse from "./exceptions/UnexpectedGoogleLoginResponse";

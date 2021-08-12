@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { reportException } from "./reportExceptionMessage";
+import { reportException } from "../../utilities/ErrorReporting/reportExceptionMessage";
 
 export type PushErrorHandler = (error: unknown) => void;
 

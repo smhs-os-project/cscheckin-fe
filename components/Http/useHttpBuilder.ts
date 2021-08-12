@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import useSWR from "swr";
 import type { SWRConfiguration } from "swr/dist/types";
-import useError from "../../utilities/ErrorReporting/useError";
+import useError from "../Hooks/useError";
 import type { HttpResponse } from "./HttpResponse";
 
 export default function useHttpBuilder<

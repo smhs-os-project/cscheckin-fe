@@ -2,7 +2,7 @@ import { Checkin, CheckinList } from "cscheckin-js-sdk";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import { useEffect, useState } from "react";
 import type { CheckinResponse } from "cscheckin-js-sdk/dist/types";
-import useError from "../../utilities/ErrorReporting/useError";
+import useError from "../Hooks/useError";
 import useHttpBuilder from "./useHttpBuilder";
 import type { HttpResponse } from "./HttpResponse";
 

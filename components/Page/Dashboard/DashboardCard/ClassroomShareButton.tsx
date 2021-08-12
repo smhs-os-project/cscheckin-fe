@@ -3,7 +3,7 @@ import { ShareToClassroom } from "cscheckin-js-sdk";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import NProgress from "nprogress";
 import Swal from "sweetalert2";
-import useError from "../../../../utilities/ErrorReporting/useError";
+import useError from "../../../Hooks/useError";
 import FullWidthButton from "../../../Elements/Button/FullWidthButton";
 
 export interface ClassroomShareButtonProps {

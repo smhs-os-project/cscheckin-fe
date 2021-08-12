@@ -1,7 +1,7 @@
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import useError from "../../../utilities/ErrorReporting/useError";
+import useError from "../../Hooks/useError";
 import { Scope } from "../../OAuth/Google/scope";
 import AuthStore from "./index";
 

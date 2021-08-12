@@ -11,7 +11,7 @@ import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import { useEffect, useState } from "react";
 import type { CourseResponse } from "cscheckin-js-sdk/dist/types";
 import { CheckinState } from "cscheckin-js-sdk/dist/types";
-import useError from "../../utilities/ErrorReporting/useError";
+import useError from "../Hooks/useError";
 import LocalDB from "../Database/LocalDB";
 import {
   END_DURATION,

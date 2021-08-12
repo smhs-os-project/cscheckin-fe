@@ -5,7 +5,7 @@ import { SyncCourseMembers } from "cscheckin-js-sdk";
 import { mutate } from "swr";
 import Swal from "sweetalert2";
 import BaseButton from "../../../Elements/Button/BaseButton";
-import useError from "../../../../utilities/ErrorReporting/useError";
+import useError from "../../../Hooks/useError";
 
 export interface RefreshListButtonProps {
   courseId: number;

@@ -3,7 +3,7 @@ import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import useError from "../../../utilities/ErrorReporting/useError";
+import useError from "../../Hooks/useError";
 import AuthStore from "../../Database/AuthStore";
 import useRedirect from "../../Hooks/useRedirect";
 import { Scope } from "./scope";
