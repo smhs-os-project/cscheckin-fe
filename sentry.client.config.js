@@ -20,6 +20,12 @@ Sentry.init({
       return null;
     }
 
+    if (exception instanceof Error) {
+      if (exception.message === "Unauthenticated.") {
+        return null;
+      }
+    }
+
     return event;
   },
   // ...
