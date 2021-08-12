@@ -13,17 +13,12 @@ Sentry.init({
     "https://8951f0b3e3b5442d815dd82410322e1f@o877730.ingest.sentry.io/5828704",
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 0.25,
+  ignoreErrors: ["Unauthenticated."],
   beforeSend(event, hint) {
     const exception = hint.originalException;
 
     if (exception instanceof InvalidCredential) {
       return null;
-    }
-
-    if (exception instanceof Error) {
-      if (exception.message === "Unauthenticated.") {
-        return null;
-      }
     }
 
     return event;
