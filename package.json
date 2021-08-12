@@ -1,6 +1,6 @@
 {
   "name": "cscheckin-fe",
-  "version": "3.0.0-pre.6",
+  "version": "3.0.0-pre.7",
   "private": true,
   "scripts": {
     "dev": "next dev",
