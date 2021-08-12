@@ -8,7 +8,6 @@ import { useClientId } from "../../Http/sdk_auth_methods";
 import useError from "../../../utilities/ErrorReporting/useError";
 import DivItemsCenter from "../../Layout/DivItemsCenter";
 import DivLoading from "../../Layout/DivLoading";
-import { reportException } from "../../../utilities/ErrorReporting/reportExceptionMessage";
 import UnexpectedGoogleLoginResponse from "./exceptions/UnexpectedGoogleLoginResponse";
 import type { Scope } from "./scope";
 import { getScopeInfo } from "./scope";
@@ -68,9 +67,7 @@ export default function GoogleLoginComponent({
               if (isGoogleLoginResponse(response)) {
                 onLogin(response);
               } else {
-                const exception = new UnexpectedGoogleLoginResponse(response);
-                reportException(exception);
-                setError(exception);
+                setError(new UnexpectedGoogleLoginResponse(response));
               }
             }}
             onFailure={(e: unknown) => {
