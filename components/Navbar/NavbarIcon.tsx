@@ -5,7 +5,7 @@ import icon from "../../public/icon.svg";
 
 export default function NavbarIcon() {
   return (
-    <Link href="/welcome">
+    <Link href="/welcome" passHref>
       <button
         type="button"
         className="flex font-header items-center space-x-3 text-h2 p-3"

@@ -21,7 +21,7 @@ function RegenerateLinkButton({
 }: Pick<StatusCardProps, "classroomId">) {
   if (classroomId && classroomId.length)
     return (
-      <Link href={`/checkin/manage/new/${classroomId}/now`}>
+      <Link href={`/checkin/manage/new/${classroomId}/now`} passHref>
         <BaseButton
           textColor="text-secondary"
           borderColor="border-transparent-secondary"

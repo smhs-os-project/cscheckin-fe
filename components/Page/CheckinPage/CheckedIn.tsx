@@ -40,7 +40,7 @@ export default function CheckedIn({ auth, checkinData }: CheckedInProps) {
         {entry("座號", userInfo && (userInfo.student?.number ?? "⚠️ 未設定"))}
         {entry("時間", new Date(checkinData.updated_at).toLocaleString())}
       </table>
-      <Link href="/config/info">
+      <Link href="/config/info" passHref>
         <FullWidthButton onClick={() => null} rightIcon>
           設定或重設班級座號
         </FullWidthButton>

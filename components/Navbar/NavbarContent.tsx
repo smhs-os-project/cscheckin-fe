@@ -22,7 +22,7 @@ export interface NavbarContentProps {
 
 function HomepageVariant() {
   return (
-    <Link href="/welcome">
+    <Link href="/welcome" passHref>
       <BaseButton solid>開始使用！</BaseButton>
     </Link>
   );
@@ -31,7 +31,7 @@ function HomepageVariant() {
 function NotLoggedInVariant() {
   return (
     <>
-      <Link href="/sso/teacher">
+      <Link href="/sso/teacher" passHref>
         <BaseButton solid>
           登入<span className="hidden">來建立簽到連結</span>
         </BaseButton>
@@ -58,7 +58,7 @@ function LoggedInVariant({ auth }: AuthenticatedPageProps) {
           </DivItemsCenter>
         </div>
       )}
-      <Link href="/checkin/manage">
+      <Link href="/checkin/manage" passHref>
         <BaseButton solid className="flex space-x-3 hidden md:flex">
           <div>
             <FontAwesomeIcon icon={faLink} />
@@ -66,7 +66,7 @@ function LoggedInVariant({ auth }: AuthenticatedPageProps) {
           <div>管理簽到連結</div>
         </BaseButton>
       </Link>
-      <Link href="/config">
+      <Link href="/config" passHref>
         <BaseButton className="hidden md:block">設定</BaseButton>
       </Link>
     </>

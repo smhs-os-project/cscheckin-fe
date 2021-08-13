@@ -24,7 +24,7 @@ export default function Home() {
             線上點名不會再是老師的夢魘。
           </p>
           <BaseButtonGroup>
-            <Link href="/welcome">
+            <Link href="/welcome" passHref>
               <BaseButton solid>教師端登入</BaseButton>
             </Link>
             <a href="https://cscin.tk/join" target="_blank" rel="noreferrer">
