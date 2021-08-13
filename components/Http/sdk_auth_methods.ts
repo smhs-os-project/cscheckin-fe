@@ -1,9 +1,11 @@
-import { GetClientId } from "cscheckin-js-sdk";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import useHttpBuilder from "./useHttpBuilder";
 
 export const useClientId = () =>
   useHttpBuilder("auth/client_id", async () => {
+    const GetClientId = await import("cscheckin-js-sdk").then(
+      (mod) => mod.GetClientId
+    );
     const clientId = await GetClientId();
     return clientId.client_id;
   });

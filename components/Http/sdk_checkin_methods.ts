@@ -1,4 +1,3 @@
-import { Checkin, CheckinList } from "cscheckin-js-sdk";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import { useEffect, useState } from "react";
 import type { CheckinResponse } from "cscheckin-js-sdk/dist/types";
@@ -15,7 +14,9 @@ export const useCheckin = (
 
   useEffect(() => {
     if (!data && !error)
-      void Checkin(uuid, auth)
+      void import("cscheckin-js-sdk")
+        .then((mod) => mod.Checkin)
+        .then((Checkin) => Checkin(uuid, auth))
         .then((response) => setData(response))
         .catch((recvError: unknown) => setError(recvError));
   }, [auth, uuid, setError, data, error]);
@@ -30,7 +31,12 @@ export const useCheckin = (
 export const useCheckinList = (courseId: number, auth: CSCAuth) =>
   useHttpBuilder(
     "teacher/checkin_list",
-    async (_, inAuth, inCourseId) => CheckinList(inCourseId, inAuth),
+    async (_, inAuth, inCourseId) => {
+      const CheckinList = await import("cscheckin-js-sdk").then(
+        (mod) => mod.CheckinList
+      );
+      return CheckinList(inCourseId, inAuth);
+    },
     auth,
     courseId
   );

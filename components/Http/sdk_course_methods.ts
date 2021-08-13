@@ -1,12 +1,4 @@
-import {
-  CreateCourse,
-  GetClassroomsList,
-  GetCourseByID,
-  GetCourseByUUID,
-  GetCoursesList,
-  GetShareLink,
-  isBefore,
-} from "cscheckin-js-sdk";
+import { isBefore } from "cscheckin-js-sdk";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import { useEffect, useState } from "react";
 import type { CourseResponse } from "cscheckin-js-sdk/dist/types";
@@ -33,15 +25,19 @@ export const useCreateCourse = (
     const localDB = LocalDB.getInstance();
 
     if (!data && !error)
-      void CreateCourse(
-        classroomId,
-        {
-          start_timestamp: new Date(),
-          late_time: localDB.get(LATE_DURATION) ?? LATE_DURATION_DEFAULT,
-          expire_time: localDB.get(END_DURATION) ?? END_DURATION_DEFAULT,
-        },
-        auth
-      )
+      void import("cscheckin-js-sdk")
+        .then((mod) => mod.CreateCourse)
+        .then((CreateCourse) =>
+          CreateCourse(
+            classroomId,
+            {
+              start_timestamp: new Date(),
+              late_time: localDB.get(LATE_DURATION) ?? LATE_DURATION_DEFAULT,
+              expire_time: localDB.get(END_DURATION) ?? END_DURATION_DEFAULT,
+            },
+            auth
+          )
+        )
         .then((response) => setData(response))
         .catch((recvError: unknown) => setError(recvError));
   }, [auth, classroomId, setError, data, error]);
@@ -56,14 +52,26 @@ export const useCreateCourse = (
 export const useClassroomsList = (auth: CSCAuth) =>
   useHttpBuilder(
     "course/get_classrooms_list",
-    async (_, inAuth) => GetClassroomsList(inAuth),
+    async (_, inAuth) => {
+      const GetClassroomsList = await import("cscheckin-js-sdk").then(
+        (mod) => mod.GetClassroomsList
+      );
+
+      return GetClassroomsList(inAuth);
+    },
     auth
   );
 
 export const useCourseInfoById = (courseId: number, auth: CSCAuth) =>
   useHttpBuilder(
     "course/get_course_by_id",
-    async (_, inAuth, inCourseId) => GetCourseByID(inCourseId, inAuth),
+    async (_, inAuth, inCourseId) => {
+      const GetCourseByID = await import("cscheckin-js-sdk").then(
+        (mod) => mod.GetCourseByID
+      );
+
+      return GetCourseByID(inCourseId, inAuth);
+    },
     auth,
     courseId,
     { refreshInterval: 30000 }
@@ -104,7 +112,13 @@ export const useCourseStatusById = (
 export const useCourseInfoByUUID = (courseUUID: string) =>
   useHttpBuilder(
     "course/get_course_by_uuid",
-    async (_, _auth, inCourseUUID) => GetCourseByUUID(inCourseUUID),
+    async (_, _auth, inCourseUUID) => {
+      const GetCourseByUUID = await import("cscheckin-js-sdk").then(
+        (mod) => mod.GetCourseByUUID
+      );
+
+      return GetCourseByUUID(inCourseUUID);
+    },
     null,
     courseUUID
   );
@@ -112,7 +126,13 @@ export const useCourseInfoByUUID = (courseUUID: string) =>
 export const useCoursesList = (auth: CSCAuth) =>
   useHttpBuilder(
     "course/get_courses_list",
-    async (_, inAuth) => GetCoursesList(inAuth),
+    async (_, inAuth) => {
+      const GetCoursesList = await import("cscheckin-js-sdk").then(
+        (mod) => mod.GetCoursesList
+      );
+
+      return GetCoursesList(inAuth);
+    },
     auth,
     undefined,
     { refreshInterval: 30000 }
@@ -121,7 +141,13 @@ export const useCoursesList = (auth: CSCAuth) =>
 export const useCourseShareLink = (courseId: number, auth: CSCAuth) =>
   useHttpBuilder(
     "course/get_share_link",
-    async (_, inAuth, inCourseId) => GetShareLink(inCourseId, inAuth),
+    async (_, inAuth, inCourseId) => {
+      const GetShareLink = await import("cscheckin-js-sdk").then(
+        (mod) => mod.GetShareLink
+      );
+
+      return GetShareLink(inCourseId, inAuth);
+    },
     auth,
     courseId
   );
