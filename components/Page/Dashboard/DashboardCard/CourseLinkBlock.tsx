@@ -1,8 +1,10 @@
 import React from "react";
-import QRCode from "react-qr-code";
 import { faExpand } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import dynamic from "next/dynamic";
 import BaseInput from "../../../Elements/Input/BaseInput";
+
+const QRCode = dynamic(() => import("react-qr-code"));
 
 export interface CourseLinkBlockProps {
   link: string;
