@@ -10,6 +10,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.15.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
@@ -22,6 +23,7 @@
     "@types/react": "^17.0.16",
     "@types/react-copy-to-clipboard": "^5.0.1",
     "autoprefixer": "^10.3.1",
+    "core-js": "3",
     "cscheckin-js-sdk": "git+https://github.com/smhs-os-project/cscheckin-js-sdk.git",
     "next": "^11.0.1",
     "nprogress": "^0.2.0",
@@ -60,5 +62,11 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.3.0",
     "webpack": "^5.50.0"
-  }
+  },
+  "browserslist": [
+    "last 3 major version",
+    ">1% in tw",
+    "not dead",
+    "not op_mini all"
+  ]
 }
