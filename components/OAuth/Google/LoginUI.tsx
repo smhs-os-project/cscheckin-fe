@@ -6,13 +6,13 @@ import dynamic from "next/dynamic";
 import useError from "../../Hooks/useError";
 import AuthStore from "../../Database/AuthStore";
 import useRedirect from "../../Hooks/useRedirect";
-import { Scope } from "./scope";
+import ErrorPage from "../../Page/ErrorPage";
+import HeaderPageCard from "../../Page/HeaderPageCard";
+import DivLoading from "../../Layout/DivLoading";
 import parseGoogleLoginError from "./parseGoogleLoginError";
+import { Scope } from "./scope";
 
 const authStore = AuthStore.getCommonInstance();
-const ErrorPage = dynamic(() => import("../../Page/ErrorPage"));
-const HeaderPageCard = dynamic(() => import("../../Page/HeaderPageCard"));
-const DivLoading = dynamic(() => import("../../Layout/DivLoading"));
 const GoogleLoginComponent = dynamic(() => import("./GoogleLoginComponent"));
 
 export interface LoginUIProps {
