@@ -4723,8 +4723,8 @@ crypto-browserify@3.12.0, crypto-browserify@^3.11.0:
     randomfill "^1.0.3"
 
 "cscheckin-js-sdk@git+https://github.com/smhs-os-project/cscheckin-js-sdk.git":
-  version "3.0.0-beta.1-1"
-  resolved "git+https://github.com/smhs-os-project/cscheckin-js-sdk.git#4b3c6cfc23879d0fed3c56b81330fd359897acb6"
+  version "3.0.0-rc.1"
+  resolved "git+https://github.com/smhs-os-project/cscheckin-js-sdk.git#1ff923048f27e3f89b85c144dd8d8c3cbc8a1ddb"
   dependencies:
     dayjs "^1.10.6"
     myzod "^1.8.5"
