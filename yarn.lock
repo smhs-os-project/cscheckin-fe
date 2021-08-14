@@ -3731,6 +3731,11 @@ babel-plugin-syntax-jsx@^6.18.0:
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
   integrity sha1-CvMqmm4Tyno/1QaeYtew9Y0NiUY=
 
+babel-plugin-transform-globalthis@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-globalthis/-/babel-plugin-transform-globalthis-1.0.0.tgz#c6b79252518ee69161c7bd20c489def4fd0b367c"
+  integrity sha512-seMhmU2zaujex1n86fdHn3U4FKEIn1GhzoQ3ifn08W5v1+EyiaLqFVGeFcoQ3ofvtQX3kdiZnDbo50WrH6gWpw==
+
 bail@^1.0.0:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/bail/-/bail-1.0.5.tgz#b6fa133404a392cbc1f8c4bf63f5953351e7a776"
