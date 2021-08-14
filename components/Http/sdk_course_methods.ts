@@ -1,8 +1,13 @@
-import { isBefore } from "cscheckin-js-sdk";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import { useEffect, useState } from "react";
-import type { CourseResponse } from "cscheckin-js-sdk/dist/types";
+import type {
+  CourseListResponse,
+  CourseResponse,
+  GClassroomListResponse,
+  ShareResponse,
+} from "cscheckin-js-sdk/dist/types";
 import { CheckinState } from "cscheckin-js-sdk/dist/types";
+import { isBefore } from "cscheckin-js-sdk/dist/utilities";
 import useError from "../Hooks/useError";
 import LocalDB from "../Database/LocalDB";
 import {
@@ -49,7 +54,9 @@ export const useCreateCourse = (
   };
 };
 
-export const useClassroomsList = (auth: CSCAuth) =>
+export const useClassroomsList = (
+  auth: CSCAuth
+): HttpResponse<GClassroomListResponse> =>
   useHttpBuilder(
     "course/get_classrooms_list",
     async (_, inAuth) => {
@@ -62,7 +69,10 @@ export const useClassroomsList = (auth: CSCAuth) =>
     auth
   );
 
-export const useCourseInfoById = (courseId: number, auth: CSCAuth) =>
+export const useCourseInfoById = (
+  courseId: number,
+  auth: CSCAuth
+): HttpResponse<CourseResponse> =>
   useHttpBuilder(
     "course/get_course_by_id",
     async (_, inAuth, inCourseId) => {
@@ -109,7 +119,9 @@ export const useCourseStatusById = (
   };
 };
 
-export const useCourseInfoByUUID = (courseUUID: string) =>
+export const useCourseInfoByUUID = (
+  courseUUID: string
+): HttpResponse<CourseResponse> =>
   useHttpBuilder(
     "course/get_course_by_uuid",
     async (_, _auth, inCourseUUID) => {
@@ -123,7 +135,9 @@ export const useCourseInfoByUUID = (courseUUID: string) =>
     courseUUID
   );
 
-export const useCoursesList = (auth: CSCAuth) =>
+export const useCoursesList = (
+  auth: CSCAuth
+): HttpResponse<CourseListResponse> =>
   useHttpBuilder(
     "course/get_courses_list",
     async (_, inAuth) => {
@@ -138,7 +152,10 @@ export const useCoursesList = (auth: CSCAuth) =>
     { refreshInterval: 30000 }
   );
 
-export const useCourseShareLink = (courseId: number, auth: CSCAuth) =>
+export const useCourseShareLink = (
+  courseId: number,
+  auth: CSCAuth
+): HttpResponse<ShareResponse> =>
   useHttpBuilder(
     "course/get_share_link",
     async (_, inAuth, inCourseId) => {
