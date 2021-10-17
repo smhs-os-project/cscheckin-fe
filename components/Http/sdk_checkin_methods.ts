@@ -46,8 +46,3 @@ export const useCheckinList = (
     auth,
     courseId
   );
-
-export default {
-  useCheckin,
-  useCheckinList,
-};

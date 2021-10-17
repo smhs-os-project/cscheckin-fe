@@ -168,12 +168,3 @@ export const useCourseShareLink = (
     auth,
     courseId
   );
-
-export default {
-  useCreateCourse,
-  useClassroomsList,
-  useCourseInfoById,
-  useCourseInfoByUUID,
-  useCoursesList,
-  useCourseShareLink,
-};

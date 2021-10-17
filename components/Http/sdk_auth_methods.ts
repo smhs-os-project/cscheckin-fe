@@ -14,7 +14,3 @@ export const useClientId = (): HttpResponse<string> =>
 
 export const useUserInfo = (auth: CSCAuth): HttpResponse<AuthUserResponse> =>
   useHttpBuilder("auth/user_info", async () => auth.userInfo());
-
-export default {
-  useClientId,
-};
