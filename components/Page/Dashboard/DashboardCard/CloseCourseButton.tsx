@@ -3,7 +3,7 @@ import { CloseCourse } from "cscheckin-js-sdk";
 import type CSCAuth from "cscheckin-js-sdk/dist/auth";
 import NProgress from "nprogress";
 import Swal from "sweetalert2";
-import { mutate } from "swr";
+import { useSWRConfig } from "swr";
 import LargeButton from "../../../Elements/Button/LargeButton";
 import useError from "../../../Hooks/useError";
 
@@ -17,6 +17,7 @@ export default function CloseCourseButton({
   auth,
 }: CloseCourseButtonProps) {
   const [error, setError] = useError();
+  const { mutate } = useSWRConfig();
 
   useEffect(() => {
     if (error) void Swal.fire("無法關閉課程。", error.message, "error");
