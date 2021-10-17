@@ -1,23 +1,26 @@
-# CSCheckin (Frontend)
+<div align="center">
+  <h1>CSCheckin (Frontend)</h1>
+  <div class="introduction">
+    <p>
+      <b>網課專用，一鍵簽到，基於 Google Classroom 的簽到平台。</b>
+      <a href="https://cscin.tk">立即使用 →</a>
+    </p>
+  </div>
+  <div>
+    <img src="screenshot/homepage.png" alt="CSC - Homepage" width="300px" />
+    <img src="screenshot/main.png" alt="CSC - Main" width="300px" />
+    <img src="screenshot/manage.png" alt="CSC - Manage" width="300px" />
+  </div>
+</div>
 
-## Technique
+---
 
-- TypeScript
-- Next.js
-  - React.js
-  - SWR
-- Tailwind CSS
-- Storybook
-- GitHub CI
-- Docker
-- *[OPTIONAL]* Sentry
-- *[OPTIONAL]* Google Analytics
-
-## Features
+## Codebase features
 
 - Automatically analyze code after pushing to GitHub
   - Analyze with `CodeQL`
   - Analyze with `njsscan`
+  - Check if linted with `yarn lint`
   - Test building production build with `yarn build`
   - Test building Docker with `docker build`
 - Available to build as a Docker image
@@ -35,55 +38,33 @@
 - [Component Driven User Interfaces](https://www.componentdriven.org)
   - Built-in Storybook support
 
-## Install Dependencies
+<!-- TODO: MOPCOP '21 Records -->
+
+## Configure
+
+Copy `.env.local.example` to `.env.local`, and edit the corresponding value.
+
+## Test
 
 ```bash
-yarn
+yarn dev   # the Watch Mode of Next.js
+yarn lint  # check if the codebase has any issue
 ```
 
-## Configuration
-
-- `consts.ts`
-  - `PRODUCT_NAME`: your project name
-  - `ENABLE_GA`: enable Google Analytics support
-  - `ENABLE_SENTRY`: enable Sentry support
-    - You should [initiate](https://docs.sentry.io/platforms/javascript/guides/nextjs/) your Sentry.
-    - We only provided the base architecture
-- `.env.local.example`
-  - Should copy to `.env.local`
-  - `NEXT_PUBLIC_GA_ID`: your Google Analytics ID after enabling `consts.ts` > `ENABLE_GA`
-
-## Development
-
-I recommend to use WebStorm or Visual Studio Code to develop this template.
-
-```
-yarn dev # dev server
-yarn storybook # storybook
-```
-
-### Linting
+## Build
 
 ```bash
-yarn eslint .
+yarn build  # Build this codebase
+yarn start  # Serve the built artifact
 ```
 
-## Building
+## Deploy
 
-### Local Deployment
+You can deploy CSCheckin to any platform. However,
+We recommended deploying on Vercel:
 
-```bash
-yarn build
-yarn start
-```
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsmhs-os-project%2Fcscheckin-fe&env=NEXT_PUBLIC_GA_ID&project-name=csc-unofficial-vercel-fe&repo-name=csc-unofficial-vercel-fe&utm_source=smhs-os-project&utm_campaign=oss)
 
-### with Docker
+## License
 
-```bash
-docker build -t next-app .
-docker run -d --name your-next-app-instance -p 8080:3000 next-app
-```
-
-## Authors
-
-pan93412 and friends, 2021.
+MIT License.
