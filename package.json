@@ -22,7 +22,7 @@
     "@sentry/nextjs": "^6.13.3",
     "@types/gtag.js": "^0.0.7",
     "@types/nprogress": "^0.2.0",
-    "@types/react": "^17.0.31",
+    "@types/react": "^17.0.32",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "autoprefixer": "^10.3.7",
     "babel-plugin-transform-globalthis": "^1.0.0",
