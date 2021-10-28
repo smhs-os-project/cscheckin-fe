@@ -1,4 +1,4 @@
-FROM node:current-alpine
+FROM node:16-alpine
 
 # -- You should configure this
 ENV NEXT_PUBLIC_GA_ID=G-NM8XG9Q8ST
