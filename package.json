@@ -20,7 +20,7 @@
     "@next/bundle-analyzer": "^12.0.2",
     "@sentry/browser": "^6.13.3",
     "@sentry/nextjs": "^6.14.0",
-    "@types/gtag.js": "^0.0.7",
+    "@types/gtag.js": "^0.0.8",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.34",
     "@types/react-copy-to-clipboard": "^5.0.2",
