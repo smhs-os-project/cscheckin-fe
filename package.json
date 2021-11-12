@@ -64,7 +64,7 @@
     "eslint-plugin-react": "^7.27.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.4.1",
-    "webpack": "^5.63.0"
+    "webpack": "^5.64.0"
   },
   "browserslist": [
     "last 3 major version",
