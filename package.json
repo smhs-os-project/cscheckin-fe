@@ -28,7 +28,7 @@
     "babel-plugin-transform-globalthis": "^1.0.0",
     "core-js": "^3.19.1",
     "cscheckin-js-sdk": "git+https://github.com/smhs-os-project/cscheckin-js-sdk.git",
-    "next": "^12.0.3",
+    "next": "^12.0.4",
     "nprogress": "^0.2.0",
     "postcss": "^8.3.11",
     "react": "^17.0.2",
@@ -39,7 +39,7 @@
     "sweetalert2": "^11.1.10",
     "swr": "^1.0.1",
     "tailwindcss": "^2.2.19",
-    "typescript": "^4.4.4"
+    "typescript": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
