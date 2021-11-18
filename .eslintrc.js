@@ -6,34 +6,32 @@ module.exports = {
   },
   extends: [
     "eslint:recommended",
-    'plugin:react/recommended',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
+    "plugin:react/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "next/core-web-vitals",
-    'airbnb-typescript',
+    "airbnb-typescript",
     "plugin:prettier/recommended",
+    "plugin:storybook/recommended",
   ],
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
     ecmaVersion: 12,
-    sourceType: 'module',
+    sourceType: "module",
     project: "./tsconfig.json",
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
-  ],
+  plugins: ["react", "@typescript-eslint"],
   rules: {
     "@typescript-eslint/consistent-type-imports": [
       2,
       {
-        prefer: "type-imports"
+        prefer: "type-imports",
       },
     ],
     "@typescript-eslint/explicit-module-boundary-types": 0,
@@ -41,11 +39,24 @@ module.exports = {
     "import/order": [
       1,
       {
-        groups: ["builtin", "external", "internal", "parent", "sibling", "index", "object"],
+        groups: [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+        ],
       },
     ],
     "react/jsx-key": 2,
     "arrow-body-style": 2,
-    "no-void": ["error", { "allowAsStatement": true }],
+    "no-void": [
+      "error",
+      {
+        allowAsStatement: true,
+      },
+    ],
   },
 };
