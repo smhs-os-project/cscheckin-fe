@@ -22,7 +22,7 @@
     "@sentry/nextjs": "^6.15.0",
     "@types/gtag.js": "^0.0.8",
     "@types/nprogress": "^0.2.0",
-    "@types/react": "^17.0.36",
+    "@types/react": "^17.0.37",
     "@types/react-copy-to-clipboard": "^5.0.2",
     "autoprefixer": "^10.4.0",
     "babel-plugin-transform-globalthis": "^1.0.0",
@@ -45,11 +45,11 @@
     "@babel/core": "^7.16.0",
     "@next/eslint-plugin-next": "^12.0.3",
     "@storybook/addon-actions": "^6.4.0-rc.6",
-    "@storybook/addon-essentials": "^6.4.0-rc.7",
+    "@storybook/addon-essentials": "^6.4.0-rc.8",
     "@storybook/addon-links": "^6.4.0-rc.7",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/builder-webpack5": "^6.4.0-rc.7",
-    "@storybook/manager-webpack5": "^6.4.0-rc.6",
+    "@storybook/manager-webpack5": "^6.4.0-rc.7",
     "@storybook/react": "^6.4.0-rc.6",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
@@ -65,7 +65,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-storybook": "^0.4.2",
     "prettier": "^2.4.1",
-    "webpack": "^5.64.2"
+    "webpack": "^5.64.3"
   },
   "browserslist": [
     "last 3 major version",
