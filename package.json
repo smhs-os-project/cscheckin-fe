@@ -65,7 +65,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-storybook": "^0.4.2",
     "prettier": "^2.4.1",
-    "webpack": "^5.64.2"
+    "webpack": "^5.64.3"
   },
   "browserslist": [
     "last 3 major version",
