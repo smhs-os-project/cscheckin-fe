@@ -44,7 +44,7 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@next/eslint-plugin-next": "^12.0.3",
-    "@storybook/addon-actions": "^6.4.0-rc.6",
+    "@storybook/addon-actions": "^6.4.8",
     "@storybook/addon-essentials": "^6.4.7",
     "@storybook/addon-links": "^6.4.1",
     "@storybook/addon-postcss": "^2.0.0",
@@ -55,7 +55,7 @@
     "@typescript-eslint/parser": "^5.6.0",
     "babel-loader": "^8.2.3",
     "eslint": "8.3.0",
-    "eslint-config-airbnb-typescript": "^16.0.0",
+    "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-next": "^12.0.4",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",
@@ -65,7 +65,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-storybook": "^0.5.0",
     "prettier": "^2.5.0",
-    "webpack": "^5.64.4"
+    "webpack": "^5.65.0"
   },
   "browserslist": [
     "last 3 major version",
