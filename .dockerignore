@@ -18,3 +18,7 @@
 **/public/workbox-*.js*
 **/public/sw.js*
 **/public/fallback-*.js*
+
+# The build script of Docker
+Dockerfile
+.dockerignore
