@@ -20,7 +20,7 @@ export default function useHttpBuilder<
   swrConfiguration?: SWRConfiguration<Response, Error>
 ): HttpResponse<Response> {
   const [error, setError] = useError();
-  const response = useSWR(
+  const response = useSWR<Response, Error>(
     [key, auth, payload],
     asyncFunction,
     swrConfiguration
