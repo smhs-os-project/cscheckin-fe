@@ -1,4 +1,4 @@
-FROM node:16-alpine as builder
+FROM node:16-alpine AS builder
 
 # -- You should configure this
 ENV NEXT_PUBLIC_GA_ID=G-NM8XG9Q8ST
@@ -18,7 +18,7 @@ RUN yarn --production
 COPY . .
 
 # Build the frontend
-RUN yarn build;
+RUN yarn build
 
 FROM node:16-alpine AS production
 
