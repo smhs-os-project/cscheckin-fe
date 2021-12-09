@@ -4915,7 +4915,8 @@ crypto-browserify@3.12.0, crypto-browserify@^3.11.0:
 
 "cscheckin-js-sdk@git+https://github.com/smhs-os-project/cscheckin-js-sdk.git":
   version "3.1.1"
-  resolved "git+https://github.com/smhs-os-project/cscheckin-js-sdk.git#719b6651c4b649fdb899eb3d81041d0262a99db3"
+  uid "9353499978ab3934c76a798bc0ba37968f04377f"
+  resolved "git+https://github.com/smhs-os-project/cscheckin-js-sdk.git#9353499978ab3934c76a798bc0ba37968f04377f"
   dependencies:
     core-js "^3.19.3"
     dayjs "^1.10.7"
