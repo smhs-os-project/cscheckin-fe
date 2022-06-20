@@ -3,7 +3,7 @@
   <div class="introduction">
     <p>
       <b>網課專用，一鍵簽到，基於 Google Classroom 的簽到平台。</b>
-      <a href="https://cscin.tk">立即使用 →</a>
+      <a href="https://dstw.dev">立即使用 →</a>
     </p>
   </div>
   <div>

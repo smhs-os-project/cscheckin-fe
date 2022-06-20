@@ -52,7 +52,7 @@ export default function BasePage({
           <div className="inline">
             <a
               className="text-accent"
-              href="https://cscin.tk/?action=feedback"
+              href="https://dstw.dev/?action=feedback"
               target="_blank"
               rel="noreferrer"
             >

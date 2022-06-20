@@ -33,7 +33,7 @@ DashboardCardExample.args = {
   auth: new CSCAuth("", ""),
   courseId: 0,
   classroomId: "1337",
-  link: "https://cscin.tk/1cc1f2",
+  link: "https://dstw.dev/1cc1f2",
   status: CheckinState.ON_TIME,
   onFullScreen: () => null,
 };

@@ -32,7 +32,7 @@ const Template: Story<DashboardProps> = ({
 
 export const DashboardExample = Template.bind({});
 DashboardExample.args = {
-  link: "https://cscin.tk/1cc1f2",
+  link: "https://dstw.dev/1cc1f2",
   status: CheckinState.ON_TIME,
   onFullScreen: () => null,
   auth: new CSCAuth("", ""),

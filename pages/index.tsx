@@ -27,7 +27,7 @@ export default function Home() {
             <Link href="/welcome" passHref>
               <BaseButton solid>教師端登入</BaseButton>
             </Link>
-            <a href="https://cscin.tk/join" target="_blank" rel="noreferrer">
+            <a href="https://dstw.dev/join" target="_blank" rel="noreferrer">
               <BaseButton>使用教學</BaseButton>
             </a>
           </BaseButtonGroup>
